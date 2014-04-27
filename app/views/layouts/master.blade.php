@@ -47,7 +47,7 @@
                     <li class="dropdown">
                         @if (Auth::check())
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-user"></i>{{Auth::user()->name}} <b class="caret"></b>
+                            <img alt="{{Auth::user()->name}}" class="avatar sm-avatar" height="20" src="https://graph.facebook.com/{{Auth::user()->profile->username}}/picture?type=small" width="20"> {{Auth::user()->name}} <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="/#"><i class="fa fa-edit"></i> Edit Profile</a></li>
@@ -73,7 +73,6 @@
           <div class="container">
             <p class="text-muted text-left col-md-6 no-padding">This site is maintained by <a href="https://www.facebook.com/geocine">Aivan Monceller</a> | <a href="https://www.facebook.com/groups/PCADevTeam/">PCA DevTeam</a></p>
             <p class="text-muted text-right col-md-6 no-padding hidden-sm hidden-xs">Server hosting provided by <a href="https://www.facebook.com/omar.lozada.7965">Omar Lozada</a></p>
-
           </div>
         </div>
 

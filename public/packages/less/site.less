@@ -19,6 +19,10 @@ body {
   background-color: #f5f5f5;
 }
 
+#footer .container {
+  height: 60px;
+}
+
 body > .container {
   padding: 60px 15px 0;
   @media (max-width: @grid-float-breakpoint-max) {
@@ -40,11 +44,26 @@ body > .container {
   }
 }
 
+/* header nav of user */
 
 .navbar-nav>li>a{
-  padding: 10px 15px;
+  padding: 11px 15px;
+  font-size: 13px;
+  line-height:16px;
 }
-a i {
+
+/* header nav of user */
+.sm-avatar{
+  margin-top: -3px;
+  border-radius: 2px;
+}
+
+.dropdown-menu a {
+  font-size:13px;
+}
+
+a i,
+a .sm-avatar {
   margin-right:10px;
 }
 
@@ -98,4 +117,104 @@ a i {
 
 .jumbotron .visible-sm h1 {
   font-size: 53.5px;
+}
+
+.navbar .container{
+  padding: 0 25px;
+}
+
+/*profile*/
+
+.prof-avatar {
+  display: block;
+  text-align: center;
+}
+
+.prof-avatar img{
+  border-radius: 6px;
+  @media (min-width: @screen-md){
+    width: 210px;
+    height: 210px;
+  }
+  @media (min-width: @screen-lg){
+    width: 230px;
+    height: 230px;
+  }
+
+}
+
+.prof-names {
+  text-align:center;
+  margin-top: 5px;
+}
+
+.prof-names .prof-fullname{
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.prof-detail {
+  width: 100%;
+  padding: 2px 0 2px 24px;
+  overflow-x: hidden;
+  font-size: 14px;
+  text-overflow: ellipsis;
+}
+
+.prof-details {
+  list-style: none;
+  display:block;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-top: 1px solid #eee;
+  padding-left: 20px;
+}
+
+.prof-detail i {
+  float: left;
+  width: 16px;
+  text-align: center;
+  margin-left: -24px;
+  margin-top: 2px;
+  color: #ccc;
+}
+
+.prof-stats {
+  margin-bottom: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  height: 75px;
+  text-align: center;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.prof-stat {
+  float: left;
+  width: 33.333%;
+  font-size: 11px;
+  color: #999;
+}
+
+.prof-stat-count {
+  display: block;
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1;
+  color: #222;
+}
+
+.prof-stat:hover, .prof-stat:hover .prof-stat-count {
+  color: #18bc9c;
+}
+.prof-stat:hover {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active, a:hover {
+  outline: 0;
 }

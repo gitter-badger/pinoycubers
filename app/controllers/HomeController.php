@@ -6,7 +6,8 @@ class HomeController extends BaseController {
 	{;
 
         if (Auth::check()) {
-            return View::make('index');
+            $username = Auth::user()->profile->username;
+            return Redirect::to("/$username");
         }
 
         return View::make('index');
@@ -62,7 +63,7 @@ class HomeController extends BaseController {
 
         Auth::login($user);
 
-        return Redirect::to('/')->with('message', 'Logged in with Facebook');
+        return Redirect::to("/".$profile->username)->with('message', 'Logged in with Facebook');
     }
 
 }

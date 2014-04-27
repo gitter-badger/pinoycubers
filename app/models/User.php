@@ -49,9 +49,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
-    public function profiles()
+    public function profile()
     {
-        return $this->hasMany('Profile');
+        return $this->hasOne('Profile');
     }
 
     /**
@@ -83,5 +83,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     public function getRememberTokenName()
     {
         return 'remember_token';
+    }
+
+    public function getJoinedDate()
+    {
+        return $this->created_at->format('M d, Y');
     }
 }

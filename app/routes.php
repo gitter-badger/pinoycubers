@@ -15,3 +15,9 @@ Route::get('/', 'HomeController@showIndex');
 Route::get('login/fb', 'HomeController@fbLogin');
 Route::get('login/fb/callback', 'HomeController@fbLoginCallback');
 Route::get('logout', 'HomeController@logout');
+
+Route::group(array('before' => 'auth'), function()
+{
+    Route::get('/user/{profile}','UserController@getProfile');
+    Route::get('/{profile}','UserController@getProfile');
+});
