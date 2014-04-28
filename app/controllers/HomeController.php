@@ -53,7 +53,7 @@ class HomeController extends BaseController {
             $profile = new Profile();
             $profile->uid = $uid;
             $profile->username = $me['username'];
-            $profile = $user->profiles()->save($profile);
+            $profile = $user->profile()->save($profile);
         }
 
         $profile->access_token = $facebook->getAccessToken();
