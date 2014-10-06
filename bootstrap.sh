@@ -10,7 +10,7 @@ sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password passwor
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
 
 echo "--- Installing base packages ---"
-sudo apt-get install -y vim curl python-software-properties
+sudo apt-get install -y vim curl python-software-properties python g++ make
 
 echo "--- We want the bleeding edge of PHP, right master? ---"
 sudo add-apt-repository -y ppa:ondrej/php5
@@ -65,4 +65,12 @@ mysql -u $dbUser -p$dbPass -Bse "CREATE DATABASE $dbName;"
 mysql --user=$dbUser --password=$dbPass << 'EOF'
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root';
 EOF
+
+echo "--- Adding chris lea's node repo ---"
+sudo apt-add-repository -y ppa:chris-lea/node.js
+sudo apt-get update
+
+echo "--- Installing Node.js ---"
+sudo apt-get install -y nodejs
+
 echo "--- All set to go! Would you like to play a game? ---"
