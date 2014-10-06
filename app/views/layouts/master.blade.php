@@ -59,6 +59,7 @@
                         <li>
                             <a href="#">Records</a>
                         </li>
+                        @if(false)
                         <li>
                             <a href="#">Market</a>
                         </li>
@@ -71,6 +72,7 @@
                                 <li><a href="#"><i class="fa fa-link"></i>Links</a></li>
                             </ul>
                         </li>
+                        @endif
                         @if (Auth::check())
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
