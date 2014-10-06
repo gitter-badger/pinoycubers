@@ -44,12 +44,8 @@
 
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        @if (Auth::check())
                         <li>
-                            <a href="#">Events</a>
-                        </li>
-                        <li>
-                            <a href="#">Competitions</a>
+                            <a href="#">Official Competitions</a>
                         </li>
                         <li>
                             <a href="#">Timer</a>
@@ -75,6 +71,7 @@
                                 <li><a href="#"><i class="fa fa-link"></i>Links</a></li>
                             </ul>
                         </li>
+                        @if (Auth::check())
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img alt="{{Auth::user()->name}}" class="avatar sm-avatar" height="20" src="https://graph.facebook.com/{{Auth::user()->profile->username}}/picture?type=small" width="20"> {{Auth::user()->name}} <b class="caret"></b>

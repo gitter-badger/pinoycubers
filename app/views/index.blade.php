@@ -47,8 +47,8 @@
     </div>
 
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <h2>Events</h2>
-        <p>Check upcoming official competitions and see results online. View the calendar for cubemeets near you</p>
+        <h2>WCA Competitions</h2>
+        <p>Check upcoming official competitions and see results online.</p>
     </div>
 
 </div>
