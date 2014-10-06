@@ -29,37 +29,69 @@
     <body>
         <!-- Navbar -->
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-          <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#"><i class="fa fa-home"></i></a>
-            </div>
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                  <a class="navbar-brand" href="/"><i class="fa fa-home"></i></a>
+                </div>
 
 
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav navbar-right">
                         @if (Auth::check())
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img alt="{{Auth::user()->name}}" class="avatar sm-avatar" height="20" src="https://graph.facebook.com/{{Auth::user()->profile->username}}/picture?type=small" width="20"> {{Auth::user()->name}} <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/#"><i class="fa fa-edit"></i> Edit Profile</a></li>
-                            <li><a href="/logout"><i class="fa fa-power-off"></i> Log Out</a></li>
-                        </ul>
+                        <li>
+                            <a href="#">Events</a>
+                        </li>
+                        <li>
+                            <a href="#">Competitions</a>
+                        </li>
+                        <li>
+                            <a href="#">Timer</a>
+                        </li>
+                        <li>
+                            <a href="#">Users</a>
+                        </li>
+                        <li>
+                            <a href="#">Forums</a>
+                        </li>
+                        <li>
+                            <a href="#">Records</a>
+                        </li>
+                        <li>
+                            <a href="#">Market</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Learn <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="fa fa-files-o"></i> Wiki</a></li>
+                                <li><a href="#"><i class="fa fa-th"></i> Algorithms</a></li>
+                                <li><a href="#"><i class="fa fa-video-camera"></i> Videos</a></li>
+                                <li><a href="#"><i class="fa fa-link"></i>Links</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img alt="{{Auth::user()->name}}" class="avatar sm-avatar" height="20" src="https://graph.facebook.com/{{Auth::user()->profile->username}}/picture?type=small" width="20"> {{Auth::user()->name}} <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/#"><i class="fa fa-edit"></i> Edit Profile</a></li>
+                                <li><a href="/logout"><i class="fa fa-power-off"></i> Log Out</a></li>
+                            </ul>
+                        </li>
                         @else
-                        <a href="/login/fb">Login</a>
+                        <li>
+                            <a href="/login/fb">Login</a>
+                        </li>
                         @endif
-                    </li>
-                </ul>
-            </div>
-          </div><!-- /.container-fluid -->
+                    </ul>
+                </div>
+            </div><!-- /.container-fluid -->
         </nav>
 
         <!-- Container -->
@@ -70,10 +102,10 @@
         </div>
 
         <div id="footer">
-          <div class="container">
+            <div class="container">
             <p class="text-muted text-left col-md-6 no-padding">This site is maintained by <a href="https://www.facebook.com/geocine">Aivan Monceller</a> | <a href="https://www.facebook.com/groups/PCADevTeam/">PCA DevTeam</a></p>
             <p class="text-muted text-right col-md-6 no-padding hidden-sm hidden-xs">Server hosting provided by <a href="https://www.facebook.com/omar.lozada.7965">Omar Lozada</a></p>
-          </div>
+            </div>
         </div>
 
         <!-- Scripts are placed here -->

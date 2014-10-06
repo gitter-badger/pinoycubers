@@ -27,7 +27,7 @@ Instructions for **Windows**. Sorry, I am a .NET dev as well. Can't get away wit
 2. Install [Vagrant](http://www.vagrantup.com/downloads.html) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 3. Clone repository
  
-		git clone https://bitbucket.org/geocine/pinoycubers.git
+		git clone git@github.com:geocine/pinoycubers.git
 
 4. Right click the `pinoycubers` folder and click `Bash Prompt Here`
 5. While on the cygwin terminal. Type this:
@@ -45,7 +45,8 @@ Instructions for **Windows**. Sorry, I am a .NET dev as well. Can't get away wit
 		vagrant ssh	
 
 2. Migrate the database
-
+		
+		cd /vagrant
 		php artisan migrate
  
 #### Connecting to MySQL on *Vagrant*

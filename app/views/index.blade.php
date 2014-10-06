@@ -2,7 +2,6 @@
 
 @section('title')
 @parent
-:: Index
 @stop
 
 @section('content')

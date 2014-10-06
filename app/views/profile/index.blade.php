@@ -2,23 +2,21 @@
 
 @section('title')
 @parent
-:: Index
+| Profile
 @stop
 
 @section('content')
 
 <div class="row">
     <div class="col-md-3 col-sm-4 col-xs-12">
-      <span class="tooltipped tooltipped-s" aria-label="Change your avatar">
+        <span class="tooltipped tooltipped-s" aria-label="Change your avatar">
         <a href="/settings/profile" class="prof-avatar" ><img class="avatar lg-avatar" src="{{Auth::user()->photo}}" ></a>
-      </span>
+        </span>
 
         <h1 class="prof-names">
             <span class="prof-fullname" >{{Auth::user()->name}}</span>
             <span class="prof-username" ></span>
         </h1>
-
-
         <ul class="prof-details">
 
 
@@ -44,6 +42,11 @@
     </div>
 
     <div class="col-md-9 col-sm-8 col-xs-12">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#">Activities</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Records</a></li>
+        </ul>
     </div>
 </div>
 

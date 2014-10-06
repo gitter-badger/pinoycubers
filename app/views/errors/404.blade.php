@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Pinoy Cubers :: 404</title>
+	<title>Pinoy Cubers | Oops</title>
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
 	<style>
     @import url(//fonts.googleapis.com/css?family=Lato:700);
