@@ -29,7 +29,7 @@
                             type="password" name="password" id="password" placeholder="Password" class="form-control"
                             />
                     </div>
-                    <input type="submit" id="loginbutton" class="btn bdn-md btn-primary" value="Login"
+                    <input type="submit" id="loginbutton" class="btn btn-md btn-primary" value="Login"
                         />
                 </form>
                     <span class="help-block">
@@ -42,7 +42,7 @@
 <div class="row">
     <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
         <div class="well">
-            <a class="btn bdn-md btn-warning" href="/register">
+            <a class="btn btn-md btn-warning" href="/register">
                 Create an account
             </a>
         </div>
