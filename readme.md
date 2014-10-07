@@ -79,8 +79,10 @@ Instructions for **Windows**. Sorry, I am a .NET dev as well. Can't get away wit
 2. **How does it address the issue?**
 
 	Describe, at a high level, what was done to affect change. Here are some good examples:
+	
 		Introduce a red/black tree to increase search speed 
 		Remove <X>, which was causing <specific description of issue introduced by X>
+		
 	If your change is obvious, you may be able to omit addressing this question.
 
 3. The body should provide a meaningful commit message, which **uses the imperative, present tense** "change", not "changed" or "changes". See example in #2
