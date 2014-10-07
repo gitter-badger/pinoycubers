@@ -12,9 +12,26 @@
 */
 
 Route::get('/', 'HomeController@showIndex');
+
+// TODO:: Implement all these routes
+Route::get('/login', 'UserController@login');
+Route::get('/logout','UserController@logoutUser');
+Route::get('/register', 'UserController@register');
+Route::get('/register/verify/{code}', 'UserController@verifyUser');
+Route::post('/user/authenticate','UserController@authenticateUser');
+Route::post('/user/create','UserController@registerUser');
+
+Route::get('/password/forgot','UserController@forgotPassword');
+Route::post('/password/forgot','UserController@requestPassword');
+
+Route::get('/password/reset/{token}','UserController@resetPassword');
+Route::post('/password/reset/{token}','UserController@postResetPassword');
+
+
+/* Disable Facebook Login for the meantime */
 Route::get('login/fb', 'HomeController@fbLogin');
 Route::get('login/fb/callback', 'HomeController@fbLoginCallback');
-Route::get('logout', 'HomeController@logout');
+
 
 Route::group(array('before' => 'auth'), function()
 {

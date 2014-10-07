@@ -85,7 +85,7 @@
                         </li>
                         @else
                         <li>
-                            <a href="/login/fb">Login</a>
+                            <a href="/login">Login</a>
                         </li>
                         @endif
                     </ul>
