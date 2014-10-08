@@ -5,20 +5,21 @@ class UserController extends BaseController{
         $uname  = Profile::where('username',$profile)->count();
         $u_name = Auth::user()->profile->name;
 
+        $photo = empty(Auth::user()->photo) ? "http://placehold.it/230x230" : Auth::user()->photo;
+
         if($uname){
             // profile found
-            if($uname == $profile){
+            if($u_name == $profile){
                 // my profile
             } else {
                 // other profile
             }
-            return View::make('profile.index');
+            return View::make('profile.index',compact("photo"));
         } else {
             return Redirect::to('/');
         }
     }
 
-    // TODO:: Implement Login
     public function login(){
         return View::make('user.login');
     }

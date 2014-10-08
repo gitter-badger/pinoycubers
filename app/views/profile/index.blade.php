@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-md-3 col-sm-4 col-xs-12">
         <span class="tooltipped tooltipped-s" aria-label="Change your avatar">
-        <a href="/settings/profile" class="prof-avatar" ><img class="avatar lg-avatar" src="{{Auth::user()->photo}}" ></a>
+        <a href="/settings/profile" class="prof-avatar" ><img class="avatar lg-avatar" src="{{$photo}}" ></a>
         </span>
 
         <h1 class="prof-names">
