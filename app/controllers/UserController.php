@@ -28,6 +28,47 @@ class UserController extends BaseController{
         return Redirect::to('/')->with('success', "You've been logged out.");
     }
 
+    public function authenticateUser()
+    {
+        // authenticate user
+        $email = Input::get('email');
+        $password = Input::get('password');
+
+
+        if ( isset($email) && isset($password) ) {
+
+            $credentials = array('email' => $email, 'password' => $password);
+
+            $user = User::where('email',$email)->first();
+
+            if(empty($user)){
+                return Redirect::to('login')->with('error', 'Invalid email or password');
+            }
+
+            if($user->role_id != UserRole::$ADMIN){
+                if($user->disabled){
+                    return Redirect::to('login')->with('error', 'Your account has been disabled');
+                }
+                if(!$user->verified) {
+                    return Redirect::to('login')->with('error', 'Your account has not been verified yet');
+                }
+            }
+
+
+            if (Auth::attempt($credentials))
+            {
+
+                return Redirect::intended('/');
+            }
+            else
+            {
+                return Redirect::to('login')->with('error', 'Invalid email or password');
+                // pass any error notification you want
+            }
+        }
+        return Redirect::to('login');
+    }
+
     public function fbLogin()
     {
         $facebook = new Facebook(Config::get('app.facebook'));

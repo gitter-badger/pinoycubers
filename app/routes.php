@@ -15,7 +15,7 @@ Route::get('/', 'HomeController@showIndex');
 
 // TODO:: Implement all these routes
 Route::get('/login', 'UserController@login');
-Route::get('/logout','UserController@logoutUser');
+Route::get('/logout','UserController@logout');
 Route::get('/register', 'UserController@register');
 Route::get('/register/verify/{code}', 'UserController@verifyUser');
 Route::post('/user/authenticate','UserController@authenticateUser');
