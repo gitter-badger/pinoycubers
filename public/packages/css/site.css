@@ -197,7 +197,8 @@ a:hover {
   text-align: center;
   padding: 15px 0 10px;
 }
-.login-box hr {
+.login-box hr,
+.register-box hr {
   margin: 10px auto 20px;
   width: 70%;
   border-top: 1px solid #dddbda;
