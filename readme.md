@@ -13,7 +13,7 @@
 
 Instructions for **Windows**. Sorry, I am a .NET dev as well. Can't get away with windows.
 
-1. Install [Cygwin](http://www.cygwin.com/) and setup system path.
+1. Install [Cygwin](http://www.cygwin.com/) and setup system path. You could also use Windows Command Prompt.
 
 		e.g. C:\cygwin64\bin
 	
@@ -23,18 +23,21 @@ Instructions for **Windows**. Sorry, I am a .NET dev as well. Can't get away wit
 	- **make**: The GNU version of 'make' utility
 	- **openssh**: The OpenSSH server and client programs
 
-
 2. Install [Vagrant](http://www.vagrantup.com/downloads.html) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 3. Clone repository
  
 		git clone git@github.com:geocine/pinoycubers.git
 
 4. Right click the `pinoycubers` folder and click `Bash Prompt Here`
-5. While on the cygwin terminal. Type this:
+5. Run `composer install` to install all project dependencies. Make sure you have [composer](https://getcomposer.org/download/) installed.
+
+		composer install
+
+6. While on the cygwin terminal. Type this:
 
 		vagrant up
 
-6. Add pinoycubers.dev to host file. *(Use the exact IP address)*
+7. Add pinoycubers.dev to host file. *(Use the exact IP address)*
 		
 		10.0.0.100 pinoycubers.dev
 
