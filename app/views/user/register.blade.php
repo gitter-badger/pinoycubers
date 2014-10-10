@@ -9,7 +9,7 @@
     <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
         <div class="well register-box">
             <div class="login-logo">
-                {{ HTML::image('assets/img/pca_logo.png','Pinoy Cubers Association', array('height' => '50px')) }}
+                {{ HTML::image('assets/img/pca_logo.png','Pinoy Cubers Association', array()) }}
             </div>
             <hr />
             <div class="login-form">

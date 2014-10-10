@@ -3,7 +3,7 @@
     <head>
         <title>
             @section('title')
-                Pinoy Cubers
+               Pinoy Cubers
             @show
         </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +17,7 @@
 
         <!-- CSS are placed here -->
         {{ HTML::style('packages/css/bootstrap.css') }}
+        {{ HTML::style('packages/css/theme.css') }}
         {{ HTML::style('packages/css/font-awesome.min.css') }}
         {{ HTML::style('packages/css/site.css?v=5') }}
         <style>
@@ -38,7 +39,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                  <a class="navbar-brand" href="/"><i class="fa fa-home"></i></a>
+                  <a class="navbar-brand" href="/">PINOY CUBERS</a>
                 </div>
 
 
