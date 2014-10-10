@@ -13,11 +13,10 @@ class DatabaseSeeder extends Seeder {
 
         DB::table('user_roles')->delete();
 
-        DB::table('user_roles')->insert(
-            array(
-                array('name' => 'admin'),
-                array('name' => 'user'),
-            ));
+        DB::table('user_roles')->insert(array(
+            array('name' => 'admin'),
+            array('name' => 'user'),
+        ));
 
         $this->command->info('User roles table seeded');
 
@@ -27,7 +26,8 @@ class DatabaseSeeder extends Seeder {
             'password' => Hash::make('password'),
             'first_name'  => 'Aivan',
             'last_name' => 'Monceller',
-            'role_id' => UserRole::$ADMIN));
+            'role_id' => UserRole::$ADMIN
+        ));
 
         Profile::create(array(
             'user_id' => $user->id,
