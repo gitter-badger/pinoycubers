@@ -16,7 +16,9 @@ class CubemeetController extends Controller
      */
     public function index()
     {
-        return View::make('cubemeet.index');
+        $cms = Cubemeet::all();
+
+        return View::make('cubemeet.index', compact('cms'));
     }
 
     /**
