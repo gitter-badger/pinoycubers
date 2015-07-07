@@ -18,10 +18,4 @@ class HomeController extends Controller
 
         return View::make('index');
 	}
-
-    public function showCubemeets()
-    {
-        return View::make('cubemeet.index');
-    }
-
 }
