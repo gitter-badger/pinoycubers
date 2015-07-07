@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use View;
+use Auth, Request, View;
+use App\Cubemeet;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -37,7 +36,12 @@ class CubemeetController extends Controller
      */
     public function store()
     {
-        //
+        $input = Request::all();
+        $input['host'] = Auth::user()->profile->username;
+
+        Cubemeet::create($input);
+
+        return View::make('cubemeet')->with('success', 'Cube Meet successfuly scheduled');
     }
 
     /**
