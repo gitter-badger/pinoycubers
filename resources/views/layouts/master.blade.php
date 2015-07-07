@@ -49,6 +49,9 @@
                             <a href="#">Official Competitions</a>
                         </li>
                         <li>
++                            <a href="#">Cube Meets</a>
++                       </li>
+                        <li>
                             <a href="#">Timer</a>
                         </li>
                         <li>
