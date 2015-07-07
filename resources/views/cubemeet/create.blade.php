@@ -13,7 +13,7 @@
 
         <hr>
 
-        {!! Form::open(['url' => 'cubemeets/store', 'role' => 'form']) !!}
+        {!! Form::open(['url' => 'cubemeets', 'role' => 'form']) !!}
 
             <div class="form-group">
                 {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'CM Name']) !!}
