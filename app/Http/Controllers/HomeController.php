@@ -16,6 +16,11 @@ class HomeController extends Controller
             return Redirect::to("/$username");
         }
 
+        public function showCubemeets()
+        {
+            return View::make('cubemeet.index');
+        }
+
         return View::make('index');
 	}
 
