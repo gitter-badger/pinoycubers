@@ -9,31 +9,31 @@
     <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
         <div class="well login-box">
             <div class="login-logo">
-                <img src="/assets/img/pca_logo.png" alt="Pinoy Cubers Association">
+                {!! Html::image('/assets/img/pca_logo.png', 'Pinoyc Cubers Association') !!}
             </div>
             <hr />
             <div class="login-form">
                 @if(Session::has('success'))
                 <div class="alert alert-success">{{ Session::get('success') }}</div>
                 @endif
+
                 @if(Session::has('error'))
                 <div class="alert alert-danger">{{ Session::get('error') }}</div>
                 @endif
-                <form action="/user/authenticate" method="POST" role="form">
-                    {{ csrf_field() }}
+
+                {!! Form::open(['url' => '/user/authenticate', 'role' => 'form']) !!}
+
                     <div class="form-group">
-                        <input
-                            type="email" name="email" placeholder="Email" id="email" value="" class="form-control"
-                            />
+                        {!! Form::email('email', null, ['placeholder' => 'Email', 'class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
-                        <input
-                            type="password" name="password" id="password" placeholder="Password" class="form-control"
-                            />
+                        {!! Form::password('password', ['placeholder' => 'Password', 'class' => 'form-control']) !!}
                     </div>
-                    <input type="submit" id="loginbutton" class="btn btn-md btn-primary" value="Login"
-                        />
-                </form>
+                
+                    {!! Form::submit('Login', ['class' => 'btn btn-md btn-primary']) !!}
+                
+                {!! Form::close() !!}
+
                     <span class="help-block">
                     	<a href="/password/forgot">Forgot your password?</a>
                     </span>
