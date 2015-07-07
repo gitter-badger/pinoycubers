@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Auth, Request, View;
+use Auth, Redirect, Request, View;
 use App\Cubemeet;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -42,7 +42,7 @@ class CubemeetController extends Controller
 
         Cubemeet::create($input);
 
-        return View::make('cubemeets.index')->with('success', 'Cube Meet successfuly scheduled');
+        return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly scheduled');
     }
 
     /**
