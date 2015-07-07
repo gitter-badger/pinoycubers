@@ -60,7 +60,7 @@
                         <li>
                             <a href="#">Records</a>
                         </li>
-                        @if(false)
+                        @if(true)
                         <li>
                             <a href="#">Market</a>
                         </li>
