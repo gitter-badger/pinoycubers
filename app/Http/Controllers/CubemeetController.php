@@ -42,7 +42,7 @@ class CubemeetController extends Controller
 
         Cubemeet::create($input);
 
-        return View::make('cubemeet')->with('success', 'Cube Meet successfuly scheduled');
+        return View::make('cubemeets.index')->with('success', 'Cube Meet successfuly scheduled');
     }
 
     /**
