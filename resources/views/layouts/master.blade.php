@@ -49,7 +49,7 @@
                             <a href="#">Official Competitions</a>
                         </li>
                         <li>
-                            <a href="#">Cube Meets</a>
+                            <a href="/cubemeets">Cube Meets</a>
                         </li>
                         <li>
                             <a href="#">Timer</a>
