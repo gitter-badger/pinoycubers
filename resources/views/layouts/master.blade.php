@@ -117,8 +117,8 @@
         </div>
 
         <!-- Scripts are placed here -->
-        {{ HTML::script('packages/js/jquery-2.1.0.js')}}
-        {{ HTML::script('packages/js/bootstrap.js')}}
+        {!! HTML::script('packages/js/jquery-2.1.0.js') !!}
+        {!! HTML::script('packages/js/bootstrap.js') !!}
 
         <script type="text/javascript">
             if (window.location.hash == '#_=_'){
