@@ -37,4 +37,5 @@ Route::group(array('before' => 'auth'), function()
 {
     Route::get('/user/{profile}','UserController@getProfile');
     Route::get('/{profile}','UserController@getProfile');
+    Route::get('/cubemeets', 'HomeController@showCubemeets');
 });
