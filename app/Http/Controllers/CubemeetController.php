@@ -38,6 +38,7 @@ class CubemeetController extends Controller
     {
         $input = Request::all();
         $input['host'] = Auth::user()->profile->username;
+        $input['status'] = 'Scheduled';
 
         Cubemeet::create($input);
 
