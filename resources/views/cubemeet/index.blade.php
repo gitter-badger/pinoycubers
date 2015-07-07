@@ -11,6 +11,10 @@
     <h2>Cube Meets</h2>
     {!! Html::link('/cubemeets/create', 'Set Cube Meet', ['class' => 'btn btn-sm btn-default']) !!}
 
+    @if(Session::has('success'))
+    <div class="alert alert-success">{{ Session::get('success') }}</div>
+    @endif
+
     <hr>
 
     <h3>CM Name <small>by name</small></h3>
