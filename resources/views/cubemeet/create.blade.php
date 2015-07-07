@@ -19,9 +19,6 @@
                 {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'CM Name']) !!}
             </div>
             <div class="form-group">
-                {!! Form::text('host', null, ['class' => 'form-control', 'placeholder' => 'Host']) !!}
-            </div>
-            <div class="form-group">
                 {!! Form::text('location', null, ['class' => 'form-control', 'placeholder' => 'Location']) !!}
             </div>
             <div class="form-group">
