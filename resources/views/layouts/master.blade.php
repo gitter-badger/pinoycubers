@@ -78,11 +78,11 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 @if (!empty(Auth::user()->profile->access_token))
-                                    <img alt="{{Auth::user()->name}}" class="avatar sm-avatar" height="20" src="https://graph.facebook.com/{{{Auth::user()->profile->username}}}/picture?type=small" width="20">
+                                    <img alt="{{Auth::user()->first_name.' '.Auth::user()->last_name}}" class="avatar sm-avatar" height="20" src="https://graph.facebook.com/{{{Auth::user()->profile->username}}}/picture?type=small" width="20">
                                 @else
-                                    <img alt="{{Auth::user()->name}}" class="avatar sm-avatar" height="20" src="http://placehold.it/20x20" width="20">
+                                    <img alt="{{Auth::user()->first_name.' '.Auth::user()->last_name}}" class="avatar sm-avatar" height="20" src="http://placehold.it/20x20" width="20">
                                 @endif
-                                {{Auth::user()->name}} <b class="caret"></b>
+                                {{Auth::user()->first_name.' '.Auth::user()->last_namee}} <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="/#"><i class="fa fa-edit"></i> Edit Profile</a></li>

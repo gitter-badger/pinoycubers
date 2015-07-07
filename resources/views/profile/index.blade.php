@@ -14,7 +14,7 @@
         </span>
 
         <h1 class="prof-names">
-            <span class="prof-fullname" >{{Auth::user()->name}}</span>
+            <span class="prof-fullname" >{{Auth::user()->first_name.' '.Auth::user()->last_name}}</span>
             <span class="prof-username" ></span>
         </h1>
         <ul class="prof-details">
