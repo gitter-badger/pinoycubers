@@ -27,7 +27,7 @@ class CubemeetController extends Controller
      */
     public function create()
     {
-        //
+        return View::make('cubemeet.create');
     }
 
     /**
