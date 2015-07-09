@@ -68,7 +68,7 @@ class CubemeetController extends Controller
      */
     public function edit($id)
     {
-        //
+        return View::make('cubemeet.edit');
     }
 
     /**
