@@ -55,7 +55,7 @@ class CubemeetController extends Controller
      */
     public function show($id)
     {
-        $cm = Cubemeet::with('host')->find($id)->toArray();
+        $cm = Cubemeet::with('host')->findOrFail($id)->toArray();
 
         return View::make('cubemeet.show', compact('cm'));
     }
@@ -68,7 +68,8 @@ class CubemeetController extends Controller
      */
     public function edit($id)
     {
-        return View::make('cubemeet.edit');
+        $cubemeet = Cubemeet::findOrFail($id);
+        return View::make('cubemeet.edit', compact('cubemeet'));
     }
 
     /**
