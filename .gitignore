@@ -9,3 +9,4 @@ Thumbs.db
 *.sublime-workspace
 .idea
 .vagrant
+/public/assets/img/profile_img/*
