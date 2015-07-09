@@ -55,7 +55,9 @@ class CubemeetController extends Controller
      */
     public function show($id)
     {
-        //
+        $cm = Cubemeet::find($id);
+
+        return View::make('cubemeet.show', compact('cm'));
     }
 
     /**
