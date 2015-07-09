@@ -16,7 +16,7 @@ class CubemeetController extends Controller
      */
     public function index()
     {
-        $cms = Cubemeet::with('host')->get()->toArray();
+        $cms = Cubemeet::with('host')->orderBy('date')->get()->toArray();
 
         return View::make('cubemeet.index', compact('cms'));
     }
