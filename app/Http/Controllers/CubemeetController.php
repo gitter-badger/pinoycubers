@@ -16,14 +16,7 @@ class CubemeetController extends Controller
      */
     public function index()
     {
-        //$cms = Cubemeet::all();
         $cms = Cubemeet::with('host')->get()->toArray();
-
-        // foreach($cms as $cm) {
-        //     dd($cm->location);
-        // }
-
-        // dd($cms[0]['host']['first_name']);
 
         return View::make('cubemeet.index', compact('cms'));
     }
@@ -62,7 +55,7 @@ class CubemeetController extends Controller
      */
     public function show($id)
     {
-        $cm = Cubemeet::find($id);
+        $cm = Cubemeet::with('host')->find($id)->toArray();
 
         return View::make('cubemeet.show', compact('cm'));
     }
