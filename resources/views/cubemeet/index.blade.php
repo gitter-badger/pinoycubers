@@ -32,7 +32,13 @@
     </div>
 
     <div class="row">
-        {!! Html::link('#', 'Join', ['class' => 'btn btn-sm btn-primary']) !!}
+        @if ($cm['host']['id'] == Auth::user()->id)
+            {!! Html::link('#', 'Edit', ['class' => 'btn btn-sm btn-default']) !!}
+            {!! Html::link('#', 'Cancel', ['class' => 'btn btn-sm btn-danger']) !!}
+        @else
+            {!! Html::link('#', 'Join', ['class' => 'btn btn-sm btn-primary']) !!}
+        @endif
+        
         {!! Html::link('cubemeets/'.$cm['id'], 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
     </div>
 </div>
