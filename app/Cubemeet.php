@@ -19,4 +19,9 @@ class Cubemeet extends Model
         'date',
         'start_time',
     ];
+
+    public function host()
+    {
+        return $this->belongsTo('App\User', 'host');
+    }
 }

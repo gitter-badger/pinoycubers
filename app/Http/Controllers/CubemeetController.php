@@ -16,7 +16,8 @@ class CubemeetController extends Controller
      */
     public function index()
     {
-        $cms = Cubemeet::all();
+        //$cms = Cubemeet::all();
+        $cms = Cubemeet::with('host')->get();
 
         return View::make('cubemeet.index', compact('cms'));
     }
@@ -38,11 +39,11 @@ class CubemeetController extends Controller
      */
     public function store()
     {
-        $input = Request::all();
-        $input['host'] = Auth::user()->profile->username;
-        $input['status'] = 'Scheduled';
+        $cubemeet = new Cubemeet(Request::all());
 
-        Cubemeet::create($input);
+        $cubemeet['status'] = 'scheduled';
+
+        Auth::user()->cubemeets()->save($cubemeet);
 
         return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly scheduled');
     }
