@@ -13,7 +13,7 @@
 
         <hr>
 
-        {!! Form::model($cubemeet, ['url' => 'cubemeets', 'route' => 'task.update', 'method' => 'patch', 'role' => 'form']) !!}
+        {!! Form::model($cubemeet, ['url' => 'cubemeets', 'route' => 'cubemeets.update', 'method' => 'patch', 'role' => 'form']) !!}
 
             <div class="form-group">
                 {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'CM Name']) !!}
