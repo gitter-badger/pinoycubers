@@ -98,6 +98,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     public function cubemeets() {
-        return $this->hasMany('App\Cubemeets', 'host');
+        return $this->hasMany('App\Cubemeet', 'host');
     }
 }
