@@ -33,7 +33,7 @@
 
     <div class="row">
         @if ($cm['host']['id'] == Auth::user()->id)
-            {!! Html::link('#', 'Edit', ['class' => 'btn btn-sm btn-default']) !!}
+            {!! Html::link('cubemeets/'.$cm['id'].'/edit', 'Edit', ['class' => 'btn btn-sm btn-default']) !!}
             {!! Html::link('#', 'Cancel', ['class' => 'btn btn-sm btn-danger']) !!}
         @else
             {!! Html::link('#', 'Join', ['class' => 'btn btn-sm btn-primary']) !!}
