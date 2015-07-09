@@ -23,17 +23,17 @@
 @foreach ($cms as $cm)
 <div class="row">
     <div class="row">
-        <h3>{{ $cm->name }} <small>by {{ $cm->host }}</small></h3>
+        <h3>{{ $cm['name'] }} <small>by {{ $cm['host']['first_name'].' '.$cm['host']['last_name'] }}</small></h3>
         <ul>
-            <li><b>Location:</b> {{ $cm->location }}</li>
-            <li><b>Date:</b> {{ $cm->date }}</li>
+            <li><b>Location:</b> {{ $cm['location']  }}</li>
+            <li><b>Date:</b> {{ $cm['date'] }}</li>
             <li><b>Start Time:</b> {{ $cm['start_time'] }}</li>
         </ul>
     </div>
 
     <div class="row">
         {!! Html::link('#', 'Join', ['class' => 'btn btn-sm btn-primary']) !!}
-        {!! Html::link('cubemeets/'.$cm->id, 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
+        {!! Html::link('cubemeets/'.$cm['id'], 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
     </div>
 </div>
 
