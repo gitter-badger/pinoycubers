@@ -33,7 +33,7 @@ Route::get('login/fb', 'HomeController@fbLogin');
 Route::get('login/fb/callback', 'HomeController@fbLoginCallback');
 
 
-Route::group(array('before' => 'auth'), function()
+Route::group(array('middleware' => 'auth'), function()
 {
     Route::get('/user/{profile}','UserController@getProfile');
     Route::resource('cubemeets', 'CubemeetController');
