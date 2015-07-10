@@ -80,10 +80,19 @@
                             {!! Form::close() !!}
                         @else
                             <div class="text-right">
+                                @if (array_first($cm['cubers'], function ($key, $value) {
+                                    return $value['user_id'] == Auth::user()->id;
+                                }))
+                                {!! Form::open(['url' => 'cubemeets/'.$cm['id'].'/canceljoin', 'role' => 'form']) !!}
+                                    {!! Form::submit('Not Going', ['class' => 'btn btn-sm btn-primary']) !!}
+                                    {!! Html::link('cubemeets/'.$cm['id'], 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
+                                {!! Form::close() !!}
+                                @else
                                 {!! Form::open(['url' => 'cubemeets/'.$cm['id'].'/join', 'role' => 'form']) !!}
                                     {!! Form::submit('Join', ['class' => 'btn btn-sm btn-primary']) !!}
                                     {!! Html::link('cubemeets/'.$cm['id'], 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
                                 {!! Form::close() !!}
+                                @endif
                             </div>
                         @endif
                     </td>
