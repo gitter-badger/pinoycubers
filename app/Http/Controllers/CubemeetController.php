@@ -17,7 +17,7 @@ class CubemeetController extends Controller
      */
     public function index()
     {
-        $upcoming = Cubemeet::with('host')->where('status', 'Scheduled')->orderBy('date')->get()->toArray();
+        $upcoming = Cubemeet::with('host', 'cubers')->where('status', 'Scheduled')->orderBy('date')->get()->toArray();
         $canceled = Cubemeet::with('host')->where('status', 'Canceled')->orderBy('date')->get()->toArray();
 
         return View::make('cubemeet.index', compact('upcoming', 'canceled'));
