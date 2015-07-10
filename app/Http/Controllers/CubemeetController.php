@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth, Redirect, Request, View;
 use App\Cubemeet;
+use App\CMCubers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -107,7 +108,17 @@ class CubemeetController extends Controller
         return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly canceled');
     }
 
-    public function join($id) {
+    public function join($id)
+    {
+        $cubemeet = Cubemeet::findOrFail($id);
 
+        $cuber = new CMCubers([
+            'user_id' => Auth::user()->id,
+            'status' => 'Going'
+        ]);
+
+        Cubemeet::cubers()->save($cuber);
+
+        return Redirect::back()->with('success', 'Successfuly joined');
     }
 }
