@@ -22,7 +22,7 @@
                 {!! Form::text('location', null, ['class' => 'form-control', 'placeholder' => 'Location']) !!}
             </div>
             <div class="form-group">
-                {!! Form::textarea('desecription', null, ['class' => 'form-control', 'placeholder' => 'Description']) !!}
+                {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Description']) !!}
             </div>
             <div class="form-group">
                 {!! Form::input('date', 'date', Carbon\Carbon::now()->toDateString(), ['class' => 'form-control']) !!}
