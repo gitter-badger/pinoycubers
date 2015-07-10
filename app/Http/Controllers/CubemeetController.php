@@ -117,7 +117,7 @@ class CubemeetController extends Controller
             'status' => 'Going'
         ]);
 
-        Cubemeet::cubers()->save($cuber);
+        $cubemeet->cubers()->save($cuber);
 
         return Redirect::back()->with('success', 'Successfuly joined');
     }
