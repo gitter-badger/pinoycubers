@@ -67,8 +67,10 @@
                             {!! Form::close() !!}
                         @else
                             <div class="text-right">
-                                {!! Html::link('#', 'Join', ['class' => 'btn btn-sm btn-primary']) !!}
-                                {!! Html::link('cubemeets/'.$cm['id'], 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
+                                {!! Form::open(['url' => 'cubemeets/'.$cm['id'].'/join', 'role' => 'form']) !!}
+                                    {!! Form::submit('Join', ['class' => 'btn btn-sm btn-primary']) !!}
+                                    {!! Html::link('cubemeets/'.$cm['id'], 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
+                                {!! Form::close() !!}
                             </div>
                         @endif
                     </td>

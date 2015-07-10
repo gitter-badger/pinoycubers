@@ -25,11 +25,17 @@
     </div>
 
     <div class="row">
-        @if ($cm['host']['id'] == Auth::user()->id)
-            {!! Html::link('cubemeets/'.$cm['id'].'/edit', 'Edit', ['class' => 'btn btn-sm btn-default']) !!}
-            {!! Html::link('#', 'Cancel', ['class' => 'btn btn-sm btn-danger']) !!}
-        @else
-            {!! Html::link('#', 'Join', ['class' => 'btn btn-sm btn-primary']) !!}
+        @if ($cm['status'] == 'Scheduled')
+            @if ($cm['host']['id'] == Auth::user()->id)
+                {!! Form::open(['method' => 'DELETE', 'route' => ['cubemeets.destroy', $cm['id']]]) !!}
+                    {!! Html::link('cubemeets/'.$cm['id'].'/edit', 'Edit', ['class' => 'btn btn-sm btn-default']) !!}
+                    {!! Form::submit('Cancel', ['class' => 'btn btn-sm btn-danger']) !!}
+                {!! Form::close() !!}
+            @else
+                {!! Form::open(['url' => 'cubemeets/'.$cm['id'].'/join', 'role' => 'form']) !!}
+                    {!! Form::submit('Join', ['class' => 'btn btn-sm btn-primary']) !!}
+                {!! Form::close() !!}
+            @endif
         @endif
     </div>
 </div>
