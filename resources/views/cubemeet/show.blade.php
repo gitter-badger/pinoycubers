@@ -20,6 +20,7 @@
             <li><b>Location:</b> {{ $cm['location'] }}</li>
             <li><b>Date:</b> {{ $cm['date'] }}</li>
             <li><b>Start Time:</b> {{ $cm['start_time'] }}</li>
+            <li><b>Description:</b> {{ $cm['description'] }}</li>
         </ul>
     </div>
 
