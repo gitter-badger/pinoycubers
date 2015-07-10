@@ -12,4 +12,8 @@ class CMCubers extends Model
      * @var string
      */
     protected $table = 'cubemeet_cubers';
+
+    public function cubemeet() {
+        $this->belongsTo('App\Cubemeet', 'cm_id');
+    }
 }
