@@ -16,9 +16,10 @@ class CubemeetController extends Controller
      */
     public function index()
     {
-        $cms = Cubemeet::with('host')->where('status', 'scheduled')->orderBy('date')->get()->toArray();
+        $upcoming = Cubemeet::with('host')->where('status', 'Scheduled')->orderBy('date')->get()->toArray();
+        $canceled = Cubemeet::with('host')->where('status', 'Canceled')->orderBy('date')->get()->toArray();
 
-        return View::make('cubemeet.index', compact('cms'));
+        return View::make('cubemeet.index', compact('upcoming', 'canceled'));
     }
 
     /**
@@ -99,7 +100,7 @@ class CubemeetController extends Controller
         $cubemeet = Cubemeet::findOrFail($id);
         
         $input = Request::all();
-        $cubemeet['status'] = 'Posponed';
+        $cubemeet['status'] = 'Canceled';
 
         $cubemeet->fill($input)->save();
 

@@ -39,7 +39,7 @@
                 <span class="fa fa-thumb-tack"></span> <b>Upcoming Cube Meets</b>
             </h3>
         </div>
-        @foreach ($cms as $cm)
+        @foreach ($upcoming as $cm)
         <li class="list-group-item" style="margin: 0; padding: 0">
             <table class="table" style="margin: 0; padding: 0">
                 <tr>
@@ -93,6 +93,34 @@
                 <span class="fa fa-times"></span> <b>Canceled Cube Meets</b>
             </h3>
         </div>
+        @foreach ($canceled as $cm)
+        <li class="list-group-item" style="margin: 0; padding: 0">
+            <table class="table" style="margin: 0; padding: 0">
+                <tr>
+                    <td class="col-md-5">
+                        <h4 class="list-group-item-heading">
+                            {{ $cm['name'] }} <small>by {{ $cm['host']['first_name'].' '.$cm['host']['last_name'] }}</small>
+                        </h4>
+                        <p class="list-group-item-text text-indent">
+                            <span class="fa fa-map-marker"></span> {{ $cm['location'] }}
+                        </p>
+                        <p class="list-group-item-text text-indent">
+                            <span class="fa fa-calendar"></span> {{ $cm['date'] }}
+                        </p>
+                        <p class="list-group-item-text text-indent">
+                            <span class="fa fa-clock-o"></span> {{ $cm['start_time'] }}
+                        </p>
+                    </td>
+                    <td><span class="fa fa-comment"></span> {{ $cm['description'] }}</td>
+                    <td>
+                        <div class="text-right">
+                            {!! Html::link('cubemeets/'.$cm['id'], 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </li>
+        @endforeach
     </div>
 </div>
 <!-- /Cube Meets -->
