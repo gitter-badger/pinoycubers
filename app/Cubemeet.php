@@ -27,6 +27,6 @@ class Cubemeet extends Model
 
     public function cubers()
     {
-        return $this->hasMany('App\CMCubers', 'cm_id')
+        return $this->hasMany('App\CMCubers', 'cm_id');
     }
 }
