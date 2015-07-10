@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth, Redirect, Request, View;
 use App\Cubemeet;
 use App\CMCuber;
+use Carbon\Carbon;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -40,8 +41,14 @@ class CubemeetController extends Controller
      */
     public function store()
     {
-        $cubemeet = new Cubemeet(Request::all());
+        $request = Request::all();
 
+        $cubemeet = new Cubemeet;
+        $cubemeet['name'] = $request['name'];
+        $cubemeet['location'] = $request['location'];
+        $cubemeet['description'] = $request['description'];
+        $cubemeet['date'] = Carbon::create($request['year'], $request['month'], $request['day']);
+        $cubemeet['start_time'] = $request['time'];
         $cubemeet['status'] = 'Scheduled';
 
         Auth::user()->cubemeets()->save($cubemeet);
