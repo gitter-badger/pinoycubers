@@ -58,7 +58,9 @@
                                 {!! Form::submit('Cancel', ['class' => 'btn btn-sm btn-danger']) !!}
                             {!! Form::close() !!}
                         @else
-                            {!! Html::link('#', 'Join', ['class' => 'btn btn-sm btn-primary']) !!}
+                            <div class="text-right">
+                                {!! Html::link('#', 'Join', ['class' => 'btn btn-sm btn-primary']) !!}
+                            </div>
                         @endif
                     </td>
                 </tr>
