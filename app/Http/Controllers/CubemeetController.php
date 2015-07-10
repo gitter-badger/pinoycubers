@@ -40,7 +40,7 @@ class CubemeetController extends Controller
     {
         $cubemeet = new Cubemeet(Request::all());
 
-        $cubemeet['status'] = 'scheduled';
+        $cubemeet['status'] = 'Scheduled';
 
         Auth::user()->cubemeets()->save($cubemeet);
 
@@ -96,6 +96,13 @@ class CubemeetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cubemeet = Cubemeet::findOrFail($id);
+        
+        $input = Request::all();
+        $cubemeet['status'] = 'Posponed';
+
+        $cubemeet->fill($input)->save();
+
+        return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly canceled');
     }
 }
