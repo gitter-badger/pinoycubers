@@ -7,6 +7,20 @@
 
 @section('content')
 
+@if (Session::has('success'))
+<!-- Success Message -->
+<div class="row">
+    <div class="alert alert-success">{{ Session::get('success') }}</div>
+</div>
+@endif
+
+@if (Session::has('error'))
+<!-- Error Message -->
+<div class="row">
+    <div class="alert alert-danger">{{ Session::get('error') }}</div>
+</div>
+@endif
+
 <div class="row">
     <div class="row">
         <h2>{{ $cm['name'] }} <small>by {{ $cm['host']['first_name'].' '.$cm['host']['last_name'] }}</small></h2>

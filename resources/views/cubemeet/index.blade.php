@@ -8,7 +8,6 @@
 @section('content')
 
 <!-- Menu -->
-
 <div class="row">
     <div class="col-md-10" style="margin: 0; padding: 0;">
         <h3>Cube Meets</h3>
@@ -18,6 +17,20 @@
         </span>
     </div>
 </div>
+
+@if (Session::has('success'))
+<!-- Success Message -->
+<div class="row">
+    <div class="alert alert-success">{{ Session::get('success') }}</div>
+</div>
+@endif
+
+@if (Session::has('error'))
+<!-- Error Message -->
+<div class="row">
+    <div class="alert alert-danger">{{ Session::get('error') }}</div>
+</div>
+@endif
 
 <!-- Cube Meets -->
 <div class="row">
