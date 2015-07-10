@@ -112,7 +112,7 @@ class CubemeetController extends Controller
     {
         $cubemeet = Cubemeet::findOrFail($id);
 
-        $cuber = new CMCubers([
+        $cuber = new CMCuber([
             'user_id' => Auth::user()->id,
             'status' => 'Going'
         ]);
