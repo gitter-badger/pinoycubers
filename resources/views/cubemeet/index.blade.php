@@ -68,6 +68,7 @@
                         @else
                             <div class="text-right">
                                 {!! Html::link('#', 'Join', ['class' => 'btn btn-sm btn-primary']) !!}
+                                {!! Html::link('cubemeets/'.$cm['id'], 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
                             </div>
                         @endif
                     </td>
