@@ -80,7 +80,12 @@ class CubemeetController extends Controller
      */
     public function update($id)
     {
-        //
+        $cubemeet = Cubemeet::findOrFail($id);
+
+        $input = Request::all();
+        $cubemeet->fill($input)->save();
+
+        return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly updated');
     }
 
     /**
