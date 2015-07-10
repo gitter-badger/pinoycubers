@@ -122,7 +122,7 @@ class CubemeetController extends Controller
         return Redirect::back()->with('success', 'Successfuly joined');
     }
 
-    public function notgoing($id)
+    public function canceljoin($id)
     {
         
     }
