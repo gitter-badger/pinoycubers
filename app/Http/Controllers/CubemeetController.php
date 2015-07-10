@@ -106,4 +106,8 @@ class CubemeetController extends Controller
 
         return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly canceled');
     }
+
+    public function join($id) {
+
+    }
 }
