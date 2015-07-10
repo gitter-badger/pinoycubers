@@ -81,7 +81,13 @@
                         @else
                             <div class="text-right">
                                 @if (array_first($cm['cubers'], function ($key, $value) {
-                                    return $value['user_id'] == Auth::user()->id;
+                                    if($value['user_id'] == Auth::user()->id) {
+                                        if($value['status'] == 'Going') {
+                                            return true;
+                                        }
+                                        return false;
+                                    }
+                                    return false;
                                 }))
                                 {!! Form::open(['url' => 'cubemeets/'.$cm['id'].'/canceljoin', 'role' => 'form']) !!}
                                     {!! Form::submit('Not Going', ['class' => 'btn btn-sm btn-primary']) !!}
