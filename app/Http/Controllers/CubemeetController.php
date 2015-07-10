@@ -112,12 +112,12 @@ class CubemeetController extends Controller
     {
         $cubemeet = Cubemeet::findOrFail($id);
 
-        $cuber = new CMCuber([
+        $cuber = (new CMCuber([
             'user_id' => Auth::user()->id,
             'status' => 'Going',
-        ]);
+        ]))->toArray();
 
-        $cubemeet->cubers()->save($cuber);
+        $cubemeet->cubers()->updateOrCreate(['user_id' => Auth::user()->id], $cuber);
 
         return Redirect::back()->with('success', 'Successfuly joined');
     }
