@@ -114,7 +114,7 @@ class CubemeetController extends Controller
 
         $cuber = new CMCuber([
             'user_id' => Auth::user()->id,
-            'status' => 'Going'
+            'status' => 'Going',
         ]);
 
         $cubemeet->cubers()->save($cuber);
@@ -124,6 +124,10 @@ class CubemeetController extends Controller
 
     public function canceljoin($id)
     {
-        
+        $cubemeet = Cubemeet::findOrFail($id);
+
+        $cubemeet->cubers()->update(['status' => 'Not Going']);
+
+        return Redirect::back()->with('success', 'Success');
     }
 }
