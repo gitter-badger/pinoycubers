@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth, Redirect, Request, View;
 use App\Cubemeet;
-use App\CMCubers;
+use App\CMCuber;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
