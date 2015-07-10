@@ -58,29 +58,29 @@
                 <tr>
                     <td class="col-md-5">
                         <h4 class="list-group-item-heading">
-                            {{ $cm['name'] }} <small>by {{ $cm['host']['first_name'].' '.$cm['host']['last_name'] }}</small>
+                            {{ $cm['name'] }} <small>by {{ $cm->host()->getResults()->first_name.' '.$cm->host()->getResults()->last_name }}</small>
                         </h4>
                         <p class="list-group-item-text text-indent">
-                            <span class="fa fa-map-marker"></span> {{ $cm['location'] }}
+                            <span class="fa fa-map-marker"></span> {{ $cm->location }}
                         </p>
                         <p class="list-group-item-text text-indent">
-                            <span class="fa fa-calendar"></span> {{ $cm['date'] }}
+                            <span class="fa fa-calendar"></span> {{ $cm->date->format('M-d-Y') }}
                         </p>
                         <p class="list-group-item-text text-indent">
-                            <span class="fa fa-clock-o"></span> {{ $cm['start_time'] }}
+                            <span class="fa fa-clock-o"></span> {{ date('h:i A', strtotime($cm->start_time)) }}
                         </p>
                     </td>
-                    <td><span class="fa fa-comment"></span> {{ $cm['description'] }}</td>
+                    <td><span class="fa fa-comment"></span> {{ $cm->description }}</td>
                     <td>
-                        @if ($cm['host']['id'] == Auth::user()->id)
+                        @if ($cm->host()->getResults()->id == Auth::user()->id)
                             {!! Form::open(['method' => 'DELETE', 'class' => 'text-right', 'route' => ['cubemeets.destroy', $cm['id']]]) !!}
-                                {!! Html::link('cubemeets/'.$cm['id'].'/edit', 'Edit', ['class' => 'btn btn-sm btn-default']) !!}
-                                {!! Html::link('cubemeets/'.$cm['id'], 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
+                                {!! Html::link('cubemeets/'.$cm->id.'/edit', 'Edit', ['class' => 'btn btn-sm btn-default']) !!}
+                                {!! Html::link('cubemeets/'.$cm->id, 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
                                 {!! Form::submit('Cancel', ['class' => 'btn btn-sm btn-danger']) !!}
                             {!! Form::close() !!}
                         @else
                             <div class="text-right">
-                                @if (array_first($cm['cubers'], function ($key, $value) {
+                                @if (array_first($cm->cubers, function ($key, $value) {
                                     if($value['user_id'] == Auth::user()->id) {
                                         if($value['status'] == 'Going') {
                                             return true;
@@ -89,14 +89,14 @@
                                     }
                                     return false;
                                 }))
-                                {!! Form::open(['url' => 'cubemeets/'.$cm['id'].'/canceljoin', 'role' => 'form']) !!}
+                                {!! Form::open(['url' => 'cubemeets/'.$cm->id.'/canceljoin', 'role' => 'form']) !!}
                                     {!! Form::submit('Not Going', ['class' => 'btn btn-sm btn-primary']) !!}
-                                    {!! Html::link('cubemeets/'.$cm['id'], 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
+                                    {!! Html::link('cubemeets/'.$cm->id, 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
                                 {!! Form::close() !!}
                                 @else
-                                {!! Form::open(['url' => 'cubemeets/'.$cm['id'].'/join', 'role' => 'form']) !!}
+                                {!! Form::open(['url' => 'cubemeets/'.$cm->id.'/join', 'role' => 'form']) !!}
                                     {!! Form::submit('Join', ['class' => 'btn btn-sm btn-primary']) !!}
-                                    {!! Html::link('cubemeets/'.$cm['id'], 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
+                                    {!! Html::link('cubemeets/'.$cm->id, 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
                                 {!! Form::close() !!}
                                 @endif
                             </div>
