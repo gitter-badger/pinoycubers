@@ -7,8 +7,16 @@
 
 @section('content')
 
-<div class="row">
+<!-- Menu -->
 
+<div class="row">
+    <div class="col-md-10" style="margin: 0; padding: 0;">
+        <h3>Cube Meets</h3>
+    </div>
+    <div class="col-md-2 text-right" style="margin-top: 18px; padding: 0">
+        {!! Html::link('cubemeets/create', 'Set Cube Meet', ['class' => 'btn btn-sm btn-default']) !!}
+        </span>
+    </div>
 </div>
 
 <!-- Cube Meets -->
