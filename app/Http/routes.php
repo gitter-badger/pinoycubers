@@ -37,6 +37,7 @@ Route::group(array('middleware' => 'auth'), function()
 {
     Route::get('/user/{profile}','UserController@getProfile');
     Route::post('/cubemeets/{cubemeets}/join', 'CubemeetController@join');
+    Route::post('/cubemeets/{cubemeets}/notgoing', 'CubemeetController@notgoing');
     Route::resource('cubemeets', 'CubemeetController');
     Route::get('/{profile}','UserController@getProfile');
 });
