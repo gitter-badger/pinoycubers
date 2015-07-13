@@ -15,7 +15,7 @@ class CubemeetsTable extends Migration
         Schema::create('cubemeets', function($table)
         {
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('host');
             $table->string('location');
             $table->string('description');
