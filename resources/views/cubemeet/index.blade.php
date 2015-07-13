@@ -14,7 +14,6 @@
     </div>
     <div class="col-md-2 text-right" style="margin-top: 18px; padding: 0">
         {!! Html::link('cubemeets/create', 'Set Cube Meet', ['class' => 'btn btn-sm btn-default']) !!}
-        </span>
     </div>
 </div>
 
@@ -42,7 +41,6 @@
                 <span class="fa fa-play"></span> <b>Ongoing Cube Meets</b>
             </h3>
         </div>
-        </ul>
     </div>
 
     <!-- Upcoming Cube Meets -->
@@ -130,22 +128,22 @@
                 <tr>
                     <td class="col-md-5">
                         <h4 class="list-group-item-heading">
-                            {{ $cm['name'] }} <small>by {{ $cm['host']['first_name'].' '.$cm['host']['last_name'] }}</small>
+                            {{ $cm->name }} <small>by {{ $cm->host()->getResults()->first_name.' '.$cm->host()->getResults()->last_name }}</small>
                         </h4>
                         <p class="list-group-item-text text-indent">
-                            <span class="fa fa-map-marker"></span> {{ $cm['location'] }}
+                            <span class="fa fa-map-marker"></span> {{ $cm->location }}
                         </p>
                         <p class="list-group-item-text text-indent">
-                            <span class="fa fa-calendar"></span> {{ $cm['date'] }}
+                            <span class="fa fa-calendar"></span> {{ $cm->date }}
                         </p>
                         <p class="list-group-item-text text-indent">
-                            <span class="fa fa-clock-o"></span> {{ $cm['start_time'] }}
+                            <span class="fa fa-clock-o"></span> {{ date('h:i A', strtotime($cm->start_time)) }}
                         </p>
                     </td>
-                    <td><span class="fa fa-comment"></span> {{ $cm['description'] }}</td>
+                    <td><span class="fa fa-comment"></span> {{ $cm->description }}</td>
                     <td>
                         <div class="text-right">
-                            {!! Html::link('cubemeets/'.$cm['id'], 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
+                            {!! Html::link('cubemeets/'.$cm->id, 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
                         </div>
                     </td>
                 </tr>
