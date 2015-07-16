@@ -7,6 +7,19 @@
 
 @section('content')
 
+@if ($errors->any())
+<!-- Error Message -->
+<div class="row">
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+</div>
+@endif
+
 <div class="row">
     <div class="well">
         <h4>Edit Cube Meet</h4>
@@ -36,7 +49,7 @@
                 </div>
             </div>
             <div class="form-group">
-                {!! Form::input('time', 'time', '12:00', ['class' => 'form-control']) !!}
+                {!! Form::input('time', 'time', date('H:i', strtotime($cubemeet->start_time)), ['class' => 'form-control']) !!}
             </div>
 
             {!! Form::submit('Save', ['class' => 'btn btn-md btn-primary', 'id' => 'savebutton']) !!}

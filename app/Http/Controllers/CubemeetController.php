@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Auth, Redirect, Request, View;
+use Auth, Redirect, Request, View, Validator;
 use App\Cubemeet;
 use App\CMCuber;
 use Carbon\Carbon;
 use App\Http\Requests;
+use App\Http\Requests\CubemeetRequest;
 use App\Http\Controllers\Controller;
 
 class CubemeetController extends Controller
@@ -37,12 +38,11 @@ class CubemeetController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param CubemeetRequest $request
      * @return Response
      */
-    public function store()
+    public function store(CubemeetRequest $request)
     {
-        $request = Request::all();
-
         $cubemeet = new Cubemeet;
         $cubemeet['name'] = $request['name'];
         $cubemeet['location'] = $request['location'];
@@ -85,13 +85,22 @@ class CubemeetController extends Controller
      * Update the specified resource in storage.
      *
      * @param  int  $id
+     * @param CubemeetRequest $request
      * @return Response
      */
-    public function update($id)
+    public function update($id, CubemeetRequest $request)
     {
         $cubemeet = Cubemeet::findOrFail($id);
 
-        $input = Request::all();
+        $input = [
+            'name' => $request['name'],
+            'location' => $request['location'],
+            'description' => $request['description'],
+            'date' => Carbon::create($request['year'], $request['month'], $request['day']),
+            'start_time' => $request['time'],
+            'status' => 'Scheduled',
+        ];
+
         $cubemeet->fill($input)->save();
 
         return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly updated');
