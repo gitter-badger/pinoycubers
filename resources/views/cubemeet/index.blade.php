@@ -68,8 +68,15 @@
                             <span class="fa fa-clock-o"></span> {{ date('h:i A', strtotime($cm->start_time)) }}
                         </p>
                     </td>
-                    <td><span class="fa fa-comment"></span> {{ $cm->description }}</td>
                     <td>
+                        <p class="list-group-item-text">
+                            <span class="fa fa-comment"></span> {{ str_limit($cm->description, 100) }}
+                        </p>
+                        <p class="list-group-item-text" style="margin-top: 10px">
+                            <span class="fa fa-user"></span> {{ $cm->cubers()->where('status', 'Going')->count() + 1 }} Cuber(s) will attend
+                        </p>
+                    </td>
+                    <td class="col-md-3">
                         @if ($cm->host()->getResults()->id == Auth::user()->id)
                             {!! Form::open(['method' => 'DELETE', 'class' => 'text-right', 'route' => ['cubemeets.destroy', $cm['id']]]) !!}
                                 {!! Html::link('cubemeets/'.$cm->id.'/edit', 'Edit', ['class' => 'btn btn-sm btn-default']) !!}
@@ -140,7 +147,14 @@
                             <span class="fa fa-clock-o"></span> {{ date('h:i A', strtotime($cm->start_time)) }}
                         </p>
                     </td>
-                    <td><span class="fa fa-comment"></span> {{ $cm->description }}</td>
+                    <td>
+                        <p class="list-group-item-text">
+                            <span class="fa fa-comment"></span> {{ $cm->description }}
+                        </p>
+                        <p class="list-group-item-text" style="margin-top: 10px">
+                            <span class="fa fa-user"></span> {{ $cm->cubers()->where('status', 'Going')->count() + 1 }} Cuber(s) will attend
+                        </p>
+                    </td>
                     <td>
                         <div class="text-right">
                             {!! Html::link('cubemeets/'.$cm->id, 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
