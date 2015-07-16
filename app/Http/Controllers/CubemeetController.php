@@ -142,7 +142,7 @@ class CubemeetController extends Controller
     {
         $cubemeet = Cubemeet::findOrFail($id);
 
-        $cubemeet->cubers()->update(['status' => 'Not Going']);
+        $cubemeet->cubers()->where('user_id', Auth::user()->id)->update(['status' => 'Not Going']);
 
         return Redirect::back()->with('success', 'Success');
     }
