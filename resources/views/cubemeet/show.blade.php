@@ -64,11 +64,22 @@
         <ul>
             <li>{{ $cm->host()->getResults()->first_name.' '.$cm->host()->getResults()->last_name }}</li>
             @if ($cm->cubers()->where('status', 'Going')->count() > 0)
-                @foreach ($cm->cubers as $cuber)
-                    <li>{{ $cuber->cuberprofile()->getResults()->first_name.' '.$cuber->cuberprofile()->getResults()->last_name }}</li>
+                @foreach ($cm->cubers()->where('status', 'Going')->get() as $cuber)
+                <li>{{ $cuber->cuberprofile()->getResults()->first_name.' '.$cuber->cuberprofile()->getResults()->last_name }}</li>
                 @endforeach
             @endif
         </ul>
+
+        <h4>List of cuber(s) who canceled their attendance</h4>
+            @if ($cm->cubers()->where('status', 'Not Going')->count() > 0)
+            <ul>
+                @foreach ($cm->cubers()->where('status', 'Not Going')->get() as $cuber)
+                <li>{{ $cuber->cuberprofile()->getResults()->first_name.' '.$cuber->cuberprofile()->getResults()->last_name }}</li>
+                @endforeach
+            </ul>
+            @else
+                none
+            @endif
     </div>
 </div>
 
