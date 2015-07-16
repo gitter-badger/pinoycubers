@@ -19,10 +19,12 @@ class CubemeetController extends Controller
      */
     public function index()
     {
+        $today = Cubemeet::with('host', 'cubers')->where('status', 'Scheduled')->where('date', Carbon::now()->format('Y-m-d'))->orderBy('date')->get();
         $upcoming = Cubemeet::with('host', 'cubers')->where('status', 'Scheduled')->where('date', '>', Carbon::now())->orderBy('date')->get();
+        $past = Cubemeet::with('host', 'cubers')->where('status', 'Scheduled')->where('date', '<', Carbon::now()->format('Y-m-d'))->orderBy('date')->get();
         $canceled = Cubemeet::with('host')->where('status', 'Canceled')->orderBy('date')->get();
 
-        return View::make('cubemeet.index', compact('upcoming', 'canceled'));
+        return View::make('cubemeet.index', compact('today', 'upcoming', 'past', 'canceled'));
     }
 
     /**
