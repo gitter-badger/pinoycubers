@@ -7,32 +7,7 @@
 
 @section('content')
 
-@if (Session::has('success'))
-    <!-- Success Message -->
-    <div class="row">
-        <div class="alert alert-success">{{ Session::get('success') }}</div>
-    </div>
-@endif
-
-@if (Session::has('error'))
-    <!-- Error Message -->
-    <div class="row">
-        <div class="alert alert-danger">{{ Session::get('error') }}</div>
-    </div>
-@endif
-
-@if ($errors->any())
-    <!-- Error Message -->
-    <div class="row">
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    </div>
-@endif
+@include('partials.messages')
 
 <div class="row">
     <div class="well">
@@ -42,15 +17,8 @@
 
         {!! Form::open(['url' => 'cubemeets', 'role' => 'form']) !!}
 
-            <div class="form-group">
-                {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'CM Name']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::text('location', null, ['class' => 'form-control', 'placeholder' => 'Location']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Description']) !!}
-            </div>
+            @include('partials.fields')
+
             <div class="row form-group">
                 <div class="col-md-2">
                     {!! Form::selectMonth('month', Carbon\Carbon::now()->month, ['class' => 'form-control']) !!}
