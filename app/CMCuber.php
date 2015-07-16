@@ -26,6 +26,10 @@ class CMCuber extends Model
     protected $table = 'cubemeet_cubers';
 
     public function cubemeet() {
-        $this->belongsTo('App\Cubemeet', 'cm_id');
+        return $this->belongsTo('App\Cubemeet', 'cm_id');
+    }
+
+    public function cuberprofile() {
+        return $this->belongsTo('App\User', 'user_id');
     }
 }

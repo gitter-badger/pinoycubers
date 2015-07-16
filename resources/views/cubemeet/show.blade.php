@@ -56,6 +56,20 @@
             @endif
         @endif
     </div>
+
+    <hr>
+
+    <div class="row">
+        <h4>List of cuber(s) who will attend</h4>
+        <ul>
+            <li>{{ $cm->host()->getResults()->first_name.' '.$cm->host()->getResults()->last_name }}</li>
+            @if ($cm->cubers()->where('status', 'Going')->count() > 0)
+                @foreach ($cm->cubers as $cuber)
+                    <li>{{ $cuber->cuberprofile()->getResults()->first_name.' '.$cuber->cuberprofile()->getResults()->last_name }}</li>
+                @endforeach
+            @endif
+        </ul>
+    </div>
 </div>
 
 @stop
