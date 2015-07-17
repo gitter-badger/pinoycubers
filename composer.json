@@ -12,7 +12,8 @@
         "way/generators": "^3.0",
         "cartalyst/sentry": "^2.1",
         "leroy-merlin-br/larasniffer": "^1.0",
-        "facebook/php-sdk-v4": "^4.0"
+        "facebook/php-sdk-v4": "^4.0",
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
