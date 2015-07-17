@@ -1,4 +1,4 @@
-## Pinoy Cubers
+## Pinoy Cubers (Upgraded to Laravel 5.1.*)
 
 1. **Unofficial Records** - Compare your record time with other cubers in the Philippines. We will verify your record time and post it on the unofficial Philippine records list
 2. **Learning Resources** - Share algorithms and checkout the algorithm database. Watch/Read puzzle solving tutorials
@@ -6,6 +6,15 @@
 4. **Group Discussions** - Participate in online group discussions about your favorite puzzles
 5. **User Profiles** - Contribute to the community and earn badges. Post your personal bests and tell something about yourself
 6. **Online Competitions** - Compete online with your friend on your favorite puzzles in real time. Host and join a competition using the web interface
+7. **Cube Meets** - Set and join meetups. View upcoming and past cube meets.
+
+    'Cube Meets' Notes (Future Plans)
+        - Discussion/Comment feed on every cube meets
+        - Notification to the subscribed cuber everytime the host updates the cube meet
+        - Cancelation reason
+        - Split the edit function to 'Update Details', 'Change Venue' and 'Reschedule'
+        - Host's confirmation if the cube meet is held successfuly
+        - Mini competition (Unofficial competition)
 
 ## Installation Instructions
 
