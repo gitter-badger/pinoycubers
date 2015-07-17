@@ -6,15 +6,15 @@
 4. **Group Discussions** - Participate in online group discussions about your favorite puzzles
 5. **User Profiles** - Contribute to the community and earn badges. Post your personal bests and tell something about yourself
 6. **Online Competitions** - Compete online with your friend on your favorite puzzles in real time. Host and join a competition using the web interface
-7. **Cube Meets** - Set and join meetups. View upcoming and past cube meets.
+7.  **Cube Meets** - Set and join meetups. View upcoming and past cube meets.
 
-    'Cube Meets' Notes (Future Plans)
-        - Discussion/Comment feed on every cube meets
-        - Notification to the subscribed cuber everytime the host updates the cube meet
-        - Cancelation reason
-        - Split the edit function to 'Update Details', 'Change Venue' and 'Reschedule'
-        - Host's confirmation if the cube meet is held successfuly
-        - Mini competition (Unofficial competition)
+'Cube Meets' Notes (Future Plans)
+
+ - Discussion/Comment feed on every cube meets
+ - Notification to the subscribed cuber every time the host updates the cube meet
+ - Cancellation reason
+ - Split the edit function to 'Update Details', 'Change Venue' and 'Reschedule'
+ - Host's confirmation if the cube meet is held successfully Mini competition (Unofficial competition)
 
 ## Installation Instructions
 
