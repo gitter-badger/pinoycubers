@@ -241,3 +241,31 @@ a:hover {
   background-color: #f7f7f7;
   border-radius: 0;
 }
+
+/**
+  * Cubemeets panel titles
+  */
+
+.ongoing {
+  color: #ffffff;
+}
+
+.upcoming {
+  color: #5898e7;
+}
+
+.success {
+  color: #25d13d;
+}
+
+.canceled {
+  color: #fb0e0e;
+}
+
+/**
+  * Text styles
+  */
+
+.text-indent {
+  margin-left: 20px !important;
+}
