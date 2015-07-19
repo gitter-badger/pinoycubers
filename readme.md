@@ -1,4 +1,4 @@
-## Pinoy Cubers (Upgraded to Laravel 5.1.*)
+## Pinoy Cubers
 
 1. **Unofficial Records** - Compare your record time with other cubers in the Philippines. We will verify your record time and post it on the unofficial Philippine records list
 2. **Learning Resources** - Share algorithms and checkout the algorithm database. Watch/Read puzzle solving tutorials
@@ -48,7 +48,7 @@ Instructions for **Windows**. Sorry, I am a .NET dev as well. Can't get away wit
 
 7. Add pinoycubers.dev to host file. *(Use the exact IP address)*
 		
-		10.0.0.100 pinoycubers.dev
+		10.0.0.101 pinoycubers.dev
 
 #### Configuring Laravel
 
@@ -73,7 +73,6 @@ Instructions for **Windows**. Sorry, I am a .NET dev as well. Can't get away wit
 
 **Live Site** : http://pinoycubers.org/
 
- - Send me a message on Facebook if you want to help me with the app, I would add you as tester on Facebook.
  - When planning a pull-request to add new functionality, it may be wise to [submit a proposal](https://github.com/geocine/pinoycubers/issues/new) to ensure compatibility with the project's goals.
  - I suggest using *Vagrant* for development environment configuration
 
@@ -100,20 +99,20 @@ Instructions for **Windows**. Sorry, I am a .NET dev as well. Can't get away wit
 3. The body should provide a meaningful commit message, which **uses the imperative, present tense** "change", not "changed" or "changes". See example in #2
 
 
-## Maintainers
+## Developers
 
-This code is maintained by Aivan Monceller of [Pinoy Cubers Association](https://www.facebook.com/groups/PINOYCUBERS/)
+This code is maintained by [Pinoy Cubers Association](https://www.facebook.com/groups/PINOYCUBERS/)
 
-## Contributors
-
-[Omar Lozada](https://github.com/lozadaOmr) - Windows Azure Webhost. Thanks!
+- [Aivan Monceller](https://github.com/geocine)
+- [Omar Lozada](https://github.com/lozadaOmr)
+- [Dhan-Rheb Belza](https://github.com/dlndn)
 
 
 ### License
 
 New BSD License
 
-Copyright (c) 2014, Aivan Reigh Monceller 
+Copyright (c) 201, Pinoy Cubers Association
 
 All rights reserved. 
 

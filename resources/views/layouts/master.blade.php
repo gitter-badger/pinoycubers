@@ -111,8 +111,8 @@
 
         <div id="footer">
             <div class="container">
-            <p class="text-muted text-left col-md-6 no-padding">This site is maintained by <a href="https://www.facebook.com/geocine">Aivan Monceller</a> | <a href="https://www.facebook.com/100006411373175">Dhan-Rheb Belza</a> | <a href="https://www.facebook.com/groups/PCADevTeam/">PCA DevTeam</a></p>
-            <p class="text-muted text-right col-md-6 no-padding hidden-sm hidden-xs">Server hosting provided by <a href="https://www.facebook.com/omar.lozada.7965">Omar Lozada</a></p>
+            <p class="text-muted text-left col-md-6 no-padding">This site is maintained by <a href="https://www.facebook.com/groups/PCADevTeam/">PCA DevTeam</a></p>
+            <p class="text-muted text-right col-md-6 no-padding hidden-sm hidden-xs"><a href="https://github.com/geocine/pinoycubers#developers">Developers</a></p>
             </div>
         </div>
 
