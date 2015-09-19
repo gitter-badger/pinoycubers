@@ -41,6 +41,13 @@ class DatabaseSeeder extends Seeder
                     'first_name'  => 'Dan',
                     'last_name' => 'Belza',
                     'role_id' => UserRole::$ADMIN
+                )),
+            'omar' => User::create(array(
+                    'email' => 'omar@pinoycubers.org',
+                    'password' => Hash::make('password'),
+                    'first_name' => 'Omar',
+                    'last_name' => 'Lozada',
+                    'role_id' => UserRole::$ADMIN
                 ))
         );
 
@@ -55,6 +62,11 @@ class DatabaseSeeder extends Seeder
         Profile::create(array(
             'user_id' => $user['dan']->id,
             'username' => 'dlndn'
+        ));
+
+        Profile::create(array(
+            'user_id' => $user['omar']->id,
+            'username' => 'omar'
         ));
 
         $this->command->info('Profile table seeded');
