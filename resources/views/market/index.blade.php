@@ -25,7 +25,7 @@
     @foreach ($items as $item)
         <div class="col-sm-3">
             <p>User: <b>{{ $item->user->first_name }} {{ $item->user->last_name }}</b></p>
-            <p>Title: <b>{{ $item->title }}</b></p>
+            <p>Title: <b>{!! Html::link('market/item/'.$item->slug, $item->title) !!}</b></p>
             <p>Description: <b>{{ $item->description }}</b></p>
             <p>Type: <b>{{ $item->type == "other"? $item->other_type: $item->type }}</b></p>
             <p>Manufacturer: <b>{{ $item->manufacturer == "other"? $item->other_manufacturer: $item->manufacturer }}</b></p>
