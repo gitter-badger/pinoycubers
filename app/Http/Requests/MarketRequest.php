@@ -24,11 +24,11 @@ class MarketRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'requred',
+            'title' => 'required',
             'description' => 'required',
-            'contact' => 'requred',
+            'contact' => 'required',
             'type' => 'required',
-            'manufacturer' => 'requred',
+            'manufacturer' => 'required',
             'condition' => 'required',
             'container' => 'required',
             'shipping' => 'required',
@@ -44,7 +44,7 @@ class MarketRequest extends Request
     public function messages()
     {
         return [
-            'title.required' => 'The title field is required.'
+            'title.required' => 'The title field is required.',
             'description.required' => 'The description field is required',
             'contact.required' => 'The contact number field is required',
             'type.required' => 'The type field is required',

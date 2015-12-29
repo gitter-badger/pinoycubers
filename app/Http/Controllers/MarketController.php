@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use View;
+use View, Auth, Redirect;
+use App\MarketItem;
 use App\Http\Requests;
+use App\Http\Requests\MarketRequest;
 use App\Http\Controllers\Controller;
 
 class MarketController extends Controller
@@ -67,9 +69,28 @@ class MarketController extends Controller
      *
      * @return Response
      */
-    public function postAddItem()
+    public function postAddItem(MarketRequest $request)
     {
-        //
+        $MarketItem = new MarketItem;
+        $MarketItem['user_id'] = Auth::user()->id;
+        $MarketItem['title'] = $request['title'];
+        $MarketItem['description'] = $request['description'];
+        $MarketItem['contact'] = $request['contact'];
+        $MarketItem['type'] = $request['type'];
+        $MarketItem['other_type'] = $request['other_type'];
+        $MarketItem['manufacturer'] = $request['manufacturer'];
+        $MarketItem['other_manufacturer'] = $request['other_manufacturer'];
+        $MarketItem['condition'] = $request['condition'];
+        $MarketItem['condition_details'] = $request['condition-details'];
+        $MarketItem['container'] = $request['container'];
+        $MarketItem['shipping'] = $request['shipping'];
+        $MarketItem['shipping_details'] = $request['shipping-details'];
+        $MarketItem['meetups'] = $request['meetups'];
+        $MarketItem['meetup_details'] = $request['meetup-details'];
+
+        Auth::user()->marketitem()->save($MarketItem);
+
+        return Redirect::to('market')->with('success', 'Item successfuly added');
     }
 
     /**
