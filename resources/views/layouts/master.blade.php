@@ -65,7 +65,7 @@
                         </li>
                         @if(true)
                         <li>
-                            <a href="#">Market</a>
+                            <a href="/market">Market</a>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Learn <b class="caret"></b></a>
@@ -119,6 +119,7 @@
         <!-- Scripts are placed here -->
         {!! HTML::script('packages/js/jquery-2.1.0.js') !!}
         {!! HTML::script('packages/js/bootstrap.js') !!}
+        {!! HTML::script('packages/js/site.js') !!}
 
         <script type="text/javascript">
             if (window.location.hash == '#_=_'){
