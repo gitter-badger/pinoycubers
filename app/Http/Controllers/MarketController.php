@@ -89,7 +89,11 @@ class MarketController extends Controller
         $MarketItem['shipping_details'] = $request['shipping-details'];
         $MarketItem['meetups'] = $request['meetups'];
         $MarketItem['meetup_details'] = $request['meetup-details'];
-        $MarketItem['slug'] = str_slug($request['title']);
+
+        $slug = str_slug($request['title']);
+        $count = MarketItem::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+
+        $MarketItem['slug'] = $count ? "{$slug}-{$count}" : $slug;
 
         Auth::user()->marketitem()->save($MarketItem);
 
