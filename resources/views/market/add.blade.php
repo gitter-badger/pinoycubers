@@ -116,7 +116,7 @@
             <div class="form-group in collapse" id="shipping-detail-container">
                 <label class="control-label col-sm-1" for="shipping-details">Shipping Details</label>
                 <div class="col-sm-11">
-                    {!! Form::textarea('shipping-details', null, ['class' => 'form-control', 'placeholder' => 'Shipping Details', 'id' => 'shippingdetails', 'required']) !!}
+                    {!! Form::textarea('shipping-details', null, ['class' => 'form-control', 'placeholder' => 'Shipping Details', 'id' => 'shippingdetails']) !!}
                 </div>
             </div>
             <div class="form-group">
@@ -128,7 +128,7 @@
             <div class="form-group in collapse" id="meetup-detail-container">
                 <label class="control-label col-sm-1" for="meetup-details">Meet-up Details</label>
                 <div class="col-sm-11">
-                    {!! Form::textarea('meetup-details', null, ['class' => 'form-control', 'placeholder' => 'Meet-up Details', 'id' => 'meetupdetails', 'required']) !!}
+                    {!! Form::textarea('meetup-details', null, ['class' => 'form-control', 'placeholder' => 'Meet-up Details', 'id' => 'meetupdetails']) !!}
                 </div>
             </div>
 
