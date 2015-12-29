@@ -30,9 +30,11 @@ class MarketController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function getItem($id)
+    public function getItem($slug)
     {
-        //
+        $item = MarketItem::with('user')->where('slug', $slug)->get();
+
+        return View::make('market.item', compact('item'));
     }
 
     /**
