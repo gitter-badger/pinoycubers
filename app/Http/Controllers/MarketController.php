@@ -108,9 +108,32 @@ class MarketController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function getEditItem($id)
+    public function getEditItem($slug)
     {
-        //
+        $item = MarketItem::with('user')->where('slug', $slug)->firstOrFail();
+
+        $types = [
+            'puzzle' => 'Puzzle',
+            'timer' => 'Timer',
+            'sticker' => 'Sticker',
+            'accessory' => 'Accessory',
+            'other' => 'Other'
+        ];
+
+        $manufacturers = [
+            'dayan' => 'Dayan',
+            'moyu' => 'Moyu',
+            'yj' => 'YongJun/YJ',
+            'lanlan' => 'Lanlan',
+            'shengshou' => 'Shengshou',
+            'gans' => 'Gans',
+            'cyclone' => 'Cyclone Boys',
+            'qj' => 'QJ',
+            'yuxin' => 'Yuxin',
+            'other' => 'Other'
+        ];
+
+        return View::make('market.edit', compact('item', 'types', 'manufacturers'));
     }
 
     /**

@@ -46,7 +46,7 @@ Route::group(array('middleware' => 'auth'), function()
     Route::get('/market/add', 'MarketController@getAddItem');
     Route::post('/market/add', 'MarketController@postAddItem');
     Route::get('/market/{slug}/edit', 'MarketController@getEditItem');
-    Route::post('/market/{slug}/edit', 'MarketController@postEditItem');
+    Route::post('/market/{slug}/edit', ['as' => 'postEditItem', 'uses' => 'MarketController@postEditItem']);
 
     Route::get('/{profile}','UserController@getProfile');
 });
