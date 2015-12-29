@@ -79,7 +79,7 @@
                     </label>
                 </div>
                 <div class="collapse col-sm-6" id="detail-container">
-                    {!! Form::text('details', null, ['class' => 'form-control', 'placeholder' => 'Details', 'id' => 'details', 'required']) !!}
+                    {!! Form::text('details', null, ['class' => 'form-control', 'placeholder' => 'Details', 'id' => 'details']) !!}
                 </div>
             </div>
             <div class="form-group">
