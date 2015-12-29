@@ -24,21 +24,23 @@
 
     @foreach ($items as $item)
         <div class="col-sm-3">
-            <p>User: <b>{{ $item->user->first_name }} {{ $item->user->last_name }}</b></p>
-            <p>Title: <b>{!! Html::link('market/item/'.$item->slug, $item->title) !!}</b></p>
-            <p>Description: <b>{{ $item->description }}</b></p>
-            <p>Contact Number: <b>{{ $item->contact }}</b></p>
-            <p>Type: <b>{{ $item->type == "other"? $item->other_type: $item->type }}</b></p>
-            <p>Manufacturer: <b>{{ $item->manufacturer == "other"? $item->other_manufacturer: $item->manufacturer }}</b></p>
-            <p>Condition: <b>{{ $item->condition == "brandnew"? "Brand New": "Used | " . $item->condition_details }}</b></p>
-            <p>Shipping: <b>{{ $item->shipping? "Available": "Not Available" }}</b></p>
-            @if ($item->shipping)
-                <p>Shipping Details: <b>{{ $item->shipping_details }}</b></p>
-            @endif
-            <p>Meet-ups: <b>{{ $item->meetups? "Available": "Not Available" }}</b></p>
-            @if ($item->meetups)
-                <p>Meet-up Details: <b>{{ $item->meetup_details }}</b></p>
-            @endif
+            <div class="well">
+                <p>User: <b>{{ $item->user->first_name }} {{ $item->user->last_name }}</b></p>
+                <p>Title: <b>{!! Html::link('market/item/'.$item->slug, $item->title) !!}</b></p>
+                <p>Description: <b>{{ $item->description }}</b></p>
+                <p>Contact Number: <b>{{ $item->contact }}</b></p>
+                <p>Type: <b>{{ $item->type == "other"? $item->other_type: $item->type }}</b></p>
+                <p>Manufacturer: <b>{{ $item->manufacturer == "other"? $item->other_manufacturer: $item->manufacturer }}</b></p>
+                <p>Condition: <b>{{ $item->condition == "brandnew"? "Brand New": "Used | " . $item->condition_details }}</b></p>
+                <p>Shipping: <b>{{ $item->shipping? "Available": "Not Available" }}</b></p>
+                @if ($item->shipping)
+                    <p>Shipping Details: <b>{{ $item->shipping_details }}</b></p>
+                @endif
+                <p>Meet-ups: <b>{{ $item->meetups? "Available": "Not Available" }}</b></p>
+                @if ($item->meetups)
+                    <p>Meet-up Details: <b>{{ $item->meetup_details }}</b></p>
+                @endif
+            </div>
         </div>
     @endforeach
 
