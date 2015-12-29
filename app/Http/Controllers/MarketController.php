@@ -32,7 +32,7 @@ class MarketController extends Controller
      */
     public function getItem($slug)
     {
-        $item = MarketItem::with('user')->where('slug', $slug)->get();
+        $item = MarketItem::with('user')->where('slug', $slug)->firstOrFail();
 
         return View::make('market.item', compact('item'));
     }
