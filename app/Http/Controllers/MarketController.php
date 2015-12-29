@@ -142,8 +142,37 @@ class MarketController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function postEditItem($id)
+    public function postEditItem(MarketRequest $request, $slug)
     {
-        //
+        $MarketItem = MarketItem::where('slug', $slug)->firstOrFail();
+
+        $input_slug = str_slug($request['title']);
+
+        if($slug != $input_slug) {
+            $count = MarketItem::whereRaw("slug RLIKE '^{$input_slug}(-[0-9]+)?$'")->count();
+            $slug = $count ? "{$input_slug}-{$count}" : $input_slug;
+        }
+
+        $input = [
+            'title' => $request['title'],
+            'description' => $request['description'],
+            'contact' => $request['contact'],
+            'type' => $request['type'],
+            'other_type' => $request['other_type'],
+            'manufacturer' => $request['manufacturer'],
+            'other_manufacturer' => $request['other_manufacturer'],
+            'condition' => $request['condition'],
+            'condition_details' => $request['condition-details'],
+            'container' => $request['container'],
+            'shipping' => $request['shipping'],
+            'shipping_details' => $request['shipping-details'],
+            'meetups' => $request['meetups'],
+            'meetup_details' => $request['meetup-details'],
+            'slug' => $slug
+        ];
+
+        $MarketItem->fill($input)->save();
+
+        return Redirect::to('market')->with('success', 'Item successfuly updated');
     }
 }
