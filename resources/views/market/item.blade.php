@@ -25,6 +25,7 @@
         <div class="well">
             <p>User: <b>{{ $item->user->first_name }} {{ $item->user->last_name }}</b></p>
             <p>Title: <b>{!! $item->title !!}</b></p>
+            <p>Price: <b>PHP {!! $item->price !!}</b></p>
             <p>Description: <b>{{ $item->description }}</b></p>
             <p>Contact Number: <b>{{ $item->contact }}</b></p>
             <p>Type: <b>{{ $item->type == "other"? $item->other_type: $item->type }}</b></p>
