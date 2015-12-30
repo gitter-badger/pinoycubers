@@ -13,9 +13,31 @@
 
 $factory->define(App\User::class, function ($faker) {
     return [
-        'name' => $faker->name,
         'email' => $faker->email,
-        'password' => str_random(10),
-        'remember_token' => str_random(10),
+        'password' => Hash::make(str_random(10)),
+        'first_name'  => $faker->firstName,
+        'last_name' => $faker->lastName,
+        'role_id' => App\UserRole::$ADMIN
+    ];
+});
+
+$factory->define(App\MarketItem::class, function ($faker) {
+    $title = $faker->sentence;
+
+    return [
+        'title' => $title,
+        'description' => $faker->text,
+        'contact'  => $faker->randomFloat(0, 1000000, 100000000),
+        'type' => 'other',
+        'other_type' => $faker->word,
+        'manufacturer' => 'other',
+        'other_manufacturer' => $faker->word,
+        'condition' => 'brandnew',
+        'container' => 'boxed',
+        'shipping' => 0,
+        'meetups' => 1,
+        'meetup_details' => $faker->text,
+        'slug' => str_slug($title),
+        'price' => $faker->numberBetween(350, 1500)
     ];
 });
