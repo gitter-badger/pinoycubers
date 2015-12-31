@@ -269,3 +269,15 @@ a:hover {
 .text-indent {
   margin-left: 20px !important;
 }
+
+/**
+  * Market
+  */
+
+.pagination li a {
+  color: #F6F6F6;
+}
+
+.nav-tabs .active a {
+  background-color: #F6F6F6 !important;
+}

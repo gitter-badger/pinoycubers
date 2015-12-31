@@ -19,24 +19,53 @@
 
 @include('partials.messages')
 
-<!-- Market Items -->
+<!-- Nav -->
+
 <div class="row">
-
-    @foreach ($items as $item)
-        <div class="col-sm-3">
-            <div class="well">
-                <p>User: <b>{{ $item->user->first_name }} {{ $item->user->last_name }}</b></p>
-                <p>Title: <b>{!! Html::link('market/item/'.$item->slug, $item->title) !!}</b></p>
-                <p>Price: <b>PHP {!! $item->price !!}</b></p>
-                <p>Shipping: <b>{{ $item->shipping? "Available": "Not Available" }}</b></p>
-                <p>Meet-ups: <b>{{ $item->meetups? "Available": "Not Available" }}</b></p>
-            </div>
-        </div>
-    @endforeach
-
-    {!! $items->render() !!}
-   
+    <div class="col-sm-6" style="border-bottom: 1px solid #ecf0f1;">
+        <h4>Items for Sale</h4>
+    </div>
+    <div class="col-sm-6" style="padding-left: 0">
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active"><a href="#">newest</a></li>
+            <li role="presentation"><a href="#">price</a></li>
+            <li role="presentation"><a href="#">condition</a></li>
+        </ul>
+    </div>
 </div>
+
+<!-- Market Items -->
+
+<hr>
+
+@foreach ($items as $item)
+<div class="row">
+    <div class="col-sm-7">
+        <ul class="list-unstyled">
+            <li><b>{!! Html::link('market/item/'.$item->slug, $item->title) !!}</b></li>
+            <li><b>PHP {!! $item->price !!}</b></li>
+
+            @if ($item->shipping && $item->meetups)
+                <li><b>Delivery through shipping and meet-ups are available</b></li>
+            @elseif ($item->shipping)
+                <li><b>Delivery through shipping only</b></li>
+            @elseif ($item->meetups)
+                <li><b>Delivery through meet-ups only</b></li>
+            @endif
+        </ul>
+    </div>
+    <div class="col-sm-5">
+        <ul class="list-unstyled">
+            <li>-creation/modification time-</li>
+            <li><span class="glyphicon glyphicon-user"></span> <b>{{ $item->user->first_name }} {{ $item->user->last_name }}</b></li>
+        </ul>
+    </div>
+</div>
+<hr>
+@endforeach
+
+{!! $items->render() !!}
+   
 <!-- /Market Items -->
 
 @stop
