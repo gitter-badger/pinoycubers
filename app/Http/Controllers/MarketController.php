@@ -112,6 +112,10 @@ class MarketController extends Controller
     {
         $item = MarketItem::with('user')->where('slug', $slug)->firstOrFail();
 
+        if($item->user_id != Auth::user()->id) {
+            return Redirect::to('market');
+        }
+
         $types = [
             'puzzle' => 'Puzzle',
             'timer' => 'Timer',
@@ -145,6 +149,10 @@ class MarketController extends Controller
     public function postEditItem(MarketRequest $request, $slug)
     {
         $MarketItem = MarketItem::where('slug', $slug)->firstOrFail();
+
+        if($MarketItem->user_id != Auth::user()->id) {
+            return Redirect::to('market');
+        }
 
         $input_slug = str_slug($request['title']);
 
