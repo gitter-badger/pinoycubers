@@ -16,6 +16,7 @@ class MarketItem extends Model
         'title',
         'description',
         'contact',
+        'price',
         'type',
         'other_type',
         'manufacturer',

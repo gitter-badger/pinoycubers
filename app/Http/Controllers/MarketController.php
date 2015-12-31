@@ -80,6 +80,7 @@ class MarketController extends Controller
         $MarketItem['title'] = $request['title'];
         $MarketItem['description'] = $request['description'];
         $MarketItem['contact'] = $request['contact'];
+        $MarketItem['price'] = $request['price'];
         $MarketItem['type'] = $request['type'];
         $MarketItem['other_type'] = $request['other_type'];
         $MarketItem['manufacturer'] = $request['manufacturer'];
