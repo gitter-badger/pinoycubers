@@ -19,7 +19,7 @@ class MarketController extends Controller
      */
     public function showIndex()
     {
-        $items = MarketItem::with('user')->paginate(20);
+        $items = MarketItem::with('user')->paginate(10);
 
         return View::make('market.index', compact('items'));
     }
