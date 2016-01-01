@@ -53,6 +53,12 @@
         </div>
     </div>
     <div class="col-sm-9">
+        @foreach ($comments as $comment)
+        <div class="well">
+            <h4>{!! $comment->user->first_name .' '. $comment->user->last_name !!}</h4>
+            <p>{!! $comment->comment !!}</p>
+        </div>
+        @endforeach
         <div class="well">
         {!! Form::open(['url' => 'market/comment/'.$item->id, 'role' => 'form', 'id' => 'marketitem-comment']) !!}
             <div class="form-group">
