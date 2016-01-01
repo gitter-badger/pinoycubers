@@ -56,7 +56,7 @@
         <div class="well">
         {!! Form::open(['url' => 'market/comment/'.$item->id, 'role' => 'form', 'id' => 'marketitem-comment']) !!}
             <div class="form-group">
-                {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Write a comment...', 'id' => 'description', 'required']) !!}
+                {!! Form::textarea('comment', null, ['class' => 'form-control', 'placeholder' => 'Write a comment...', 'id' => 'description', 'required']) !!}
             </div>
             <div class="text-right">
                 {!! Form::submit('Comment', ['class' => 'btn btn-md btn-primary']) !!}
