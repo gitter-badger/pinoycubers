@@ -38,6 +38,7 @@ $factory->define(App\MarketItem::class, function ($faker) {
         'meetups' => 1,
         'meetup_details' => $faker->text,
         'slug' => str_slug($title),
-        'price' => $faker->numberBetween(350, 1500)
+        'price' => $faker->numberBetween(350, 1500),
+        'viewers' => serialize([])
     ];
 });
