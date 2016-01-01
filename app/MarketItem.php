@@ -28,7 +28,8 @@ class MarketItem extends Model
         'shipping_details',
         'meetups',
         'meetup_details',
-        'slug'
+        'slug',
+        'viewers'
     ];
 
     /**
