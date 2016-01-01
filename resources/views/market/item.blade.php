@@ -19,17 +19,17 @@
 
 @include('partials.messages')
 
-@if ($item->user_id == Auth::user()->id)
 <div class="row">
     <div class="pull-left">
         <h3>{!! $item->title !!}</h3>
     </div>
+    @if ($item->user_id == Auth::user()->id)
     <div class="pull-right">
         {!! Html::link('market/'.$item->slug.'/edit', 'Edit', ['class' => 'btn btn-sm btn-default']) !!}
     </div>
+    @endif
 </div>
 <hr>
-@endif
 
 <!-- Market Item -->
 <div class="row">
