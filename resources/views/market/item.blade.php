@@ -19,12 +19,23 @@
 
 @include('partials.messages')
 
+@if ($item->user_id == Auth::user()->id)
+<div class="row">
+    <div class="pull-left">
+        <h3>{!! $item->title !!}</h3>
+    </div>
+    <div class="pull-right">
+        {!! Html::link('market/'.$item->slug.'/edit', 'Edit', ['class' => 'btn btn-sm btn-default']) !!}
+    </div>
+</div>
+<hr>
+@endif
+
 <!-- Market Item -->
 <div class="row">
     <div class="col-sm-3">
         <div class="well">
             <p>User: <b>{{ $item->user->first_name }} {{ $item->user->last_name }}</b></p>
-            <p>Title: <b>{!! $item->title !!}</b></p>
             <p>Price: <b>PHP {!! $item->price !!}</b></p>
             <p>Description: <b>{{ $item->description }}</b></p>
             <p>Contact Number: <b>{{ $item->contact }}</b></p>
@@ -41,11 +52,18 @@
             @endif
         </div>
     </div>
-    @if ($item->user_id == Auth::user()->id)
-        <div class="col-sm-9">
-            {!! Html::link('market/'.$item->slug.'/edit', 'Edit', ['class' => 'btn btn-sm btn-default']) !!}
+    <div class="col-sm-9">
+        <div class="well">
+        {!! Form::open(['url' => 'market/comment/'.$item->id, 'role' => 'form', 'id' => 'marketitem-comment']) !!}
+            <div class="form-group">
+                {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Write a comment...', 'id' => 'description', 'required']) !!}
+            </div>
+            <div class="text-right">
+                {!! Form::submit('Comment', ['class' => 'btn btn-md btn-primary']) !!}
+            </div>
+        {!! Form::close() !!}
         </div>
-    @endif
+    </div>
 </div>
 <!-- /Market Item -->
 
