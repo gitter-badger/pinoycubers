@@ -104,6 +104,7 @@ class MarketController extends Controller
         $MarketItem['shipping_details'] = $request['shipping-details'];
         $MarketItem['meetups'] = $request['meetups'];
         $MarketItem['meetup_details'] = $request['meetup-details'];
+        $MarketItem['viewers'] = serialize([]);
 
         $slug = str_slug($request['title']);
         $count = MarketItem::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
@@ -190,7 +191,6 @@ class MarketController extends Controller
             'meetups' => $request['meetups'],
             'meetup_details' => $request['meetup-details'],
             'slug' => $slug,
-            'viewers' => serialize([])
         ];
 
         $MarketItem->fill($input)->save();
