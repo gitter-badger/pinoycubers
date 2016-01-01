@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use View, Auth, Redirect;
 use App\MarketItem;
+use App\MarketItemComments;
 use App\Http\Requests;
 use App\Http\Requests\MarketRequest;
 use App\Http\Controllers\Controller;
@@ -183,5 +184,21 @@ class MarketController extends Controller
         $MarketItem->fill($input)->save();
 
         return Redirect::to('market')->with('success', 'Item successfuly updated');
+    }
+
+    public function postComment(Request $request, $id) {
+        $MarketItem = MarketItem::where('id', $id)->firstOrFail();
+
+        $this->validate($request, [
+            'comment' => 'required'
+        ]);
+
+        $comment = new MarketItemComments;
+        $comment['item_id'] = $MarketItem->id;
+        $comment['comment'] = $request['comment'];
+
+        Auth::user()->itemcomments()->save($comment);
+
+        return Redirect::to('market/item/'.$MarketItem->slug);
     }
 }
