@@ -36,6 +36,16 @@ class MarketController extends Controller
         $item = MarketItem::with('user')->where('slug', $slug)->firstOrFail();
         $comments = MarketItemComments::with('user')->where('item_id', $item->id)->get();
 
+        $viewers = unserialize($item->viewers);
+        $uid = Auth::user()->id;
+
+        if($item->user->id != $uid && !in_array($uid, $viewers)) {
+            array_push($viewers, $uid);
+            $input = ['viewers' => serialize($viewers)];
+
+            $item->fill($input)->save();
+        }
+
         return View::make('market.item', compact('item', 'comments'));
     }
 
@@ -179,7 +189,8 @@ class MarketController extends Controller
             'shipping_details' => $request['shipping-details'],
             'meetups' => $request['meetups'],
             'meetup_details' => $request['meetup-details'],
-            'slug' => $slug
+            'slug' => $slug,
+            'viewers' => serialize([])
         ];
 
         $MarketItem->fill($input)->save();
