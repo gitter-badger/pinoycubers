@@ -20,7 +20,7 @@ class MarketController extends Controller
      */
     public function showIndex()
     {
-        $items = MarketItem::with('user')->orderBy('created_at', 'desc')->paginate(10);
+        $items = MarketItem::with('user', 'comments')->orderBy('created_at', 'desc')->paginate(10);
 
         return View::make('market.index', compact('items'));
     }
