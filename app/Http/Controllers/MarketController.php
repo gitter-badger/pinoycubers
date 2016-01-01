@@ -34,8 +34,9 @@ class MarketController extends Controller
     public function getItem($slug)
     {
         $item = MarketItem::with('user')->where('slug', $slug)->firstOrFail();
+        $comments = MarketItemComments::with('user')->where('item_id', $item->id)->get();
 
-        return View::make('market.item', compact('item'));
+        return View::make('market.item', compact('item', 'comments'));
     }
 
     /**
