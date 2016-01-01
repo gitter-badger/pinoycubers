@@ -53,7 +53,10 @@
                 <li><b>Delivery through meet-ups only</b></li>
             @endif
 
-            <li><b>{{ $item->comments->count() }}</b> <span class="glyphicon glyphicon-comment"></span></li>
+            <li>
+                <b>{{ $item->comments->count() }}</b> <span class="glyphicon glyphicon-comment"></span> 
+                <b>{{ count(unserialize($item->viewers)) }}</b> <span class="glyphicon glyphicon-eye-open"></span>
+            </li>
         </ul>
     </div>
     <div class="col-sm-5">
