@@ -55,7 +55,7 @@
                             <a href="#">Timer</a>
                         </li>
                         <li>
-                            <a href="#">Users</a>
+                            <a href="/users">Users</a>
                         </li>
                         <li>
                             <a href="#">Forums</a>
@@ -70,10 +70,10 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Learn <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#"><i class="fa fa-files-o"></i> Wiki</a></li>
-                                <li><a href="#"><i class="fa fa-th"></i> Algorithms</a></li>
-                                <li><a href="#"><i class="fa fa-video-camera"></i> Videos</a></li>
-                                <li><a href="#"><i class="fa fa-link"></i>Links</a></li>
+                                <li><a href="#"><i class="fa fa-fw fa-files-o"></i>Wiki</a></li>
+                                <li><a href="#"><i class="fa fa-fw fa-th"></i>Algorithms</a></li>
+                                <li><a href="#"><i class="fa fa-fw fa-video-camera"></i>Videos</a></li>
+                                <li><a href="#"><i class="fa fa-fw fa-link"></i>Links</a></li>
                             </ul>
                         </li>
                         @endif
@@ -88,8 +88,9 @@
                                 {{Auth::user()->first_name}} {{Auth::user()->last_name}} <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="/#"><i class="fa fa-edit"></i> Edit Profile</a></li>
-                                <li><a href="/logout"><i class="fa fa-power-off"></i> Log Out</a></li>
+                                <li><a href="/#"><i class="fa fa-fw fa-user"></i>View Profile</a></li>
+                                <li><a href="#"><i class="fa fa-fw fa-edit"></i>Edit Profile</a></li>
+                                <li><a href="/logout"><i class="fa fa-fw fa-power-off"></i>Log Out</a></li>
                             </ul>
                         </li>
                         @else
