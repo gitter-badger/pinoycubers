@@ -49,5 +49,8 @@ Route::group(array('middleware' => 'auth'), function()
     Route::post('/market/{slug}/edit', ['as' => 'postEditItem', 'uses' => 'MarketController@postEditItem']);
     Route::post('/market/comment/{id}', 'MarketController@postComment');
 
+    /* Users */
+    Route::get('/users', 'UserController@showUsers');
+
     Route::get('/{profile}','UserController@getProfile');
 });

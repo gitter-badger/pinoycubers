@@ -208,4 +208,9 @@ class UserController extends Controller
 
         return Redirect::to("/".$profile->username)->with('message', 'Logged in with Facebook');
     }
+
+    public function showUsers()
+    {
+        return View::make('user.list');
+    }
 }
