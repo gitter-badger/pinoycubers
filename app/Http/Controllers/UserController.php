@@ -211,6 +211,8 @@ class UserController extends Controller
 
     public function showUsers()
     {
-        return View::make('user.list');
+        $users = User::with('profile')->get();
+
+        return View::make('user.list', compact('users'));
     }
 }
