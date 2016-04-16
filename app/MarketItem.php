@@ -16,6 +16,7 @@ class MarketItem extends Model
         'title',
         'description',
         'contact',
+        'price',
         'type',
         'other_type',
         'manufacturer',
@@ -27,7 +28,8 @@ class MarketItem extends Model
         'shipping_details',
         'meetups',
         'meetup_details',
-        'slug'
+        'slug',
+        'viewers'
     ];
 
     /**
@@ -36,5 +38,9 @@ class MarketItem extends Model
     public function user()
     {
         return $this->belongsTo('App\User', 'user_id');
+    }
+
+    public function comments() {
+        return $this->hasMany('App\MarketItemComments', 'item_id');
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use View, Auth, Redirect;
 use App\MarketItem;
+use App\MarketItemComments;
 use App\Http\Requests;
 use App\Http\Requests\MarketRequest;
 use App\Http\Controllers\Controller;
@@ -19,7 +20,7 @@ class MarketController extends Controller
      */
     public function showIndex()
     {
-        $items = MarketItem::with('user')->paginate(20);
+        $items = MarketItem::with('user', 'comments')->orderBy('created_at', 'desc')->paginate(10);
 
         return View::make('market.index', compact('items'));
     }
@@ -33,8 +34,19 @@ class MarketController extends Controller
     public function getItem($slug)
     {
         $item = MarketItem::with('user')->where('slug', $slug)->firstOrFail();
+        $comments = MarketItemComments::with('user')->where('item_id', $item->id)->get();
 
-        return View::make('market.item', compact('item'));
+        $viewers = unserialize($item->viewers);
+        $uid = Auth::user()->id;
+
+        if($item->user->id != $uid && !in_array($uid, $viewers)) {
+            array_push($viewers, $uid);
+            $input = ['viewers' => serialize($viewers)];
+
+            $item->fill($input)->save();
+        }
+
+        return View::make('market.item', compact('item', 'comments'));
     }
 
     /**
@@ -80,6 +92,7 @@ class MarketController extends Controller
         $MarketItem['title'] = $request['title'];
         $MarketItem['description'] = $request['description'];
         $MarketItem['contact'] = $request['contact'];
+        $MarketItem['price'] = $request['price'];
         $MarketItem['type'] = $request['type'];
         $MarketItem['other_type'] = $request['other_type'];
         $MarketItem['manufacturer'] = $request['manufacturer'];
@@ -91,6 +104,7 @@ class MarketController extends Controller
         $MarketItem['shipping_details'] = $request['shipping-details'];
         $MarketItem['meetups'] = $request['meetups'];
         $MarketItem['meetup_details'] = $request['meetup-details'];
+        $MarketItem['viewers'] = serialize([]);
 
         $slug = str_slug($request['title']);
         $count = MarketItem::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
@@ -111,6 +125,10 @@ class MarketController extends Controller
     public function getEditItem($slug)
     {
         $item = MarketItem::with('user')->where('slug', $slug)->firstOrFail();
+
+        if($item->user_id != Auth::user()->id) {
+            return Redirect::to('market');
+        }
 
         $types = [
             'puzzle' => 'Puzzle',
@@ -146,6 +164,10 @@ class MarketController extends Controller
     {
         $MarketItem = MarketItem::where('slug', $slug)->firstOrFail();
 
+        if($MarketItem->user_id != Auth::user()->id) {
+            return Redirect::to('market');
+        }
+
         $input_slug = str_slug($request['title']);
 
         if($slug != $input_slug) {
@@ -168,11 +190,27 @@ class MarketController extends Controller
             'shipping_details' => $request['shipping-details'],
             'meetups' => $request['meetups'],
             'meetup_details' => $request['meetup-details'],
-            'slug' => $slug
+            'slug' => $slug,
         ];
 
         $MarketItem->fill($input)->save();
 
         return Redirect::to('market')->with('success', 'Item successfuly updated');
+    }
+
+    public function postComment(Request $request, $id) {
+        $MarketItem = MarketItem::where('id', $id)->firstOrFail();
+
+        $this->validate($request, [
+            'comment' => 'required'
+        ]);
+
+        $comment = new MarketItemComments;
+        $comment['item_id'] = $MarketItem->id;
+        $comment['comment'] = $request['comment'];
+
+        Auth::user()->itemcomments()->save($comment);
+
+        return Redirect::to('market/item/'.$MarketItem->slug);
     }
 }

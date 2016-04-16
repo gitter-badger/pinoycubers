@@ -42,6 +42,12 @@
             <h5>Item Information</h5>
 
             <div class="form-group">
+                <label class="control-label col-sm-1" for="price">Price</label>
+                <div class="col-sm-11">
+                    {!! Form::text('price', null, ['class' => 'form-control', 'placeholder' => 'Price', 'id' => 'price', 'required']) !!}
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="control-label col-sm-1" for="type">Type</label>
                 <div class="col-sm-11">
                     {!! Form::select('type', $types, null, ['class' => 'form-control', 'id' => 'types']) !!}

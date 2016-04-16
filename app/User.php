@@ -106,4 +106,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function marketitem() {
         return $this->hasMany('App\MarketItem', 'user_id');
     }
+
+    public function itemcomments() {
+        return $this->hasMany('App\MarketItemComments', 'user_id');
+    }
 }
