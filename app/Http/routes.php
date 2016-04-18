@@ -52,5 +52,9 @@ Route::group(array('middleware' => 'auth'), function()
     /* Users */
     Route::get('/users', 'UserController@showUsers');
 
+    /* Profile */
     Route::get('/{profile}','UserController@getProfile');
+
+    Route::get('/edit/profile','UserController@getEditProfile');
+    Route::post('/edit/profile','UserController@postEditProfile');
 });
