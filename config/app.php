@@ -146,6 +146,10 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
 
+        /*
+         * Third-party Service Providers...
+         */
+        Intervention\Image\ImageServiceProvider::class
     ],
 
     /*
@@ -196,6 +200,7 @@ return [
         'Html'      => 'Illuminate\Html\HtmlFacade',
         'Form'      => 'Illuminate\Html\FormFacade',
         'Gate'      => Illuminate\Support\Facades\Gate::class,
+        'Image' => Intervention\Image\Facades\Image::class
 
     ],
 
