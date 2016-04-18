@@ -19,7 +19,7 @@ class UserController extends Controller
     public function getProfile($profile)
     {
         $uname = Profile::where('username',$profile)->count();
-        $u_name = Auth::user()->profile->name;
+        $u_name = Auth::user()->profile->username;
 
         $photo = empty(Auth::user()->photo) ? "http://placehold.it/230x230" : Auth::user()->photo;
 
