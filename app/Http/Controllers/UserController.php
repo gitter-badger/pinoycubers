@@ -225,6 +225,77 @@ class UserController extends Controller
 
     public function postEditProfile()
     {
-        //
+        $user = $this->user->where('id', Auth::user()->id)->first();
+
+        if(!$user)
+        {
+            return Redirect::to('/edit/profile');
+        }
+
+        $inputs = Input::all();
+        $rules = array();
+        $messages = array();
+        $updatedinfo = array();
+        $successmsg = '';
+
+        var_dump($inputs);
+
+        if($inputs['action'] == 'Update Profile')
+        {
+            $updatedinfo = array(
+                'first_name' => $inputs['firstname'],
+                'last_name' => $inputs['lastname'],
+                'email' => $inputs['email']
+            );
+
+            $rules = array(
+                'firstname' => 'required',
+                'lastname' => 'required',
+                'email' => 'required|email|unique:users,email,'.$user->id
+            );
+
+            $messages = array(
+                'firstname.required' => 'The first name field is required.',
+                'lastname.required' => 'The last name field is required.',
+                'email.unique' => 'This email is already used'
+            );
+
+            $successmsg = 'Profile successfully updated';
+        }
+        else if($inputs['action'] == 'Update Password')
+        {
+            $inputs['currentpass'] = Hash::make($inputs['currentpass']);
+
+            $updatedinfo = array(
+                'password' => Hash::make($inputs['newpass'])
+            );
+
+            var_dump($user->password);
+
+            $rules = array(
+                'currentpass' => 'required|in:'.$user->password,
+                'newpass' => 'required|confirmed|min:8'
+            );
+
+            $messages = array(
+                'currentpass.required' => 'The current password is required',
+                'currentpass.in' => 'The current password is incorrect',
+                'newpass.required' => 'The new password is required',
+                'newpass.confirmed' => 'Password confirmation does not match'
+            );
+
+            $successmsg = 'Password successfully updated';
+        }
+
+        $validation = Validator::make($inputs, $rules, $messages);
+
+        if($validation->passes())
+        {
+            $user->fill($updatedinfo)->save();
+
+            return Redirect::to('/edit/profile')->with('success', $successmsg);
+        }
+
+        return Redirect::to('/edit/profile')->withInput()->withErrors($validation);
     }
 }
