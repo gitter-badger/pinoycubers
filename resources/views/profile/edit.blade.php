@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="lastname">Last Name</label>
                 <div class="col-sm-10">
-                    <input type="text" id="lastname" class="form-control" name="lastnameplaceholder="Last Name" value="{{ Auth::user()->last_name }}" required>
+                    <input type="text" id="lastname" class="form-control" name="lastname" placeholder="Last Name" value="{{ Auth::user()->last_name }}" required>
                 </div>
             </div>
             <div class="form-group">
