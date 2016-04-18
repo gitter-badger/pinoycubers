@@ -88,7 +88,7 @@
                                 {{Auth::user()->first_name}} {{Auth::user()->last_name}} <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="/#"><i class="fa fa-fw fa-user"></i>View Profile</a></li>
+                                <li><a href="/{{ Auth::user()->profile->username }}"><i class="fa fa-fw fa-user"></i>View Profile</a></li>
                                 <li><a href="#"><i class="fa fa-fw fa-edit"></i>Edit Profile</a></li>
                                 <li><a href="/logout"><i class="fa fa-fw fa-power-off"></i>Log Out</a></li>
                             </ul>
