@@ -217,4 +217,14 @@ class UserController extends Controller
 
         return View::make('user.list', compact('users'));
     }
+
+    public function getEditProfile()
+    {
+        return View::make('profile.edit');
+    }
+
+    public function postEditProfile()
+    {
+        //
+    }
 }
