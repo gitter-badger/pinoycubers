@@ -29,13 +29,15 @@ class UserController extends Controller
             if($u_name == $profile)
             {
                 // my profile
-            }
-            else
-            {
-                // other profile
+                $user = Auth::user();
+                return View::make('profile.index', compact('user'));
             }
 
-            return View::make('profile.index',compact("photo"));
+            // other profile
+            $user_profile = Profile::where('username', $profile)->first();
+            $user = User::with('profile')->where('id', $user_profile->user_id)->first();
+
+            return View::make('profile.index',compact("user"));
         }
         else
         {
