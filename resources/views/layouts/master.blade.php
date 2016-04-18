@@ -83,7 +83,7 @@
                                 @if (!empty(Auth::user()->profile->access_token))
                                     <img alt="{{Auth::user()->first_name}} {{Auth::user()->last_name}}" class="avatar sm-avatar" height="20" src="https://graph.facebook.com/{{{Auth::user()->profile->username}}}/picture?type=small" width="20">
                                 @else
-                                    <img alt="{{Auth::user()->first_name}} {{Auth::user()->last_name}}" class="avatar sm-avatar" height="20" src="{{ URL::to('/assets/img/profile_img/'.md5(Auth::user()->id).'.jpg') }}" width="20">
+                                    <img alt="{{Auth::user()->first_name}} {{Auth::user()->last_name}}" class="avatar sm-avatar" height="20" src="https://placehold.it/75x75" width="20">
                                 @endif
                                 {{Auth::user()->first_name}} {{Auth::user()->last_name}} <b class="caret"></b>
                             </a>
