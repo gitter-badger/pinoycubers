@@ -19,7 +19,7 @@
         </div>
         <div class="col-sm-8" style="padding:0">
             <ul class="list-unstyled">
-                <li>{{ $user->first_name.' '.$user->last_name }}</li>
+                <li><a href="/{{ $user->profile->username }}">{{ $user->first_name.' '.$user->last_name }}</a></li>
                 <li><i>Location</i></li>
             </ul>
         </div>
