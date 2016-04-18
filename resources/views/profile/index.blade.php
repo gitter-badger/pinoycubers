@@ -14,14 +14,14 @@
         </span>
 
         <h1 class="prof-names">
-            <span class="prof-fullname" >{{Auth::user()->first_name}} {{Auth::user()->last_name}}</span>
-            <span class="prof-username" ></span>
+            <span class="prof-fullname">{{ $user->first_name.' '.$user->last_name }}</span>
+            <span class="prof-username"></span>
         </h1>
         <ul class="prof-details">
 
 
             <li class="prof-detail"><i class="fa fa-map-marker"></i>Philippines</li>
-            <li class="prof-detail"><i class="fa fa-clock-o"></i><span class="join-label">Joined on </span><span class="join-date">{{Auth::user()->getJoinedDate()}}</span></li>
+            <li class="prof-detail"><i class="fa fa-clock-o"></i><span class="join-label">Joined on </span><span class="join-date">{{ $user->getJoinedDate() }}</span></li>
         </ul>
 
 
