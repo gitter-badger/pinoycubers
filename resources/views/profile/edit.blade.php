@@ -16,7 +16,7 @@
         <hr>
         <h5>Personal Information</h5>
 
-        <form action="/edit/profile" method="post" class="form-horizontal">
+        {!! Form::open(['url' => '/edit/profile', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="firstname">First Name</label>
@@ -37,14 +37,14 @@
                 </div>
             </div>
 
-            <input id="registerbutton" class="btn btn-md btn-primary" name="action" value="Update Profile">
+            <input type="submit" id="registerbutton" class="btn btn-md btn-primary" name="action" value="Update Profile">
 
         </form>
 
         <hr>
         <h5>Account Information</h5>
 
-        <form action="/edit/profile" method="post" class="form-horizontal">
+        {!! Form::open(['url' => '/edit/profile', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="currentpass">Current Password</label>
@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            <input id="registerbutton" class="btn btn-md btn-primary" name="action" value="Update Password">
+            <input type="submit" id="registerbutton" class="btn btn-md btn-primary" name="action" value="Update Password">
 
         </form>
     </div>
