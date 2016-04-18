@@ -59,9 +59,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-2" for="repnewpass">Repeat New Password</label>
+                <label class="control-label col-sm-2" for="newpass_confirmation">New Password Confirmation</label>
                 <div class="col-sm-10">
-                    <input type="text" id="repnewpass" class="form-control" name="repnewpass" placeholder="Repeat New Password" required>
+                    <input type="text" id="newpass_confirmation" class="form-control" name="newpass_confirmation" placeholder="Repeat New Password" required>
                 </div>
             </div>
 
