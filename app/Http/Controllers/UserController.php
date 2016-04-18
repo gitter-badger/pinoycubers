@@ -238,8 +238,6 @@ class UserController extends Controller
         $updatedinfo = array();
         $successmsg = '';
 
-        var_dump($inputs);
-
         if($inputs['action'] == 'Update Profile')
         {
             $updatedinfo = array(
@@ -264,27 +262,29 @@ class UserController extends Controller
         }
         else if($inputs['action'] == 'Update Password')
         {
-            $inputs['currentpass'] = Hash::make($inputs['currentpass']);
+            if(Hash::check($inputs['currentpass'], $user->password)) {
+                $inputs['currentpass'] = Hash::make($inputs['currentpass']);
 
-            $updatedinfo = array(
-                'password' => Hash::make($inputs['newpass'])
-            );
+                $updatedinfo = array(
+                    'password' => Hash::make($inputs['newpass'])
+                );
 
-            var_dump($user->password);
+                $rules = array(
+                    'currentpass' => 'required',
+                    'newpass' => 'required|confirmed|min:8'
+                );
 
-            $rules = array(
-                'currentpass' => 'required|in:'.$user->password,
-                'newpass' => 'required|confirmed|min:8'
-            );
+                $messages = array(
+                    'currentpass.required' => 'The current password is required',
+                    'newpass.required' => 'The new password is required',
+                    'newpass.confirmed' => 'Password confirmation does not match'
+                );
 
-            $messages = array(
-                'currentpass.required' => 'The current password is required',
-                'currentpass.in' => 'The current password is incorrect',
-                'newpass.required' => 'The new password is required',
-                'newpass.confirmed' => 'Password confirmation does not match'
-            );
-
-            $successmsg = 'Password successfully updated';
+                $successmsg = 'Password successfully updated';
+            }
+            else {
+                return Redirect::to('/edit/profile')->with('error', 'The current password is incorrect');
+            }
         }
 
         $validation = Validator::make($inputs, $rules, $messages);
