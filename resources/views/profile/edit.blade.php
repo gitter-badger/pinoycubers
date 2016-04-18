@@ -49,19 +49,19 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="currentpass">Current Password</label>
                 <div class="col-sm-10">
-                    <input type="text" id="currentpass" class="form-control" name="currentpass" placeholder="Current Password" required>
+                    <input type="password" id="currentpass" class="form-control" name="currentpass" placeholder="Current Password" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="newpass">New Password</label>
                 <div class="col-sm-10">
-                    <input type="text" id="newpass" class="form-control" name="newpass" placeholder="New Password" required>
+                    <input type="password" id="newpass" class="form-control" name="newpass" placeholder="New Password" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="newpass_confirmation">New Password Confirmation</label>
                 <div class="col-sm-10">
-                    <input type="text" id="newpass_confirmation" class="form-control" name="newpass_confirmation" placeholder="Repeat New Password" required>
+                    <input type="password" id="newpass_confirmation" class="form-control" name="newpass_confirmation" placeholder="Repeat New Password" required>
                 </div>
             </div>
 
