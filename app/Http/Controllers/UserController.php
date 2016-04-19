@@ -19,7 +19,7 @@ class UserController extends Controller
     public function getProfile($profile)
     {
         $uname = Profile::where('username',$profile)->count();
-        $u_name = Auth::user()->profile->name;
+        $u_name = Auth::user()->profile->username;
 
         $photo = empty(Auth::user()->photo) ? "http://placehold.it/230x230" : Auth::user()->photo;
 
@@ -29,13 +29,15 @@ class UserController extends Controller
             if($u_name == $profile)
             {
                 // my profile
-            }
-            else
-            {
-                // other profile
+                $user = Auth::user();
+                return View::make('profile.index', compact('user'));
             }
 
-            return View::make('profile.index',compact("photo"));
+            // other profile
+            $user_profile = Profile::where('username', $profile)->first();
+            $user = User::with('profile')->where('id', $user_profile->user_id)->first();
+
+            return View::make('profile.index',compact("user"));
         }
         else
         {
@@ -207,5 +209,93 @@ class UserController extends Controller
         Auth::login($user);
 
         return Redirect::to("/".$profile->username)->with('message', 'Logged in with Facebook');
+    }
+
+    public function showUsers()
+    {
+        $users = User::with('profile')->get();
+
+        return View::make('user.list', compact('users'));
+    }
+
+    public function getEditProfile()
+    {
+        return View::make('profile.edit');
+    }
+
+    public function postEditProfile()
+    {
+        $user = $this->user->where('id', Auth::user()->id)->first();
+
+        if(!$user)
+        {
+            return Redirect::to('/edit/profile');
+        }
+
+        $inputs = Input::all();
+        $rules = array();
+        $messages = array();
+        $updatedinfo = array();
+        $successmsg = '';
+
+        if($inputs['action'] == 'Update Profile')
+        {
+            $updatedinfo = array(
+                'first_name' => $inputs['firstname'],
+                'last_name' => $inputs['lastname'],
+                'email' => $inputs['email']
+            );
+
+            $rules = array(
+                'firstname' => 'required',
+                'lastname' => 'required',
+                'email' => 'required|email|unique:users,email,'.$user->id
+            );
+
+            $messages = array(
+                'firstname.required' => 'The first name field is required.',
+                'lastname.required' => 'The last name field is required.',
+                'email.unique' => 'This email is already used'
+            );
+
+            $successmsg = 'Profile successfully updated';
+        }
+        else if($inputs['action'] == 'Update Password')
+        {
+            if(Hash::check($inputs['currentpass'], $user->password)) {
+                $inputs['currentpass'] = Hash::make($inputs['currentpass']);
+
+                $updatedinfo = array(
+                    'password' => Hash::make($inputs['newpass'])
+                );
+
+                $rules = array(
+                    'currentpass' => 'required',
+                    'newpass' => 'required|confirmed|min:8'
+                );
+
+                $messages = array(
+                    'currentpass.required' => 'The current password is required',
+                    'newpass.required' => 'The new password is required',
+                    'newpass.confirmed' => 'Password confirmation does not match'
+                );
+
+                $successmsg = 'Password successfully updated';
+            }
+            else {
+                return Redirect::to('/edit/profile')->with('error', 'The current password is incorrect');
+            }
+        }
+
+        $validation = Validator::make($inputs, $rules, $messages);
+
+        if($validation->passes())
+        {
+            $user->fill($updatedinfo)->save();
+
+            return Redirect::to('/edit/profile')->with('success', $successmsg);
+        }
+
+        return Redirect::to('/edit/profile')->withInput()->withErrors($validation);
     }
 }

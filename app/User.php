@@ -5,12 +5,14 @@ namespace App;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract
+class User extends Model implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
-    use Authenticatable, CanResetPassword;
+    use Authenticatable, Authorizable, CanResetPassword;
 
 	/**
 	 * The database table used by the model.
@@ -18,6 +20,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 * @var string
 	 */
 	protected $table = 'users';
+
+    /**
+     * Fillable fields
+     *
+     * @var array
+     */
+
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'email',
+        'password'
+    ];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -99,5 +114,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function cubemeets() {
         return $this->hasMany('App\Cubemeet', 'host');
+    }
+
+    public function marketitem() {
+        return $this->hasMany('App\MarketItem', 'user_id');
+    }
+
+    public function itemcomments() {
+        return $this->hasMany('App\MarketItemComments', 'user_id');
     }
 }

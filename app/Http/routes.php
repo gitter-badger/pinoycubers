@@ -39,5 +39,22 @@ Route::group(array('middleware' => 'auth'), function()
     Route::post('/cubemeets/{cubemeets}/join', 'CubemeetController@join');
     Route::post('/cubemeets/{cubemeets}/canceljoin', 'CubemeetController@canceljoin');
     Route::resource('cubemeets', 'CubemeetController');
+    
+    /* Market */
+    Route::get('/market', 'MarketController@showIndex');
+    Route::get('/market/item/{slug}', 'MarketController@getItem');
+    Route::get('/market/add', 'MarketController@getAddItem');
+    Route::post('/market/add', 'MarketController@postAddItem');
+    Route::get('/market/{slug}/edit', 'MarketController@getEditItem');
+    Route::post('/market/{slug}/edit', ['as' => 'postEditItem', 'uses' => 'MarketController@postEditItem']);
+    Route::post('/market/comment/{id}', 'MarketController@postComment');
+
+    /* Users */
+    Route::get('/users', 'UserController@showUsers');
+
+    /* Profile */
     Route::get('/{profile}','UserController@getProfile');
+
+    Route::get('/edit/profile','UserController@getEditProfile');
+    Route::post('/edit/profile','UserController@postEditProfile');
 });

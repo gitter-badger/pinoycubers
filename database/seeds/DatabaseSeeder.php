@@ -71,6 +71,9 @@ class DatabaseSeeder extends Seeder
 
         $this->command->info('Profile table seeded');
 
+        $this->call(MarketItemsTableSeeder::class);
+        $this->command->info('MarketItems table seeded');
+
         Model::reguard();
 	}
 

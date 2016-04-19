@@ -8,14 +8,6 @@
 6. **Online Competitions** - Compete online with your friend on your favorite puzzles in real time. Host and join a competition using the web interface
 7.  **Cube Meets** - Set and join meetups. View upcoming and past cube meets.
 
-'Cube Meets' Notes (Future Plans)
-
- - Discussion/Comment feed on every cube meets
- - Notification to the subscribed cuber every time the host updates the cube meet
- - Cancellation reason
- - Split the edit function to 'Update Details', 'Change Venue' and 'Reschedule'
- - Host's confirmation if the cube meet is held successfully Mini competition (Unofficial competition)
-
 ## Installation Instructions
 
 ### (Using Vagrant)
@@ -35,7 +27,7 @@ Instructions for **Windows**. Sorry, I am a .NET dev as well. Can't get away wit
 2. Install [Vagrant](http://www.vagrantup.com/downloads.html) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 3. Clone repository
  
-		git clone git@github.com:geocine/pinoycubers.git
+		git clone git@github.com:drfb/pinoycubers.git
 
 4. Right click the `pinoycubers` folder and click `Bash Prompt Here`
 5. Run `composer install` to install all project dependencies. Make sure you have [composer](https://getcomposer.org/download/) installed.
@@ -56,10 +48,10 @@ Instructions for **Windows**. Sorry, I am a .NET dev as well. Can't get away wit
 
 		vagrant ssh	
 
-2. Migrate the database
+2. Migrate and seed the database
 		
 		cd /vagrant
-		php artisan migrate
+		php artisan migrate --seed
  
 #### Connecting to MySQL on *Vagrant*
 	
@@ -71,9 +63,7 @@ Instructions for **Windows**. Sorry, I am a .NET dev as well. Can't get away wit
 
 ## Contribution Guidelines
 
-**Live Site** : http://pinoycubers.org/
-
- - When planning a pull-request to add new functionality, it may be wise to [submit a proposal](https://github.com/geocine/pinoycubers/issues/new) to ensure compatibility with the project's goals.
+ - When planning a pull-request to add new functionality, it may be wise to [submit a proposal](https://github.com/drfb/pinoycubers/issues/new) to ensure compatibility with the project's goals.
  - I suggest using *Vagrant* for development environment configuration
 
 ### Tool Suggestion
@@ -101,11 +91,11 @@ Instructions for **Windows**. Sorry, I am a .NET dev as well. Can't get away wit
 
 ## Developers
 
-This code is maintained by [Pinoy Cubers Association](https://www.facebook.com/groups/PINOYCUBERS/)
+This code is maintained by [Philippine Cubers Association](https://facebook.com/PhilippineCubersAssociation/)
 
 - [Aivan Monceller](https://github.com/geocine)
 - [Omar Lozada](https://github.com/lozadaOmr)
-- [Dhan-Rheb Belza](https://github.com/dlndn)
+- [Dhan-Rheb Belza](https://github.com/drfb)
 
 
 ### License

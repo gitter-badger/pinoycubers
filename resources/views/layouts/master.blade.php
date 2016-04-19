@@ -55,7 +55,7 @@
                             <a href="#">Timer</a>
                         </li>
                         <li>
-                            <a href="#">Users</a>
+                            <a href="/users">Users</a>
                         </li>
                         <li>
                             <a href="#">Forums</a>
@@ -65,15 +65,15 @@
                         </li>
                         @if(true)
                         <li>
-                            <a href="#">Market</a>
+                            <a href="/market">Market</a>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Learn <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#"><i class="fa fa-files-o"></i> Wiki</a></li>
-                                <li><a href="#"><i class="fa fa-th"></i> Algorithms</a></li>
-                                <li><a href="#"><i class="fa fa-video-camera"></i> Videos</a></li>
-                                <li><a href="#"><i class="fa fa-link"></i>Links</a></li>
+                                <li><a href="#"><i class="fa fa-fw fa-files-o"></i>Wiki</a></li>
+                                <li><a href="#"><i class="fa fa-fw fa-th"></i>Algorithms</a></li>
+                                <li><a href="#"><i class="fa fa-fw fa-video-camera"></i>Videos</a></li>
+                                <li><a href="#"><i class="fa fa-fw fa-link"></i>Links</a></li>
                             </ul>
                         </li>
                         @endif
@@ -83,13 +83,14 @@
                                 @if (!empty(Auth::user()->profile->access_token))
                                     <img alt="{{Auth::user()->first_name}} {{Auth::user()->last_name}}" class="avatar sm-avatar" height="20" src="https://graph.facebook.com/{{{Auth::user()->profile->username}}}/picture?type=small" width="20">
                                 @else
-                                    <img alt="{{Auth::user()->first_name}} {{Auth::user()->last_name}}" class="avatar sm-avatar" height="20" src="{{ URL::to('/assets/img/profile_img/'.md5(Auth::user()->id).'.jpg') }}" width="20">
+                                    <img alt="{{Auth::user()->first_name}} {{Auth::user()->last_name}}" class="avatar sm-avatar" height="20" src="https://placehold.it/75x75" width="20">
                                 @endif
                                 {{Auth::user()->first_name}} {{Auth::user()->last_name}} <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="/#"><i class="fa fa-edit"></i> Edit Profile</a></li>
-                                <li><a href="/logout"><i class="fa fa-power-off"></i> Log Out</a></li>
+                                <li><a href="/{{ Auth::user()->profile->username }}"><i class="fa fa-fw fa-user"></i>View Profile</a></li>
+                                <li><a href="/edit/profile"><i class="fa fa-fw fa-edit"></i>Edit Profile</a></li>
+                                <li><a href="/logout"><i class="fa fa-fw fa-power-off"></i>Log Out</a></li>
                             </ul>
                         </li>
                         @else
@@ -111,14 +112,15 @@
 
         <div id="footer">
             <div class="container">
-            <p class="text-muted text-left col-md-6 no-padding">This site is maintained by <a href="https://www.facebook.com/groups/PCADevTeam/">PCA DevTeam</a></p>
-            <p class="text-muted text-right col-md-6 no-padding hidden-sm hidden-xs"><a href="https://github.com/geocine/pinoycubers#developers">Developers</a></p>
+            <p class="text-muted text-left col-md-6 no-padding">This site is maintained by <a href="https://www.facebook.com/PhilippineCubersAssociation/">PCA DevTeam</a></p>
+            <p class="text-muted text-right col-md-6 no-padding hidden-sm hidden-xs"><a href="https://github.com/drfb/pinoycubers#developers">Developers</a></p>
             </div>
         </div>
 
         <!-- Scripts are placed here -->
         {!! HTML::script('packages/js/jquery-2.1.0.js') !!}
         {!! HTML::script('packages/js/bootstrap.js') !!}
+        {!! HTML::script('packages/js/site.js') !!}
 
         <script type="text/javascript">
             if (window.location.hash == '#_=_'){
