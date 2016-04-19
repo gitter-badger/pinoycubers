@@ -113,7 +113,7 @@
         <div id="footer">
             <div class="container">
             <p class="text-muted text-left col-md-6 no-padding">This site is maintained by <a href="https://www.facebook.com/PhilippineCubersAssociation/">PCA DevTeam</a></p>
-            <p class="text-muted text-right col-md-6 no-padding hidden-sm hidden-xs"><a href="https://github.com/drfb/pinoycubers#developers">Developers</a></p>
+            <p class="text-muted text-right col-md-6 no-padding hidden-sm hidden-xs"><a href="https://github.com/geocine/pinoycubers#developers">Developers</a></p>
             </div>
         </div>
 

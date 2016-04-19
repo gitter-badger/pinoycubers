@@ -27,7 +27,7 @@ Instructions for **Windows**. Sorry, I am a .NET dev as well. Can't get away wit
 2. Install [Vagrant](http://www.vagrantup.com/downloads.html) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 3. Clone repository
  
-		git clone git@github.com:drfb/pinoycubers.git
+		git clone git@github.com:geocine/pinoycubers.git
 
 4. Right click the `pinoycubers` folder and click `Bash Prompt Here`
 5. Run `composer install` to install all project dependencies. Make sure you have [composer](https://getcomposer.org/download/) installed.
@@ -63,7 +63,7 @@ Instructions for **Windows**. Sorry, I am a .NET dev as well. Can't get away wit
 
 ## Contribution Guidelines
 
- - When planning a pull-request to add new functionality, it may be wise to [submit a proposal](https://github.com/drfb/pinoycubers/issues/new) to ensure compatibility with the project's goals.
+ - When planning a pull-request to add new functionality, it may be wise to [submit a proposal](https://github.com/geocine/pinoycubers/issues/new) to ensure compatibility with the project's goals.
  - I suggest using *Vagrant* for development environment configuration
 
 ### Tool Suggestion
@@ -102,7 +102,7 @@ This code is maintained by [Philippine Cubers Association](https://facebook.com/
 
 New BSD License
 
-Copyright (c) 201, Pinoy Cubers Association
+Copyright (c) 2016, Philippine Cubers Association
 
 All rights reserved. 
 
