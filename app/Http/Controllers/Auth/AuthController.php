@@ -17,12 +17,20 @@ use App\Http\Requests\RegistrationRequest;
 class AuthController extends Controller
 {
     /**
+     * @var \App\Accounts\UserCreator
+     */
+    protected $userCreator;
+
+    /**
      * Create a new authentication controller instance.
      *
+     * @param \App\Accounts\UserCreator $userCreator
      * @return void
      */
-    public function __construct()
+    public function __construct(UserCreator $userCreator)
     {
+        $this->userCreator = $userCreator;
+
         $this->middleware('guest', ['except' => 'logout']);
     }
 
