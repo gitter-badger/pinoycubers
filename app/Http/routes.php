@@ -13,13 +13,17 @@
 
 Route::get('/', 'HomeController@showIndex');
 
+// Auth
+Route::get('/login', 'Auth\AuthController@login');
+Route::post('/user/authenticate','Auth\AuthController@authenticate');
+
+Route::get('/register', 'Auth\AuthController@register');
+Route::post('/user/create','Auth\AuthController@create');
+
+Route::get('/logout','Auth\AuthController@logout');
+
 // TODO:: Implement all these routes
-Route::get('/login', 'UserController@login');
-Route::get('/logout','UserController@logout');
-Route::get('/register', 'UserController@register');
 Route::get('/register/verify/{code}', 'UserController@verifyUser');
-Route::post('/user/authenticate','UserController@authenticateUser');
-Route::post('/user/create','UserController@registerUser');
 
 Route::get('/password/forgot','UserController@forgotPassword');
 Route::post('/password/forgot','UserController@requestPassword');
