@@ -73,7 +73,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function profile()
     {
-        return $this->hasOne('App\Profile');
+        return $this->hasOne('App\Accounts\Profile');
     }
 
     /**
