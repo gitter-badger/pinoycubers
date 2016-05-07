@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Auth, View, Input, Redirect, Validator, Hash;
-use App\User;
-use App\Profile;
-use App\UserRole;
+use App\Accounts\User;
+use App\Accounts\Profile;
+use App\Accounts\UserRole;
 
 class UserController extends Controller
 {
