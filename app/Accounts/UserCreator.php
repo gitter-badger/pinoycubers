@@ -34,13 +34,13 @@ class UserCreator
 
         $this->users->save($user);
 
-        return $this->createProfile($listener, $user, $username);
+        return $this->createProfile($listener, $user, $profile_data);
     }
 
-    public function createProfile($listener, $user, $username)
+    public function createProfile($listener, $user, $profile_data)
     {
         // Create a new user profile
-        $profile = new Profile(['username' => $username]);
+        $profile = new Profile($profile_data);
 
         $user->profile()->save($profile);
 
