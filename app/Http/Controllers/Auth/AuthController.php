@@ -24,7 +24,7 @@ class AuthController extends Controller
 
     public function login()
     {
-        return View::make('user.login');
+        return View::make('auth.login');
     }
 
     public function authenticate()
@@ -42,7 +42,7 @@ class AuthController extends Controller
 
     public function register()
     {
-        return View::make('user.register');
+        return View::make('auth.register');
     }
 
     public function create()
