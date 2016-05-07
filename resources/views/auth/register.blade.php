@@ -38,10 +38,10 @@
                         {!! Form::text('username', null, ['class' => 'form-control', 'placeholder' => 'Username']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::text('firstname', null, ['class' => 'form-control', 'placeholder' => 'First Name']) !!}
+                        {!! Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => 'First Name']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::text('lastname', null, ['class' => 'form-control', 'placeholder' => 'Lastname']) !!}
+                        {!! Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => 'Lastname']) !!}
                     </div>
                     <div class="form-group">
                         {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password', 'required']) !!}
