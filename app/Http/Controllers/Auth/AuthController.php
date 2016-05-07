@@ -8,7 +8,11 @@ use Input;
 use Redirect;
 use Validator;
 use App\Accounts\User;
+use App\Accounts\UserRole;
+use App\Accounts\UserCreator;
+use App\Accounts\UserCreatorListener;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegistrationRequest;
 
 class AuthController extends Controller
 {
@@ -45,59 +49,17 @@ class AuthController extends Controller
         return View::make('auth.register');
     }
 
-    public function create()
+    public function create(RegistrationRequest $request)
     {
-        // Implement Ardent for validation ??
-        // https://github.com/laravelbook/ardent
-        // Implement Entrust for user role management ??
-        // https://github.com/Zizaco/entrust
+        $user_data = $request->except('username');
+        $profile_data = $request->only('username');
+        
+        return $this->userCreator->create($this, $user_data, $profile_data);
+    }
 
-        $this->user->email = Input::get('email');
-        $username = Input::get('username');
-        $this->user->first_name = Input::get('firstname');
-        $this->user->last_name = Input::get('lastname');
-        $this->user->role_id = UserRole::$USER;
-
-        $password = Input::get('password');
-
-        $input = Input::all();
-
-        $rules = array(
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'username' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed|min:8'
-        );
-
-        $messages = array(
-            'email.unique' => 'This email is already used',
-            'firstname.required' => 'The first name field is required.',
-            'lastname.required' => 'The last name field is required.',
-            'username.required' => 'The username field is required.'
-        );
-
-        $validation = Validator::make($input, $rules,$messages);
-
-        if($validation->passes())
-        {
-            // TODO: send email for verification code
-            $this->user->verify = str_random(10);
-            // for now default is verified
-            $this->user->verified = true;
-            $this->user->password = Hash::make($password);
-            $this->user->save();
-
-            if($this->user->id)
-            {
-                $profile = new Profile;
-                $profile->username = $username;
-                $this->user->profile()->save($profile);
-                return Redirect::to('/login')->with('success','Account succesfully created');
-            }
-        }
-
-        return Redirect::to('/register')->withInput()->withErrors($validation);
+    public function userCreated()
+    {
+        return Redirect::to('/login')->with('success','Account succesfully created');
     }
 
     public function logout()
