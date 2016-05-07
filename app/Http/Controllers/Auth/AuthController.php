@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
 use View;
-use App\User;
+use Input;
+use Redirect;
 use Validator;
+use App\Accounts\User;
 use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
@@ -26,48 +29,15 @@ class AuthController extends Controller
 
     public function authenticate()
     {
-        // authenticate user
         $email = Input::get('email');
         $password = Input::get('password');
 
-
-        if ( isset($email) && isset($password) )
+        if(Auth::attempt(['email' => $email, 'password' => $password]))
         {
-
-            $credentials = array('email' => $email, 'password' => $password);
-
-            $user = User::where('email',$email)->first();
-
-            if(empty($user))
-            {
-                return Redirect::to('login')->with('error', 'Invalid email or password');
-            }
-
-            if($user->role_id != UserRole::$ADMIN)
-            {
-                if($user->disabled)
-                {
-                    return Redirect::to('login')->with('error', 'Your account has been disabled');
-                }
-                if(!$user->verified)
-                {
-                    return Redirect::to('login')->with('error', 'Your account has not been verified yet');
-                }
-            }
-
-
-            if (Auth::attempt($credentials))
-            {
-
-                return Redirect::intended('/');
-            }
-            else
-            {
-                return Redirect::to('login')->with('error', 'Invalid email or password');
-                // pass any error notification you want
-            }
+            return Redirect::intended('/');
         }
-        return Redirect::to('login');
+
+        return Redirect::to('login')->with('error', 'Invalid email or password');
     }
 
     public function register()
