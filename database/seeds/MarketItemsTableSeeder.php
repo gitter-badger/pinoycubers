@@ -1,6 +1,6 @@
 <?php
 
-use App\Profile;
+use App\Accounts\Profile;
 use Illuminate\Database\Seeder;
 
 class MarketItemsTableSeeder extends Seeder
@@ -12,7 +12,7 @@ class MarketItemsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\User', 10)->create()->each(function($u) {
+        factory('App\Accounts\User', 10)->create()->each(function($u) {
             Profile::create([
                 'user_id' => $u->id,
                 'username' => str_random(7)

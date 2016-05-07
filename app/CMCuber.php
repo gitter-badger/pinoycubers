@@ -30,6 +30,6 @@ class CMCuber extends Model
     }
 
     public function cuberprofile() {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo('App\Accounts\User', 'user_id');
     }
 }

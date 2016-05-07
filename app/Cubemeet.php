@@ -30,7 +30,7 @@ class Cubemeet extends Model
 
     public function host()
     {
-        return $this->belongsTo('App\User', 'host');
+        return $this->belongsTo('App\Accounts\User', 'host');
     }
 
     public function cubers()

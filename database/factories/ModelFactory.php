@@ -11,13 +11,13 @@
 |
 */
 
-$factory->define(App\User::class, function ($faker) {
+$factory->define(App\Accounts\User::class, function ($faker) {
     return [
         'email' => $faker->email,
         'password' => Hash::make(str_random(10)),
         'first_name'  => $faker->firstName,
         'last_name' => $faker->lastName,
-        'role_id' => App\UserRole::$ADMIN
+        'role_id' => App\Accounts\UserRole::$ADMIN
     ];
 });
 

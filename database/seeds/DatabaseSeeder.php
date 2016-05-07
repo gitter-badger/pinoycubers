@@ -1,8 +1,8 @@
 <?php
 
-use App\Profile;
-use App\User;
-use App\UserRole;
+use App\Accounts\Profile;
+use App\Accounts\User;
+use App\Accounts\UserRole;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
