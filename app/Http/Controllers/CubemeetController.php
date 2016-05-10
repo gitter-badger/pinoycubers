@@ -3,15 +3,32 @@
 namespace App\Http\Controllers;
 
 use Auth, Redirect, Request, View, Validator;
-use App\Cubemeet;
-use App\CMCuber;
+use App\Cubemeets\Cubemeet;
+use App\Cubemeets\CMCuber;
 use Carbon\Carbon;
 use App\Http\Requests;
 use App\Http\Requests\CubemeetRequest;
 use App\Http\Controllers\Controller;
+use App\Cubemeets\CubemeetRepository;
 
 class CubemeetController extends Controller
 {
+    /**
+     * @var \App\Cubemeets\CubemeetRepository
+     */
+    protected $cubemeets;
+
+    protected $cubemeetsPerPage = 15;
+
+    /**
+     * @param \App\Cubemeet\CubemeetRepository $cubemeets
+     * @return void
+     */
+    public function __construct(CubemeetRepository $cubemeets)
+    {
+        $this->cubemeets = $cubemeets;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,12 +36,9 @@ class CubemeetController extends Controller
      */
     public function index()
     {
-        $today = Cubemeet::with('host', 'cubers')->where('status', 'Scheduled')->where('date', Carbon::now()->format('Y-m-d'))->orderBy('date')->get();
-        $upcoming = Cubemeet::with('host', 'cubers')->where('status', 'Scheduled')->where('date', '>', Carbon::now())->orderBy('date')->get();
-        $past = Cubemeet::with('host', 'cubers')->where('status', 'Scheduled')->where('date', '<', Carbon::now()->format('Y-m-d'))->orderBy('date')->get();
-        $canceled = Cubemeet::with('host')->where('status', 'Canceled')->orderBy('date')->get();
+        $cubemeets = $this->cubemeets->getAllPaginated($this->cubemeetsPerPage);
 
-        return View::make('cubemeet.index', compact('today', 'upcoming', 'past', 'canceled'));
+        return View::make('cubemeets.index', compact('cubemeets'));
     }
 
     /**
@@ -34,7 +48,7 @@ class CubemeetController extends Controller
      */
     public function create()
     {
-        return View::make('cubemeet.create');
+        return View::make('cubemeets.create');
     }
 
     /**
@@ -68,7 +82,7 @@ class CubemeetController extends Controller
     {
         $cm = Cubemeet::with('host', 'cubers.cuberprofile')->findOrFail($id);
 
-        return View::make('cubemeet.show', compact('cm'));
+        return View::make('cubemeets.show', compact('cm'));
     }
 
     /**
@@ -80,7 +94,7 @@ class CubemeetController extends Controller
     public function edit($id)
     {
         $cubemeet = Cubemeet::findOrFail($id);
-        return View::make('cubemeet.edit', compact('cubemeet'));
+        return View::make('cubemeets.edit', compact('cubemeet'));
     }
 
     /**

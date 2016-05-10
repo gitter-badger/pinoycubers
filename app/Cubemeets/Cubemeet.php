@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Cubemeets;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -35,6 +35,6 @@ class Cubemeet extends Model
 
     public function cubers()
     {
-        return $this->hasMany('App\CMCuber', 'cm_id');
+        return $this->hasMany('App\Cubemeets\CMCuber', 'cm_id');
     }
 }
