@@ -38,7 +38,7 @@ class CubemeetController extends Controller
     {
         $cubemeets = $this->cubemeetRepository->getAllPaginated($this->cubemeetsPerPage);
 
-        return View::make('cubemeet.index', compact('cubemeets'));
+        return View::make('cubemeets.index', compact('cubemeets'));
     }
 
     /**
@@ -48,7 +48,7 @@ class CubemeetController extends Controller
      */
     public function create()
     {
-        return View::make('cubemeet.create');
+        return View::make('cubemeets.create');
     }
 
     /**
@@ -82,7 +82,7 @@ class CubemeetController extends Controller
     {
         $cm = Cubemeet::with('host', 'cubers.cuberprofile')->findOrFail($id);
 
-        return View::make('cubemeet.show', compact('cm'));
+        return View::make('cubemeets.show', compact('cm'));
     }
 
     /**
@@ -94,7 +94,7 @@ class CubemeetController extends Controller
     public function edit($id)
     {
         $cubemeet = Cubemeet::findOrFail($id);
-        return View::make('cubemeet.edit', compact('cubemeet'));
+        return View::make('cubemeets.edit', compact('cubemeet'));
     }
 
     /**
