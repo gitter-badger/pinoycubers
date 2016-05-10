@@ -20,6 +20,8 @@ class AttendeeCreator
     public function create($listener, $data)
     {
         $attendee = $this->attendees->getNew($data);
+
+        $attendee->status = 'Going';
         
         $this->attendees->save($attendee);
 
