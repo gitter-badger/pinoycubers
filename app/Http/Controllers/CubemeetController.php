@@ -101,12 +101,7 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
     {
         $cubemeet = $this->cubemeets->getById($id);
 
-        $input = Request::all();
-        $cubemeet['status'] = 'Canceled';
-
-        $cubemeet->fill($input)->save();
-
-        return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly canceled');
+        return $this->cubemeetUpdater->cancel($this, $cubemeet);
     }
 
     public function join($id)
@@ -140,5 +135,10 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
     public function cubemeetUpdated()
     {
         return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly updated');
+    }
+
+    public function cubemeetCanceled()
+    {
+        return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly canceled');
     }
 }
