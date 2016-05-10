@@ -18,4 +18,9 @@ class AttendeeRepository extends Repository
     {
         $this->model = $model;
     }
+
+    public function getFromCubemeetById($id, $cubemeet)
+    {
+        return $cubemeet->cubers()->where('user_id', $id)->first();
+    }
 }
