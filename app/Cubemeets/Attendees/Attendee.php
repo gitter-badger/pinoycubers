@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Cubemeets;
+namespace App\Cubemeets\Attendees;
 
 use Illuminate\Database\Eloquent\Model;
 
