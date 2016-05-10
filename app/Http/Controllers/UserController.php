@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Auth, View, Input, Redirect, Validator, Hash;
+use Auth;
 use App\Accounts\User;
-use App\Accounts\Profile;
 use App\Accounts\UserRole;
+use App\Accounts\Profile;
+use Hash;
+use Input;
+use Redirect;
+use Validator;
+use View;
 
 class UserController extends Controller
 {

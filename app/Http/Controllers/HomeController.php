@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Auth, View, Redirect;
+use Auth;
 use App\User;
 use App\Profile;
+use View;
 
 class HomeController extends Controller
 {

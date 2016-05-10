@@ -2,22 +2,16 @@
 
 namespace App\Http\Controllers\Cubemeets;
 
-use Auth;
-use View;
-use Request;
-use Redirect;
-use Validator;
-use Carbon\Carbon;
-use App\Http\Requests;
-use App\Cubemeets\CMCuber;
-use App\Cubemeets\Cubemeet;
 use App\Cubemeets\CubemeetCreator;
-use App\Cubemeets\CubemeetUpdater;
-use App\Http\Controllers\Controller;
-use App\Cubemeets\CubemeetRepository;
-use App\Http\Requests\PostCubemeetRequest;
 use App\Cubemeets\CubemeetCreatorListener;
+use App\Cubemeets\CubemeetRepository;
+use App\Cubemeets\CubemeetUpdater;
 use App\Cubemeets\CubemeetUpdaterListener;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\PostCubemeetRequest;
+use Carbon\Carbon;
+use Redirect;
+use View;
 
 class CubemeetController extends Controller implements CubemeetCreatorListener, CubemeetUpdaterListener
 {

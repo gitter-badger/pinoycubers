@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use View, Auth, Redirect;
-use App\MarketItem;
-use App\MarketItemComments;
+use Auth;
+use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\MarketRequest;
-use App\Http\Controllers\Controller;
+use App\MarketItem;
+use App\MarketItemComments;
+use Illuminate\Http\Request;
+use Redirect;
+use View;
 
 class MarketController extends Controller
 {

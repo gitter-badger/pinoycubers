@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers\Cubemeets;
 
-use Auth;
-use Redirect;
-use App\Http\Requests;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Cubemeets\CubemeetRepository;
-use App\Cubemeets\Attendees\Attendee;
 use App\Cubemeets\Attendees\AttendeeCreator;
-use App\Cubemeets\Attendees\AttendeeUpdater;
-use App\Cubemeets\Attendees\AttendeeRepository;
 use App\Cubemeets\Attendees\AttendeeCreatorListener;
+use App\Cubemeets\Attendees\AttendeeRepository;
+use App\Cubemeets\Attendees\AttendeeUpdater;
 use App\Cubemeets\Attendees\AttendeeUpdaterListener;
+use App\Cubemeets\CubemeetRepository;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Redirect;
 
 class CubemeetAttendeesController extends Controller implements AttendeeCreatorListener, AttendeeUpdaterListener
 {
@@ -64,7 +61,7 @@ class CubemeetAttendeesController extends Controller implements AttendeeCreatorL
         return $this->attendeeCreator->create($this, $data);
     }
 
-    public function canceljoin($id, Request $request)
+    public function cancelJoin($id, Request $request)
     {
         $cubemeet = $this->cubemeets->getById($id);
 
