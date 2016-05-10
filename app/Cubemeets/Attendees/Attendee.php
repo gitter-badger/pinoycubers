@@ -4,7 +4,7 @@ namespace App\Cubemeets;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CMCuber extends Model
+class Attendee extends Model
 {
     /**
      * Fillable fields
@@ -23,7 +23,7 @@ class CMCuber extends Model
      * @var string
      */
     
-    protected $table = 'cubemeet_cubers';
+    protected $table = 'cubemeet_attendees';
 
     public function cubemeet() {
         return $this->belongsTo('App\Cubemeets\Cubemeet', 'cm_id');
