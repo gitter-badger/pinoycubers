@@ -29,11 +29,6 @@ class CubemeetController extends Controller
         $this->cubemeets = $cubemeets;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
     public function index()
     {
         $cubemeets = $this->cubemeets->getAllPaginated($this->cubemeetsPerPage);
@@ -41,19 +36,12 @@ class CubemeetController extends Controller
         return View::make('cubemeets.index', compact('cubemeets'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
     public function create()
     {
         return View::make('cubemeets.create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
      * @param CubemeetRequest $request
      * @return Response
      */
@@ -72,12 +60,6 @@ class CubemeetController extends Controller
         return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly scheduled');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
     public function show($id)
     {
         $cm = Cubemeet::with('host', 'cubers.cuberprofile')->findOrFail($id);
@@ -85,25 +67,12 @@ class CubemeetController extends Controller
         return View::make('cubemeets.show', compact('cm'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
     public function edit($id)
     {
         $cubemeet = Cubemeet::findOrFail($id);
         return View::make('cubemeets.edit', compact('cubemeet'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @param CubemeetRequest $request
-     * @return Response
-     */
     public function update($id, CubemeetRequest $request)
     {
         $cubemeet = Cubemeet::findOrFail($id);
@@ -122,16 +91,10 @@ class CubemeetController extends Controller
         return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly updated');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
+    public function cancel($id)
     {
         $cubemeet = Cubemeet::findOrFail($id);
-        
+
         $input = Request::all();
         $cubemeet['status'] = 'Canceled';
 

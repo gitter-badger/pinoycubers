@@ -15,7 +15,7 @@
 
         <hr>
 
-        {!! Form::open(['url' => 'cubemeets', 'role' => 'form']) !!}
+        {!! Form::open(['url' => 'cubemeets/set', 'role' => 'form']) !!}
 
             @include('partials.fields')
 

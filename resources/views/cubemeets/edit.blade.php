@@ -15,7 +15,7 @@
 
         <hr>
 
-        {!! Form::model($cubemeet, ['route' => ['cubemeets.update', $cubemeet->id], 'method' => 'patch', 'role' => 'form']) !!}
+        {!! Form::model($cubemeet, ['url' => '/cubemeets/'.$cubemeet->id.'/edit', 'method' => 'POST', 'role' => 'form']) !!}
 
             @include('partials.fields')
 
