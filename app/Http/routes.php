@@ -40,21 +40,21 @@ Route::get('login/fb/callback', 'HomeController@fbLoginCallback');
 Route::group(array('middleware' => 'auth'), function()
 {
     Route::get('/user/{profile}','UserController@getProfile');
-    Route::post('/cubemeets/{cubemeets}/join', 'CubemeetAttendeesController@join');
-    Route::post('/cubemeets/{cubemeets}/canceljoin', 'CubemeetAttendeesController@canceljoin');
+    Route::post('/cubemeets/{cubemeets}/join', 'Cubemeets\CubemeetAttendeesController@join');
+    Route::post('/cubemeets/{cubemeets}/canceljoin', 'Cubemeets\CubemeetAttendeesController@canceljoin');
     // Route::resource('cubemeets', 'CubemeetController');
 
-    Route::get('/cubemeets', 'CubemeetController@index');
+    Route::get('/cubemeets', 'Cubemeets\CubemeetController@index');
 
-    Route::get('/cubemeets/set', 'CubemeetController@create');
-    Route::post('/cubemeets/set', 'CubemeetController@store');
+    Route::get('/cubemeets/set', 'Cubemeets\CubemeetController@create');
+    Route::post('/cubemeets/set', 'Cubemeets\CubemeetController@store');
 
-    Route::get('/cubemeets/{id}', 'CubemeetController@show');
+    Route::get('/cubemeets/{id}', 'Cubemeets\CubemeetController@show');
 
-    Route::get('/cubemeets/{id}/edit', 'CubemeetController@edit');
-    Route::post('/cubemeets/{id}/edit', 'CubemeetController@update');
+    Route::get('/cubemeets/{id}/edit', 'Cubemeets\CubemeetController@edit');
+    Route::post('/cubemeets/{id}/edit', 'Cubemeets\CubemeetController@update');
 
-    Route::post('/cubemeets/{id}/cancel', 'CubemeetController@cancel');
+    Route::post('/cubemeets/{id}/cancel', 'Cubemeets\CubemeetController@cancel');
 
     /* Market */
     Route::get('/market', 'MarketController@showIndex');
