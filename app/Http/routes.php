@@ -45,10 +45,11 @@ Route::group(array('middleware' => 'auth'), function()
     // Route::resource('cubemeets', 'CubemeetController');
 
     Route::get('/cubemeets', 'CubemeetController@index');
-    Route::get('/cubemeets/{id}', 'CubemeetController@show');
 
     Route::get('/cubemeets/set', 'CubemeetController@create');
     Route::post('/cubemeets/set', 'CubemeetController@store');
+
+    Route::get('/cubemeets/{id}', 'CubemeetController@show');
 
     Route::get('/cubemeets/{id}/edit', 'CubemeetController@edit');
     Route::post('/cubemeets/{id}/edit', 'CubemeetController@update');
