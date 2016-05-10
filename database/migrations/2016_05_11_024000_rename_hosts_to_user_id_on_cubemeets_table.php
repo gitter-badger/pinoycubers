@@ -12,7 +12,7 @@ class RenameHostsToUserIdOnCubemeetsTable extends Migration
      */
     public function up()
     {
-        Schema::table('cubemeets_cubers', function (Blueprint $table) {
+        Schema::table('cubemeets', function (Blueprint $table) {
             $table->renameColumn('host', 'user_id');
         });
     }
@@ -24,7 +24,7 @@ class RenameHostsToUserIdOnCubemeetsTable extends Migration
      */
     public function down()
     {
-        Schema::table('cubemeet_cubers', function (Blueprint $table) {
+        Schema::table('cubemeet', function (Blueprint $table) {
             $table->renameColumn('user_id', 'host');
         });
     }
