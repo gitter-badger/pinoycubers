@@ -61,8 +61,7 @@ Route::group(['middleware' => 'auth'], function() {
     /* Users */
     Route::get('/users', 'UserController@showUsers');
 
-    /* Profile */
-    Route::get('/{profile}','UserController@getProfile');
+    Route::get('/{username}','UserController@showUser');
 
     Route::get('/edit/profile','UserController@getEditProfile');
     Route::post('/edit/profile','UserController@postEditProfile');

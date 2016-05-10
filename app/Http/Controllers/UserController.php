@@ -21,7 +21,7 @@ class UserController extends Controller
         $this->user = $user;
     }
 
-    public function getProfile($profile)
+    public function showUser($username)
     {
         $uname = Profile::where('username',$profile)->count();
         $u_name = Auth::user()->profile->username;
