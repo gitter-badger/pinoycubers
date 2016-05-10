@@ -10,23 +10,32 @@ use App\Http\Requests;
 use App\Http\Requests\CubemeetRequest;
 use App\Http\Controllers\Controller;
 use App\Cubemeets\CubemeetRepository;
+use App\Cubemeets\CubemeetCreator;
+use App\Cubemeets\CubemeetCreatorListener;
 
-class CubemeetController extends Controller
+class CubemeetController extends Controller implements CubemeetCreatorListener
 {
     /**
      * @var \App\Cubemeets\CubemeetRepository
      */
     protected $cubemeets;
 
+    /**
+     * @var \App\Cubemeets\CubemeetCreator
+     */
+    protected $cubemeetCreator;
+
     protected $cubemeetsPerPage = 15;
 
     /**
      * @param \App\Cubemeet\CubemeetRepository $cubemeets
+     * @param \App\Cubemeet\CubemeetCreator $cubemeetCreator
      * @return void
      */
-    public function __construct(CubemeetRepository $cubemeets)
+    public function __construct(CubemeetRepository $cubemeets, CubemeetCreator $cubemeetCreator)
     {
         $this->cubemeets = $cubemeets;
+        $this->cubemeetCreator = $cubemeetCreator;
     }
 
     public function index()
@@ -47,17 +56,11 @@ class CubemeetController extends Controller
      */
     public function store(CubemeetRequest $request)
     {
-        $cubemeet = new Cubemeet;
-        $cubemeet['name'] = $request['name'];
-        $cubemeet['location'] = $request['location'];
-        $cubemeet['description'] = $request['description'];
-        $cubemeet['date'] = Carbon::create($request['year'], $request['month'], $request['day']);
-        $cubemeet['start_time'] = $request['time'];
-        $cubemeet['status'] = 'Scheduled';
+        $data = $request->except(['year', 'month', 'day']);
+        $data['date'] = Carbon::create($request->year, $request->month, $request->day);
+        $data['host'] = $request->user()->id;
 
-        Auth::user()->cubemeets()->save($cubemeet);
-
-        return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly scheduled');
+        return $this->cubemeetCreator->create($this, $data);
     }
 
     public function show($id)
@@ -124,5 +127,10 @@ class CubemeetController extends Controller
         $cubemeet->cubers()->where('user_id', Auth::user()->id)->update(['status' => 'Not Going']);
 
         return Redirect::back()->with('success', 'Success');
+    }
+
+    public function cubemeetCreated()
+    {
+        return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly scheduled');
     }
 }
