@@ -18,4 +18,9 @@ class UserRepository extends Repository
     {
         $this->model = $model;
     }
+
+    public function getUserByUsername($username)
+    {
+        return $this->model->with('profile')->where('username', '=', $username)->first();
+    }
 }
