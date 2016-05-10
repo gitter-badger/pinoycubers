@@ -65,20 +65,21 @@ class CubemeetController extends Controller implements CubemeetCreatorListener
 
     public function show($id)
     {
-        $cm = Cubemeet::with('host', 'cubers.cuberprofile')->findOrFail($id);
+        $cm = $this->cubemeets->getById($id);
 
         return View::make('cubemeets.show', compact('cm'));
     }
 
     public function edit($id)
     {
-        $cubemeet = Cubemeet::findOrFail($id);
+        $cubemeet = $this->cubemeets->getById($id);
+
         return View::make('cubemeets.edit', compact('cubemeet'));
     }
 
     public function update($id, PostCubemeetRequest $request)
     {
-        $cubemeet = Cubemeet::findOrFail($id);
+        $cubemeet = $this->cubemeets->getById($id);
 
         $input = [
             'name' => $request['name'],
@@ -96,7 +97,7 @@ class CubemeetController extends Controller implements CubemeetCreatorListener
 
     public function cancel($id)
     {
-        $cubemeet = Cubemeet::findOrFail($id);
+        $cubemeet = $this->cubemeets->getById($id);
 
         $input = Request::all();
         $cubemeet['status'] = 'Canceled';
@@ -108,7 +109,7 @@ class CubemeetController extends Controller implements CubemeetCreatorListener
 
     public function join($id)
     {
-        $cubemeet = Cubemeet::findOrFail($id);
+        $cubemeet = $this->cubemeets->getById($id);
 
         $cuber = (new CMCuber([
             'user_id' => Auth::user()->id,
@@ -122,7 +123,7 @@ class CubemeetController extends Controller implements CubemeetCreatorListener
 
     public function canceljoin($id)
     {
-        $cubemeet = Cubemeet::findOrFail($id);
+        $cubemeet = $this->cubemeets->getById($id);
 
         $cubemeet->cubers()->where('user_id', Auth::user()->id)->update(['status' => 'Not Going']);
 

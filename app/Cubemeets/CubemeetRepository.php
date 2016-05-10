@@ -18,4 +18,9 @@ class CubemeetRepository extends Repository
     {
         $this->model = $model;
     }
+
+    public function getById($id)
+    {
+        return $this->model->with('host', 'cubers.cuberprofile')->where('id', '=', $id)->first();
+    }
 }
