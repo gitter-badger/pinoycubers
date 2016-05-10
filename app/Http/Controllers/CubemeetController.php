@@ -9,9 +9,26 @@ use Carbon\Carbon;
 use App\Http\Requests;
 use App\Http\Requests\CubemeetRequest;
 use App\Http\Controllers\Controller;
+use App\Cubemeets\CubemeetRepository;
 
 class CubemeetController extends Controller
 {
+    /**
+     * @var \App\Cubemeets\CubemeetRepository
+     */
+    protected $cubemeets;
+
+    protected $cubemeetsPerPage = 15;
+
+    /**
+     * @param \App\Cubemeet\CubemeetRepository $cubemeets
+     * @return void
+     */
+    public function __construct(CubemeetRepository $cubemeets)
+    {
+        $this->cubemeets = $cubemeets;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,12 +36,9 @@ class CubemeetController extends Controller
      */
     public function index()
     {
-        $today = Cubemeet::with('host', 'cubers')->where('status', 'Scheduled')->where('date', Carbon::now()->format('Y-m-d'))->orderBy('date')->get();
-        $upcoming = Cubemeet::with('host', 'cubers')->where('status', 'Scheduled')->where('date', '>', Carbon::now())->orderBy('date')->get();
-        $past = Cubemeet::with('host', 'cubers')->where('status', 'Scheduled')->where('date', '<', Carbon::now()->format('Y-m-d'))->orderBy('date')->get();
-        $canceled = Cubemeet::with('host')->where('status', 'Canceled')->orderBy('date')->get();
+        $cubemeets = $this->cubemeetRepository->getAllPaginated($this->cubemeetsPerPage);
 
-        return View::make('cubemeet.index', compact('today', 'upcoming', 'past', 'canceled'));
+        return View::make('cubemeet.index', compact('cubemeets'));
     }
 
     /**
