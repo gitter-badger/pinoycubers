@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Cubemeets\Attendee;
+namespace App\Cubemeets\Attendees;
 
 class AttendeeUpdater
 {
@@ -12,7 +12,7 @@ class AttendeeUpdater
     /**
      * @param \App\Cubemeets\Attendees\AttendeeRepository $attendees
      */
-    public function __construct(CubemeetRepository $attendees)
+    public function __construct(AttendeeRepository $attendees)
     {
         $this->attendees = $attendees;
     }
