@@ -19,8 +19,8 @@ class UserRepository extends Repository
         $this->model = $model;
     }
 
-    public function getUserByUsername($username)
+    public function getById($id)
     {
-        return $this->model->with('profile')->where('username', '=', $username)->first();
+        return $this->model->with('profile')->where('id', '=', $id)->first();
     }
 }
