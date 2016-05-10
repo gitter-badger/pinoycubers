@@ -7,7 +7,7 @@ use App\Cubemeets\Cubemeet;
 use App\Cubemeets\CMCuber;
 use Carbon\Carbon;
 use App\Http\Requests;
-use App\Http\Requests\CubemeetRequest;
+use App\Http\Requests\PostCubemeetRequest;
 use App\Http\Controllers\Controller;
 use App\Cubemeets\CubemeetRepository;
 use App\Cubemeets\CubemeetCreator;
@@ -51,10 +51,10 @@ class CubemeetController extends Controller implements CubemeetCreatorListener
     }
 
     /**
-     * @param CubemeetRequest $request
+     * @param PostCubemeetRequest $request
      * @return Response
      */
-    public function store(CubemeetRequest $request)
+    public function store(PostCubemeetRequest $request)
     {
         $data = $request->except(['year', 'month', 'day']);
         $data['date'] = Carbon::create($request->year, $request->month, $request->day);
@@ -76,7 +76,7 @@ class CubemeetController extends Controller implements CubemeetCreatorListener
         return View::make('cubemeets.edit', compact('cubemeet'));
     }
 
-    public function update($id, CubemeetRequest $request)
+    public function update($id, PostCubemeetRequest $request)
     {
         $cubemeet = Cubemeet::findOrFail($id);
 
