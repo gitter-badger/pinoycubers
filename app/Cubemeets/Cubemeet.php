@@ -14,6 +14,7 @@ class Cubemeet extends Model
 
     protected $fillable = [
         'name',
+        'host',
         'location',
         'description',
         'date',
