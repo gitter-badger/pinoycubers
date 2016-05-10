@@ -36,7 +36,7 @@ class CubemeetController extends Controller
      */
     public function index()
     {
-        $cubemeets = $this->cubemeetRepository->getAllPaginated($this->cubemeetsPerPage);
+        $cubemeets = $this->cubemeets->getAllPaginated($this->cubemeetsPerPage);
 
         return View::make('cubemeets.index', compact('cubemeets'));
     }
