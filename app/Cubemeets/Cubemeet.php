@@ -14,7 +14,7 @@ class Cubemeet extends Model
 
     protected $fillable = [
         'name',
-        'host',
+        'user_id',
         'location',
         'description',
         'date',
@@ -31,7 +31,7 @@ class Cubemeet extends Model
 
     public function host()
     {
-        return $this->belongsTo('App\Accounts\User', 'host');
+        return $this->belongsTo('App\Accounts\User', 'user_id');
     }
 
     public function cubers()

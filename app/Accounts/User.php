@@ -113,7 +113,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     }
 
     public function cubemeets() {
-        return $this->hasMany('App\Cubemeets\Cubemeet', 'host');
+        return $this->hasMany('App\Cubemeets\Cubemeet', 'user_id');
     }
 
     public function marketitem() {

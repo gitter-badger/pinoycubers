@@ -67,7 +67,7 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
     {
         $data = $request->except(['year', 'month', 'day']);
         $data['date'] = Carbon::create($request->year, $request->month, $request->day);
-        $data['host'] = $request->user()->id;
+        $data['user_id'] = $request->user()->id;
 
         return $this->cubemeetCreator->create($this, $data);
     }
@@ -92,7 +92,7 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
 
         $data = $request->except(['year', 'month', 'day']);
         $data['date'] = Carbon::create($request->year, $request->month, $request->day);
-        $data['host'] = $request->user()->id;
+        $data['user_id'] = $request->user()->id;
 
         return $this->cubemeetUpdater->update($this, $cubemeet, $data);
     }
