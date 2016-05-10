@@ -13,7 +13,7 @@
         <h3>Market</h3>
     </div>
     <div class="col-md-2 text-right" style="margin-top: 18px; padding: 0">
-        {!! Html::link('market/add', 'Add an item', ['class' => 'btn btn-sm btn-default']) !!}
+        <a href="/market/add" class="btn btn-sm btn-default">Add an item</a>
     </div>
 </div>
 
@@ -42,7 +42,7 @@
 <div class="row">
     <div class="col-sm-7">
         <ul class="list-unstyled">
-            <li><b>{!! Html::link('market/item/'.$item->slug, $item->title) !!}</b></li>
+            <li><b><a href="{{ '/market/item/'.$item->slug }}">{{ $item->title }}</a></b></li>
             <li><b>PHP {!! $item->price !!}</b></li>
 
             @if ($item->shipping && $item->meetups)

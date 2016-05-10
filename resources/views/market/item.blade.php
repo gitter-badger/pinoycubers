@@ -13,7 +13,7 @@
         <h3>Market</h3>
     </div>
     <div class="col-md-2 text-right" style="margin-top: 18px; padding: 0">
-        {!! Html::link('market/add', 'Add an item', ['class' => 'btn btn-sm btn-default']) !!}
+        <a href="/market/add" class="btn btn-sm btn-default">Add an item</a>
     </div>
 </div>
 
@@ -25,7 +25,7 @@
     </div>
     @if ($item->user_id == Auth::user()->id)
     <div class="pull-right">
-        {!! Html::link('market/'.$item->slug.'/edit', 'Edit', ['class' => 'btn btn-sm btn-default']) !!}
+        <a href="{{ 'market/'.$item->slug.'/edit' }}" class="btn btn-sm btn-default">Edit</a>
     </div>
     @endif
 </div>

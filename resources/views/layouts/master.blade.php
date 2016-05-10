@@ -16,9 +16,9 @@
         <meta name="description" content="Pinoy Cubers Association - unofficial records, learning resources, events, group discussions, user profiles, online competitions">
 
         <!-- CSS are placed here -->
-        {!! Html::style('/packages/css/bootstrap.css') !!}
-        {!! Html::style('/packages/css/font-awesome.min.css') !!}
-        {!! Html::style('/packages/css/site.css?v=6') !!}
+        <link rel="stylesheet" href="/packages/css/bootstrap.css">
+        <link rel="stylesheet" href="/packages/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/packages/css/site.css?v=6">
 
         <style>
             #img_banner img{
@@ -118,9 +118,10 @@
         </div>
 
         <!-- Scripts are placed here -->
-        {!! HTML::script('packages/js/jquery-2.1.0.js') !!}
-        {!! HTML::script('packages/js/bootstrap.js') !!}
-        {!! HTML::script('packages/js/site.js') !!}
+        <script src="/packages/js/jquery-2.1.0.js"></script>
+        <script src="/packages/js/bootstrap.js"></script>
+        <script src="/packages/js/site.js"></script>
+
 
         <script type="text/javascript">
             if (window.location.hash == '#_=_'){

@@ -9,7 +9,7 @@
     <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
         <div class="well register-box">
             <div class="login-logo">
-                {!! Html::image('/assets/img/pca_logo.png', 'Pinoyc Cubers Association') !!}
+                <img src="/assets/img/pca_logo.png" alt="Pinoy Cubers Association">
             </div>
             <hr />
             <div class="login-form">

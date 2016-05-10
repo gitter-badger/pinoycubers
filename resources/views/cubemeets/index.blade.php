@@ -13,7 +13,7 @@
         <h3>Cube Meets</h3>
     </div>
     <div class="col-md-2 text-right" style="margin-top: 18px; padding: 0">
-        {!! Html::link('cubemeets/create', 'Set Cube Meet', ['class' => 'btn btn-sm btn-default']) !!}
+        <a href="/cubemeets/create/" class="btn btn-sm btn-default">Set Cube Meet</a>
     </div>
 </div>
 
@@ -30,7 +30,7 @@
     <div class="col-sm-6">
         <ul class="list-unstyled">
             <li>
-                <b>{!! Html::link('cubemeets/'.$cm->id, $cm->name) !!}</b> 
+                <b><a href="{{ '/cubemeets/'.$cm->id }}">{{ $cm->name }}</a></b> 
                 <small>by {{ $cm->host()->getResults()->first_name.' '.$cm->host()->getResults()->last_name }}</small>
             </li>
             <li><span class="fa fa-map-marker"></span> {{ $cm->location }}</li>
@@ -47,7 +47,7 @@
     <div class="col-sm-1">
         @if ($cm->host()->getResults()->id == Auth::user()->id)
             {!! Form::open(['method' => 'DELETE', 'class' => 'text-right', 'route' => ['cubemeets.destroy', $cm['id']]]) !!}
-                {!! Html::link('cubemeets/'.$cm->id.'/edit', 'Edit', ['class' => 'btn btn-sm btn-default']) !!}
+                <a href="{{ '/cubemeets/'.$cm->id.'/edit' }}" class="btn btn-sm btn-default">Edit</a>
                 {!! Form::submit('Cancel', ['class' => 'btn btn-sm btn-danger']) !!}
             {!! Form::close() !!}
         @else
@@ -63,7 +63,6 @@
                 }))
                 {!! Form::open(['url' => 'cubemeets/'.$cm->id.'/canceljoin', 'role' => 'form']) !!}
                     {!! Form::submit('Not Going', ['class' => 'btn btn-sm btn-primary']) !!}
-                    {!! Html::link('cubemeets/'.$cm->id, 'View Details', ['class' => 'btn btn-sm btn-primary']) !!}
                 {!! Form::close() !!}
                 @else
                 {!! Form::open(['url' => 'cubemeets/'.$cm->id.'/join', 'role' => 'form']) !!}

@@ -30,7 +30,7 @@
         @if ($cm->status == 'Scheduled')
             @if ($cm->host()->getResults()->id == Auth::user()->id)
                 {!! Form::open(['method' => 'DELETE', 'route' => ['cubemeets.destroy', $cm->id]]) !!}
-                    {!! Html::link('cubemeets/'.$cm->id.'/edit', 'Edit', ['class' => 'btn btn-sm btn-default']) !!}
+                    <a href="{{ '/cubemeets/'.$cm->id.'/edit' }}" class="btn btn-sm btn-default">Edit</a>
                     {!! Form::submit('Cancel', ['class' => 'btn btn-sm btn-danger']) !!}
                 {!! Form::close() !!}
             @else
