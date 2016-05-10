@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Auth, Redirect, Request, View, Validator;
-use App\Cubemeets\Cubemeet;
-use App\Cubemeets\CMCuber;
+use Auth;
+use View;
+use Request;
+use Redirect;
+use Validator;
 use Carbon\Carbon;
 use App\Http\Requests;
-use App\Http\Requests\PostCubemeetRequest;
-use App\Http\Controllers\Controller;
-use App\Cubemeets\CubemeetRepository;
+use App\Cubemeets\CMCuber;
+use App\Cubemeets\Cubemeet;
 use App\Cubemeets\CubemeetCreator;
 use App\Cubemeets\CubemeetUpdater;
+use App\Http\Controllers\Controller;
+use App\Cubemeets\CubemeetRepository;
+use App\Http\Requests\PostCubemeetRequest;
 use App\Cubemeets\CubemeetCreatorListener;
 use App\Cubemeets\CubemeetUpdaterListener;
 
@@ -65,9 +69,7 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
      */
     public function store(PostCubemeetRequest $request)
     {
-        $data = $request->except(['year', 'month', 'day']);
-        $data['date'] = Carbon::create($request->year, $request->month, $request->day);
-        $data['user_id'] = $request->user()->id;
+        $data = $this->prepareDataFromRequest($request);
 
         return $this->cubemeetCreator->create($this, $data);
     }
@@ -90,11 +92,18 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
     {
         $cubemeet = $this->cubemeets->getById($id);
 
+        $data = $this->prepareDataFromRequest($request);
+
+        return $this->cubemeetUpdater->update($this, $cubemeet, $data);
+    }
+
+    private function prepareDataFromRequest($request)
+    {
         $data = $request->except(['year', 'month', 'day']);
         $data['date'] = Carbon::create($request->year, $request->month, $request->day);
         $data['user_id'] = $request->user()->id;
 
-        return $this->cubemeetUpdater->update($this, $cubemeet, $data);
+        return $data;
     }
 
     public function cancel($id)
