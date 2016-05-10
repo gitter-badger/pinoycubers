@@ -19,7 +19,7 @@ class ProfileRepository extends Repository
         $this->model = $model;
     }
 
-    public function getProfileByUsername($username)
+    public function getByUsername($username)
     {
         return $this->model->where('username', '=', $username)->first();
     }
