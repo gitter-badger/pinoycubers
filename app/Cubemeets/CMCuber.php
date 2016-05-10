@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Cubemeets;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,7 +26,7 @@ class CMCuber extends Model
     protected $table = 'cubemeet_cubers';
 
     public function cubemeet() {
-        return $this->belongsTo('App\Cubemeet', 'cm_id');
+        return $this->belongsTo('App\Cubemeets\Cubemeet', 'cm_id');
     }
 
     public function cuberprofile() {

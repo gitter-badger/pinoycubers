@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Auth, Redirect, Request, View, Validator;
-use App\Cubemeet;
-use App\CMCuber;
+use App\Cubemeets\Cubemeet;
+use App\Cubemeets\CMCuber;
 use Carbon\Carbon;
 use App\Http\Requests;
 use App\Http\Requests\CubemeetRequest;
