@@ -11,9 +11,11 @@ use App\Http\Requests\PostCubemeetRequest;
 use App\Http\Controllers\Controller;
 use App\Cubemeets\CubemeetRepository;
 use App\Cubemeets\CubemeetCreator;
+use App\Cubemeets\CubemeetUpdater;
 use App\Cubemeets\CubemeetCreatorListener;
+use App\Cubemeets\CubemeetUpdaterListener;
 
-class CubemeetController extends Controller implements CubemeetCreatorListener
+class CubemeetController extends Controller implements CubemeetCreatorListener, CubemeetUpdaterListener
 {
     /**
      * @var \App\Cubemeets\CubemeetRepository
@@ -25,17 +27,24 @@ class CubemeetController extends Controller implements CubemeetCreatorListener
      */
     protected $cubemeetCreator;
 
+    /**
+     * @var \App\Cubemeets\CubemeetUpdater
+     */
+    protected $cubemeetUpdater;
+
     protected $cubemeetsPerPage = 15;
 
     /**
      * @param \App\Cubemeet\CubemeetRepository $cubemeets
      * @param \App\Cubemeet\CubemeetCreator $cubemeetCreator
+     * @param \App\Cubemeet\CubemeetUpdater $cubemeetUpdater
      * @return void
      */
-    public function __construct(CubemeetRepository $cubemeets, CubemeetCreator $cubemeetCreator)
+    public function __construct(CubemeetRepository $cubemeets, CubemeetCreator $cubemeetCreator, CubemeetUpdater $cubemeetUpdater)
     {
         $this->cubemeets = $cubemeets;
         $this->cubemeetCreator = $cubemeetCreator;
+        $this->cubemeetUpdater = $cubemeetUpdater;
     }
 
     public function index()
@@ -81,18 +90,11 @@ class CubemeetController extends Controller implements CubemeetCreatorListener
     {
         $cubemeet = $this->cubemeets->getById($id);
 
-        $input = [
-            'name' => $request['name'],
-            'location' => $request['location'],
-            'description' => $request['description'],
-            'date' => Carbon::create($request['year'], $request['month'], $request['day']),
-            'start_time' => $request['time'],
-            'status' => 'Scheduled',
-        ];
+        $data = $request->except(['year', 'month', 'day']);
+        $data['date'] = Carbon::create($request->year, $request->month, $request->day);
+        $data['host'] = $request->user()->id;
 
-        $cubemeet->fill($input)->save();
-
-        return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly updated');
+        return $this->cubemeetUpdater->update($this, $cubemeet, $data);
     }
 
     public function cancel($id)
@@ -133,5 +135,10 @@ class CubemeetController extends Controller implements CubemeetCreatorListener
     public function cubemeetCreated()
     {
         return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly scheduled');
+    }
+
+    public function cubemeetUpdated()
+    {
+        return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly updated');
     }
 }
