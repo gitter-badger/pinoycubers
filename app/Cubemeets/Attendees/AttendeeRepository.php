@@ -4,7 +4,7 @@ namespace App\Cubemeets\Attendees;
 
 use App\Repository;
 
-class CubemeetRepository extends Repository
+class AttendeeRepository extends Repository
 {
     /**
      * @var \App\Cubemeets\Attendees\Attendee
