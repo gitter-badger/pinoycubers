@@ -113,29 +113,6 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
         return $this->cubemeetUpdater->cancel($this, $cubemeet);
     }
 
-    public function join($id)
-    {
-        $cubemeet = $this->cubemeets->getById($id);
-
-        $cuber = (new CMCuber([
-            'user_id' => Auth::user()->id,
-            'status' => 'Going',
-        ]))->toArray();
-
-        $cubemeet->cubers()->updateOrCreate(['user_id' => Auth::user()->id], $cuber);
-
-        return Redirect::back()->with('success', 'Successfuly joined');
-    }
-
-    public function canceljoin($id)
-    {
-        $cubemeet = $this->cubemeets->getById($id);
-
-        $cubemeet->cubers()->where('user_id', Auth::user()->id)->update(['status' => 'Not Going']);
-
-        return Redirect::back()->with('success', 'Success');
-    }
-
     public function cubemeetCreated()
     {
         return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly scheduled');

@@ -40,8 +40,8 @@ Route::get('login/fb/callback', 'HomeController@fbLoginCallback');
 Route::group(array('middleware' => 'auth'), function()
 {
     Route::get('/user/{profile}','UserController@getProfile');
-    Route::post('/cubemeets/{cubemeets}/join', 'CubemeetController@join');
-    Route::post('/cubemeets/{cubemeets}/canceljoin', 'CubemeetController@canceljoin');
+    Route::post('/cubemeets/{cubemeets}/join', 'CubemeetAttendeesController@join');
+    Route::post('/cubemeets/{cubemeets}/canceljoin', 'CubemeetAttendeesController@canceljoin');
     // Route::resource('cubemeets', 'CubemeetController');
 
     Route::get('/cubemeets', 'CubemeetController@index');
