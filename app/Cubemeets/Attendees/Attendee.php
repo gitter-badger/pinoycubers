@@ -13,6 +13,7 @@ class Attendee extends Model
      */
 
     protected $fillable = [
+        'cm_id'
         'user_id',
         'status',
     ];
