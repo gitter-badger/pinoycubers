@@ -20,6 +20,7 @@ class CubemeetCreator
     public function create($listener, $data)
     {
         $cubemeet = $this->cubemeets->getNew($data);
+        $cubemeet->status = 'Scheduled';
 
         $this->cubemeets->save($cubemeet);
 
