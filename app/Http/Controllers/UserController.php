@@ -140,6 +140,8 @@ class UserController extends Controller implements ProfileUpdaterListener, UserU
         return Redirect::to('/edit/profile')->with('error', 'The current password is incorrect password');
     }
 
+    public function userVerified() {}
+
     public function fbLogin()
     {
         $facebook = new Facebook(Config::get('app.facebook'));
