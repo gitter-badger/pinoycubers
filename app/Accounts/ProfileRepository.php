@@ -19,6 +19,11 @@ class ProfileRepository extends Repository
         $this->model = $model;
     }
 
+    public function getByUserId($id)
+    {
+        return $this->model->where('user_id', '=', $id)->first();
+    }
+
     public function getByUsername($username)
     {
         return $this->model->where('username', '=', $username)->first();
