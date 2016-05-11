@@ -2,7 +2,7 @@
 
 namespace App\Accounts;
 
-class Userpdater
+class UserUpdater
 {
     /**
      * @var \App\Accounts\UserRepository
