@@ -24,6 +24,11 @@ class UserRepository extends Repository
         return $this->model->with('profile')->where('id', '=', $id)->first();
     }
 
+    public function getByEmail($email)
+    {
+        return $this->model->with('profile')->where('email', '=', $email)->first();
+    }
+
     public function getAllPaginated($countPerPage)
     {
         return $this->model->with('profile')->paginate($countPerPage);
