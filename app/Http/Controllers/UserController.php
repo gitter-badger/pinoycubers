@@ -13,7 +13,8 @@ use App\Accounts\UserRepository;
 use App\Accounts\UserUpdater;
 use App\Accounts\UserUpdaterListener;
 use App\Http\Requests\UpdateProfileRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UpdateUserEmailRequest;
+use App\Http\Requests\UpdateUserPasswordRequest;
 use Hash;
 use Input;
 use Redirect;
@@ -96,13 +97,27 @@ class UserController extends Controller implements ProfileUpdaterListener, UserU
         return $this->profileUpdater->update($this, $profile, $data);
     }
 
-    public function updateUser(UpdateUserRequest $request)
+    public function updateEmail(UpdateUserEmailRequest $request)
     {
         $user = $this->users->getById($request->user()->id);
 
         $data = $request->all();
 
-        return $this->userUpdater->update($this, $user, $data);
+        return $this->userUpdater->updateEmail($this, $user, $data);
+    }
+
+    public function updatePassword(UpdateUserPasswordRequest $request)
+    {
+        $user = $this->users->getById($request->user()->id);
+
+        if(Hash::check($request->get('currentpass'), $user->password))
+        {
+            $data['password'] = Hash::make($request->get('newpass'));
+
+            return $this->userUpdater->updatePassword($this, $user, $data);
+        }
+
+        return $this->passwordUpdateFailed();
     }
 
     public function profileUpdated()
@@ -110,9 +125,19 @@ class UserController extends Controller implements ProfileUpdaterListener, UserU
         return Redirect::to('/edit/profile')->with('success', 'Profile successfully updated');
     }
 
-    public function userUpdated()
+    public function emailUpdated()
     {
-        return Redirect::to('/edit/profile')->with('success', 'User successfully updated');
+        return Redirect::to('/edit/profile')->with('success', 'Email successfully updated');
+    }
+
+    public function passwordUpdated()
+    {
+        return Redirect::to('/edit/profile')->with('success', 'Password successfully updated');
+    }
+
+    public function passwordUpdateFailed()
+    {
+        return Redirect::to('/edit/profile')->with('error', 'The current password is incorrect password');
     }
 
     public function fbLogin()

@@ -19,8 +19,6 @@ class ProfileUpdater
 
     public function update($listener, $profile, $data)
     {
-        // TODO: send email verification code if the email was changed
-        
         $profile->fill($data);
 
         $this->profiles->save($profile);

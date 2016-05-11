@@ -17,12 +17,26 @@ class UserUpdater
         $this->users = $users;
     }
 
-    public function update($listener, $user, $data)
+    public function updateEmail($listener, $user, $data)
+    {
+        // TODO: send email verification code if the email was changed
+
+        $this->update($user, $data);
+
+        return $listener->emailUpdated();
+    }
+
+    public function updatePassword($listener, $user, $data)
+    {
+        $this->update($user, $data);
+
+        return $listener->passwordUpdated();
+    }
+
+    private function update($user, $data)
     {
         $user->fill($data);
 
-        $this->users->save($user);
-
-        return $listener->userUpdated();
+        return $this->users->save($user);
     }
 }

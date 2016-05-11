@@ -4,5 +4,6 @@ namespace App\Accounts;
 
 interface UserUpdaterListener
 {
-    public function userUpdated();
+    public function emailUpdated();
+    public function passwordUpdated();
 }

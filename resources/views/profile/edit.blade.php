@@ -50,7 +50,7 @@
         <hr>
         <h5>Account Information</h5>
 
-        {!! Form::open(['url' => '/update/user', 'role' => 'form', 'class' => 'form-horizontal']) !!}
+        {!! Form::open(['url' => '/update/email', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="email">Email</label>
@@ -58,6 +58,13 @@
                     <input type="text" id="email" class="form-control" name="email" placeholder="Email" value="{{ Auth::user()->email }}" required>
                 </div>
             </div>
+
+            <input type="submit" id="registerbutton" class="btn btn-md btn-primary" name="action" value="Update Email">
+
+        </form>
+
+        {!! Form::open(['url' => '/update/password', 'role' => 'form', 'class' => 'form-horizontal']) !!}
+
             <div class="form-group">
                 <label class="control-label col-sm-2" for="currentpass">Current Password</label>
                 <div class="col-sm-10">
@@ -77,7 +84,7 @@
                 </div>
             </div>
 
-            <input type="submit" id="registerbutton" class="btn btn-md btn-primary" name="action" value="Update Account">
+            <input type="submit" id="registerbutton" class="btn btn-md btn-primary" name="action" value="Update Password">
 
         </form>
     </div>

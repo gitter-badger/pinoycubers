@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class UpdateUserRequest extends Request
+class UpdateUserEmailRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class UpdateUserRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:users,email,' . $this->user()->id,
-            'currentpass' => 'required',
-            'newpass' => 'required|confirmed|min:8'
+            'email' => 'required|email|unique:users,email,' . $this->user()->id
         ];
     }
 
@@ -38,10 +36,7 @@ class UpdateUserRequest extends Request
     public function messages()
     {
         return [
-            'email.unique' => 'This email is already used',
-            'currentpass.required' => 'The current password is required',
-            'newpass.required' => 'The new password is required',
-            'newpass.confirmed' => 'Password confirmation does not match'
+            'email.unique' => 'This email is already used'
         ];
     }
 }
