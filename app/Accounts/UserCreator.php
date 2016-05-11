@@ -2,6 +2,7 @@
 
 namespace App\Accounts;
 
+use App\Accounts\Profiles\Profile;
 use Hash;
 
 class UserCreator

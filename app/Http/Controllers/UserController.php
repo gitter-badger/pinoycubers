@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\Accounts\Profile;
-use App\Accounts\ProfileRepository;
-use App\Accounts\ProfileUpdater;
-use App\Accounts\ProfileUpdaterListener;
+use App\Accounts\Profiles\Profile;
+use App\Accounts\Profiles\ProfileRepository;
+use App\Accounts\Profiles\ProfileUpdater;
+use App\Accounts\Profiles\ProfileUpdaterListener;
 use App\Accounts\User;
 use App\Accounts\UserRole;
 use App\Accounts\UserRepository;

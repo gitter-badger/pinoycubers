@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Accounts;
+namespace App\Accounts\Profiles;
 
 class ProfileUpdater
 {
