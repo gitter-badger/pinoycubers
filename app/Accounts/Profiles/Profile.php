@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Accounts;
+namespace App\Accounts\Profiles;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,11 +12,14 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'username'
+        'username',
+        'first_name',
+        'last_name',
+        'location'
     ];
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Accounts\User');
     }
 }

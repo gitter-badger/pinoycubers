@@ -18,4 +18,14 @@ class UserRepository extends Repository
     {
         $this->model = $model;
     }
+
+    public function getById($id)
+    {
+        return $this->model->with('profile')->where('id', '=', $id)->first();
+    }
+
+    public function getAllPaginated($countPerPage)
+    {
+        return $this->model->with('profile')->paginate($countPerPage);
+    }
 }

@@ -81,11 +81,11 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 @if (!empty(Auth::user()->profile->access_token))
-                                    <img alt="{{Auth::user()->first_name}} {{Auth::user()->last_name}}" class="avatar sm-avatar" height="20" src="https://graph.facebook.com/{{{Auth::user()->profile->username}}}/picture?type=small" width="20">
+                                    <img alt="{{Auth::user()->profile->first_name}} {{Auth::user()->profile->last_name}}" class="avatar sm-avatar" height="20" src="https://graph.facebook.com/{{{Auth::user()->profile->username}}}/picture?type=small" width="20">
                                 @else
-                                    <img alt="{{Auth::user()->first_name}} {{Auth::user()->last_name}}" class="avatar sm-avatar" height="20" src="https://placehold.it/75x75" width="20">
+                                    <img alt="{{Auth::user()->profile->first_name}} {{Auth::user()->profile->last_name}}" class="avatar sm-avatar" height="20" src="https://placehold.it/75x75" width="20">
                                 @endif
-                                {{Auth::user()->first_name}} {{Auth::user()->last_name}} <b class="caret"></b>
+                                {{Auth::user()->profile->first_name}} {{Auth::user()->profile->last_name}} <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="/{{ Auth::user()->profile->username }}"><i class="fa fa-fw fa-user"></i>View Profile</a></li>

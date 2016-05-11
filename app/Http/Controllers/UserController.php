@@ -3,51 +3,141 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Accounts\Profiles\Profile;
+use App\Accounts\Profiles\ProfileRepository;
+use App\Accounts\Profiles\ProfileUpdater;
+use App\Accounts\Profiles\ProfileUpdaterListener;
 use App\Accounts\User;
 use App\Accounts\UserRole;
-use App\Accounts\Profile;
+use App\Accounts\UserRepository;
+use App\Accounts\UserUpdater;
+use App\Accounts\UserUpdaterListener;
+use App\Http\Requests\Accounts\UpdateProfileRequest;
+use App\Http\Requests\Accounts\UpdateUserEmailRequest;
+use App\Http\Requests\Accounts\UpdateUserPasswordRequest;
 use Hash;
 use Input;
 use Redirect;
 use Validator;
 use View;
 
-class UserController extends Controller
+class UserController extends Controller implements ProfileUpdaterListener, UserUpdaterListener
 {
+    /**
+     * @var \App\Accounts\User
+     */
     protected $user;
 
-    public function __construct(User $user)
+    /**
+     * @var \App\Accounts\UserRepository
+     */
+    protected $users;
+
+    /**
+     * @var \App\Accounts\ProfileRepository
+     */
+    protected $profiles;
+
+    /**
+     * @var \App\Accounts\ProfileUpdater
+     */
+    protected $profileUpdater;
+
+    /**
+     * @var \App\Accounts\UserUpdater
+     */
+    protected $userUpdater;
+
+    protected $usersPerPage = 30;
+
+    /**
+     * @param \App\Accounts\User $user
+     * @param \App\Accounts\UserRepository $users
+     * @param \App\Accounts\ProfileRepository $profiles
+     * @param \App\Accounts\ProfileUpdater $profileUpdater
+     * @param \App\Accounts\UserUpdater $userUpdater
+     * @return void
+     */
+    public function __construct(User $user, UserRepository $users, ProfileRepository $profiles, ProfileUpdater $profileUpdater, UserUpdater $userUpdater)
     {
         $this->user = $user;
+        $this->users = $users;
+        $this->profiles = $profiles;
+        $this->profileUpdater = $profileUpdater;
+        $this->userUpdater = $userUpdater;
     }
 
-    public function getProfile($profile)
+    public function showUser($username)
     {
-        $uname = Profile::where('username',$profile)->count();
-        $u_name = Auth::user()->profile->username;
+        $profile = $this->profiles->getByUsername($username);
 
-        $photo = empty(Auth::user()->photo) ? "http://placehold.it/230x230" : Auth::user()->photo;
+        $user = $this->users->getById($profile->user_id);
 
-        if($uname)
+        return View::make('profile.index', compact('user'));
+    }
+
+    public function showUsers()
+    {
+        $users = $this->users->getAllPaginated($this->usersPerPage);
+
+        return View::make('user.list', compact('users'));
+    }
+
+    public function getEditProfile()
+    {
+        return View::make('profile.edit');
+    }
+
+    public function updateProfile(UpdateProfileRequest $request)
+    {
+        $profile = $this->profiles->getByUserId($request->user()->id);
+
+        $data = $request->all();
+
+        return $this->profileUpdater->update($this, $profile, $data);
+    }
+
+    public function updateEmail(UpdateUserEmailRequest $request)
+    {
+        $user = $this->users->getById($request->user()->id);
+
+        $data = $request->all();
+
+        return $this->userUpdater->updateEmail($this, $user, $data);
+    }
+
+    public function updatePassword(UpdateUserPasswordRequest $request)
+    {
+        $user = $this->users->getById($request->user()->id);
+
+        if(Hash::check($request->get('currentpass'), $user->password))
         {
-            // profile found
-            if($u_name == $profile)
-            {
-                // my profile
-                $user = Auth::user();
-                return View::make('profile.index', compact('user'));
-            }
+            $data['password'] = Hash::make($request->get('newpass'));
 
-            // other profile
-            $user_profile = Profile::where('username', $profile)->first();
-            $user = User::with('profile')->where('id', $user_profile->user_id)->first();
+            return $this->userUpdater->updatePassword($this, $user, $data);
+        }
 
-            return View::make('profile.index',compact("user"));
-        }
-        else
-        {
-            return Redirect::to('/');
-        }
+        return $this->passwordUpdateFailed();
+    }
+
+    public function profileUpdated()
+    {
+        return Redirect::to('/edit/profile')->with('success', 'Profile successfully updated');
+    }
+
+    public function emailUpdated()
+    {
+        return Redirect::to('/edit/profile')->with('success', 'Email successfully updated');
+    }
+
+    public function passwordUpdated()
+    {
+        return Redirect::to('/edit/profile')->with('success', 'Password successfully updated');
+    }
+
+    public function passwordUpdateFailed()
+    {
+        return Redirect::to('/edit/profile')->with('error', 'The current password is incorrect password');
     }
 
     public function fbLogin()
@@ -97,93 +187,5 @@ class UserController extends Controller
         Auth::login($user);
 
         return Redirect::to("/".$profile->username)->with('message', 'Logged in with Facebook');
-    }
-
-    public function showUsers()
-    {
-        $users = User::with('profile')->get();
-
-        return View::make('user.list', compact('users'));
-    }
-
-    public function getEditProfile()
-    {
-        return View::make('profile.edit');
-    }
-
-    public function postEditProfile()
-    {
-        $user = $this->user->where('id', Auth::user()->id)->first();
-
-        if(!$user)
-        {
-            return Redirect::to('/edit/profile');
-        }
-
-        $inputs = Input::all();
-        $rules = array();
-        $messages = array();
-        $updatedinfo = array();
-        $successmsg = '';
-
-        if($inputs['action'] == 'Update Profile')
-        {
-            $updatedinfo = array(
-                'first_name' => $inputs['firstname'],
-                'last_name' => $inputs['lastname'],
-                'email' => $inputs['email']
-            );
-
-            $rules = array(
-                'firstname' => 'required',
-                'lastname' => 'required',
-                'email' => 'required|email|unique:users,email,'.$user->id
-            );
-
-            $messages = array(
-                'firstname.required' => 'The first name field is required.',
-                'lastname.required' => 'The last name field is required.',
-                'email.unique' => 'This email is already used'
-            );
-
-            $successmsg = 'Profile successfully updated';
-        }
-        else if($inputs['action'] == 'Update Password')
-        {
-            if(Hash::check($inputs['currentpass'], $user->password)) {
-                $inputs['currentpass'] = Hash::make($inputs['currentpass']);
-
-                $updatedinfo = array(
-                    'password' => Hash::make($inputs['newpass'])
-                );
-
-                $rules = array(
-                    'currentpass' => 'required',
-                    'newpass' => 'required|confirmed|min:8'
-                );
-
-                $messages = array(
-                    'currentpass.required' => 'The current password is required',
-                    'newpass.required' => 'The new password is required',
-                    'newpass.confirmed' => 'Password confirmation does not match'
-                );
-
-                $successmsg = 'Password successfully updated';
-            }
-            else {
-                return Redirect::to('/edit/profile')->with('error', 'The current password is incorrect');
-            }
-        }
-
-        $validation = Validator::make($inputs, $rules, $messages);
-
-        if($validation->passes())
-        {
-            $user->fill($updatedinfo)->save();
-
-            return Redirect::to('/edit/profile')->with('success', $successmsg);
-        }
-
-        return Redirect::to('/edit/profile')->withInput()->withErrors($validation);
     }
 }

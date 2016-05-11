@@ -28,8 +28,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
 
     protected $fillable = [
-        'first_name',
-        'last_name',
         'email',
         'password'
     ];
@@ -73,7 +71,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function profile()
     {
-        return $this->hasOne('App\Accounts\Profile');
+        return $this->hasOne('App\Accounts\Profiles\Profile');
     }
 
     /**

@@ -16,24 +16,30 @@
         <hr>
         <h5>Personal Information</h5>
 
-        {!! Form::open(['url' => '/edit/profile', 'role' => 'form', 'class' => 'form-horizontal']) !!}
+        {!! Form::open(['url' => '/update/profile', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="username">Username</label>
+                <div class="col-sm-10">
+                    <input type="text" id="username" class="form-control" name="username" placeholder="Username" value="{{ Auth::user()->profile->username }}" required>
+                </div>
+            </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="firstname">First Name</label>
                 <div class="col-sm-10">
-                    <input type="text" id="firstname" class="form-control" name="firstname" placeholder="First Name" value="{{ Auth::user()->first_name }}" required>
+                    <input type="text" id="firstname" class="form-control" name="first_name" placeholder="First Name" value="{{ Auth::user()->profile->first_name }}" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="lastname">Last Name</label>
                 <div class="col-sm-10">
-                    <input type="text" id="lastname" class="form-control" name="lastname" placeholder="Last Name" value="{{ Auth::user()->last_name }}" required>
+                    <input type="text" id="lastname" class="form-control" name="last_name" placeholder="Last Name" value="{{ Auth::user()->profile->last_name }}" required>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-2" for="email">Email</label>
+                <label class="control-label col-sm-2" for="location">Location</label>
                 <div class="col-sm-10">
-                    <input type="text" id="email" class="form-control" name="email" placeholder="Email" value="{{ Auth::user()->email }}" required>
+                    <input type="text" id="location" class="form-control" name="location" placeholder="Location" value="{{ Auth::user()->profile->location }}">
                 </div>
             </div>
 
@@ -44,7 +50,20 @@
         <hr>
         <h5>Account Information</h5>
 
-        {!! Form::open(['url' => '/edit/profile', 'role' => 'form', 'class' => 'form-horizontal']) !!}
+        {!! Form::open(['url' => '/update/email', 'role' => 'form', 'class' => 'form-horizontal']) !!}
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Email</label>
+                <div class="col-sm-10">
+                    <input type="text" id="email" class="form-control" name="email" placeholder="Email" value="{{ Auth::user()->email }}" required>
+                </div>
+            </div>
+
+            <input type="submit" id="registerbutton" class="btn btn-md btn-primary" name="action" value="Update Email">
+
+        </form>
+
+        {!! Form::open(['url' => '/update/password', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="currentpass">Current Password</label>

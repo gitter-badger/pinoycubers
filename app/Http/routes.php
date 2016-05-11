@@ -61,9 +61,10 @@ Route::group(['middleware' => 'auth'], function() {
     /* Users */
     Route::get('/users', 'UserController@showUsers');
 
-    /* Profile */
-    Route::get('/{profile}','UserController@getProfile');
+    Route::get('/{username}','UserController@showUser');
 
     Route::get('/edit/profile','UserController@getEditProfile');
-    Route::post('/edit/profile','UserController@postEditProfile');
+    Route::post('/update/profile','UserController@updateProfile');
+    Route::post('/update/email','UserController@updateEmail');
+    Route::post('/update/password','UserController@updatePassword');
 });
