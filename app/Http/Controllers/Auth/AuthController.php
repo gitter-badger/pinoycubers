@@ -59,8 +59,8 @@ class AuthController extends Controller
 
     public function create(RegistrationRequest $request)
     {
-        $user_data = $request->except('username');
-        $profile_data = $request->only('username');
+        $user_data = $request->only(['email', 'password']);
+        $profile_data = $request->only(['username', 'first_name', 'last_name']);
         
         return $this->userCreator->create($this, $user_data, $profile_data);
     }

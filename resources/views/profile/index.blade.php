@@ -14,13 +14,13 @@
         </span>
 
         <h1 class="prof-names">
-            <span class="prof-fullname">{{ $user->first_name.' '.$user->last_name }}</span>
+            <span class="prof-fullname">{{ $user->profile->first_name.' '.$user->profile->last_name }}</span>
             <span class="prof-username"></span>
         </h1>
         <ul class="prof-details">
-
-
-            <li class="prof-detail"><i class="fa fa-map-marker"></i>Philippines</li>
+            @if($user->profile->location)
+            <li class="prof-detail"><i class="fa fa-map-marker"></i>{{ $user->profile->location }}</li>
+            @endif
             <li class="prof-detail"><i class="fa fa-clock-o"></i><span class="join-label">Joined on </span><span class="join-date">{{ $user->getJoinedDate() }}</span></li>
         </ul>
 
