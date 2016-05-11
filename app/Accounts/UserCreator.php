@@ -13,27 +13,32 @@ class UserCreator
     protected $users;
 
     /**
-     * @param \App\Accounts\UserRepository $users
+     * @var \App\Accounts\VerificationEmailSender
      */
-    public function __construct(UserRepository $users)
+    protected $verification;
+
+    /**
+     * @param \App\Accounts\UserRepository $users
+     * @param \App\Accounts\VerificationEmailSender $verification
+     */
+    public function __construct(UserRepository $users, VerificationEmailSender $verification)
     {
         $this->users = $users;
+        $this->verification = $verification;
     }
 
     public function create($listener, $user_data, $profile_data)
     {
         $user = $this->users->getNew($user_data);
 
-        // TODO: send email for verification code
-        $user->verify = str_random(10);
-
-        // for now default is verified
-        $user->verified = true;
-
+        $user->verification_code = str_random(10);
+        $user->verified = false;
         $user->password = Hash::make($user->password);
         $user->role_id = UserRole::$USER;
 
         $this->users->save($user);
+
+        $this->verification->send($user);
 
         return $this->createProfile($listener, $user, $profile_data);
     }
