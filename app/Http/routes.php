@@ -10,12 +10,12 @@ Route::group(['namespace' => 'Auth'], function() {
     Route::get('/register', 'AuthController@register');
     Route::post('/user/create','AuthController@create');
 
+    Route::get('/register/verify/{code}', 'AuthController@verifyUser');
+
     Route::get('/logout','AuthController@logout');
 });
 
 // TODO:: Implement all these routes
-Route::get('/register/verify/{code}', 'UserController@verifyUser');
-
 Route::get('/password/forgot','UserController@forgotPassword');
 Route::post('/password/forgot','UserController@requestPassword');
 
