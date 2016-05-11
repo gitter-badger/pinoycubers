@@ -54,7 +54,10 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => [
+        'address' => env('MAIL_FROM_ADDRESS', 'noreply@pinoycubers.org'),
+        'name' => env('MAIL_FROM_NAME', 'Pinoy Cubers')
+    ],
 
     /*
     |--------------------------------------------------------------------------
