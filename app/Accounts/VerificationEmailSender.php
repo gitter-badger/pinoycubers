@@ -31,7 +31,7 @@ class VerificationEmailSender
         $data = ['verificationCode' => $user->verification_code];
 
         $this->mailer->send($this->view, $data, function(Message $message) use($user) {
-            $message->to($user->email)
+            $message->to($user->email);
             $message->subject('Pinoy Cubers: Verify your email address');
         });
     }
