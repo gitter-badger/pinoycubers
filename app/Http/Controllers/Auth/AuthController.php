@@ -12,10 +12,12 @@ use App\Accounts\UserRole;
 use App\Accounts\UserCreator;
 use App\Accounts\UserCreatorListener;
 use App\Accounts\UserRepository;
+use App\Accounts\UserUpdater;
+use App\Accounts\UserUpdaterListener;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegistrationRequest;
 
-class AuthController extends Controller
+class AuthController extends Controller implements UserCreatorListener, UserUpdaterListener
 {
     /**
      * @var \App\Accounts\UserRepository
@@ -28,14 +30,21 @@ class AuthController extends Controller
     protected $userCreator;
 
     /**
+     * @var \App\Accounts\UserUpdater
+     */
+    protected $userUpdater;
+
+    /**
      * @param \App\Accounts\UserRepository $users
      * @param \App\Accounts\UserCreator $userCreator
+     * @param \App\Accounts\UserUpdater $userUpdater
      * @return void
      */
-    public function __construct(UserRepository $users, UserCreator $userCreator)
+    public function __construct(UserRepository $users, UserCreator $userCreator, UserUpdater $userUpdater)
     {
         $this->users = $users;
         $this->userCreator = $userCreator;
+        $this->userUpdater = $userUpdater;
 
         $this->middleware('guest', ['except' => 'logout']);
     }
@@ -78,6 +87,18 @@ class AuthController extends Controller
         return $this->userCreator->create($this, $user_data, $profile_data);
     }
 
+    public function verifyUser($code)
+    {
+        $user = $this->users->getByVerificationCode($code);
+
+        if($user)
+        {
+            return $this->userUpdater->verify($this, $user);
+        }
+
+        return $this->invalidVerificationCode();
+    }
+
     public function userCreated()
     {
         $message = 'Registration successful. Please check the verification email that was sent to the email you registered.';
@@ -91,6 +112,19 @@ class AuthController extends Controller
 
         return Redirect::to('/login')->with('error', $message);
     }
+
+    public function invalidVerificationCode()
+    {
+        return Redirect::to('/login')->with('error', 'Invalid verification code.');
+    }
+
+    public function userVerified()
+    {
+        return Redirect::to('/login')->with('success', 'Verification successful. You can now login your account.');
+    }
+
+    public function emailUpdated() {}
+    public function passwordUpdated() {}
 
     public function logout()
     {
