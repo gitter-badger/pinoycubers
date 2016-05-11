@@ -39,4 +39,13 @@ class UserUpdater
 
         return $this->users->save($user);
     }
+
+    public function verify($listener, $user)
+    {
+        $user->verified = true;
+
+        $this->users->save($user);
+
+        return $listener->userVerified();
+    }
 }
