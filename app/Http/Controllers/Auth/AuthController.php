@@ -67,7 +67,9 @@ class AuthController extends Controller
 
     public function userCreated()
     {
-        return Redirect::to('/login')->with('success','Account succesfully created');
+        $message = 'Registration successful. Please check the verification email that was sent to the email you registered.';
+
+        return Redirect::to('/login')->with('success', $message);
     }
 
     public function logout()
