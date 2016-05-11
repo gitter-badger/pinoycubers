@@ -11,24 +11,30 @@ use App\Accounts\User;
 use App\Accounts\UserRole;
 use App\Accounts\UserCreator;
 use App\Accounts\UserCreatorListener;
+use App\Accounts\UserRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegistrationRequest;
 
 class AuthController extends Controller
 {
     /**
+     * @var \App\Accounts\UserRepository
+     */
+    protected $users;
+
+    /**
      * @var \App\Accounts\UserCreator
      */
     protected $userCreator;
 
     /**
-     * Create a new authentication controller instance.
-     *
+     * @param \App\Accounts\UserRepository $users
      * @param \App\Accounts\UserCreator $userCreator
      * @return void
      */
-    public function __construct(UserCreator $userCreator)
+    public function __construct(UserRepository $users, UserCreator $userCreator)
     {
+        $this->users = $users;
         $this->userCreator = $userCreator;
 
         $this->middleware('guest', ['except' => 'logout']);
@@ -44,12 +50,19 @@ class AuthController extends Controller
         $email = Input::get('email');
         $password = Input::get('password');
 
-        if(Auth::attempt(['email' => $email, 'password' => $password]))
+        $user = $this->users->getByEmail($email);
+
+        if($user->verified)
         {
-            return Redirect::intended('/');
+            if(Auth::attempt(['email' => $email, 'password' => $password]))
+            {
+                return Redirect::intended('/');
+            }
+
+            return Redirect::to('login')->with('error', 'Invalid email or password');
         }
 
-        return Redirect::to('login')->with('error', 'Invalid email or password');
+        return $this->unverifiedUser();
     }
 
     public function register()
@@ -70,6 +83,13 @@ class AuthController extends Controller
         $message = 'Registration successful. Please check the verification email that was sent to the email you registered.';
 
         return Redirect::to('/login')->with('success', $message);
+    }
+
+    public function unverifiedUser()
+    {
+        $message = 'Your account was not yet verified. Please check the verification email that was sent to the email you registered.';
+
+        return Redirect::to('/login')->with('error', $message);
     }
 
     public function logout()
