@@ -19,6 +19,12 @@
         {!! Form::open(['url' => '/update/profile', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 
             <div class="form-group">
+                <label class="control-label col-sm-2" for="username">Username</label>
+                <div class="col-sm-10">
+                    <input type="text" id="username" class="form-control" name="username" placeholder="Username" value="{{ Auth::user()->profile->username }}" required>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="control-label col-sm-2" for="firstname">First Name</label>
                 <div class="col-sm-10">
                     <input type="text" id="firstname" class="form-control" name="first_name" placeholder="First Name" value="{{ Auth::user()->profile->first_name }}" required>
