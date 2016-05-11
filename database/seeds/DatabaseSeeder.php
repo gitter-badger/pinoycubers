@@ -1,6 +1,6 @@
 <?php
 
-use App\Accounts\Profile;
+use App\Accounts\Profiles\Profile;
 use App\Accounts\User;
 use App\Accounts\UserRole;
 use Illuminate\Database\Seeder;
@@ -31,22 +31,16 @@ class DatabaseSeeder extends Seeder
             'aivan' => User::create(array(
                     'email' => 'aivan@pinoycubers.org',
                     'password' => Hash::make('password'),
-                    'first_name'  => 'Aivan',
-                    'last_name' => 'Monceller',
                     'role_id' => UserRole::$ADMIN
                 )),
             'dan' => User::create(array(
                     'email' => 'dan@pinoycubers.org',
                     'password' => Hash::make('password'),
-                    'first_name'  => 'Dan',
-                    'last_name' => 'Belza',
                     'role_id' => UserRole::$ADMIN
                 )),
             'omar' => User::create(array(
                     'email' => 'omar@pinoycubers.org',
                     'password' => Hash::make('password'),
-                    'first_name' => 'Omar',
-                    'last_name' => 'Lozada',
                     'role_id' => UserRole::$ADMIN
                 ))
         );
@@ -56,23 +50,29 @@ class DatabaseSeeder extends Seeder
         // Using the eloquent model Profile to create a profile row
         Profile::create(array(
             'user_id' => $user['aivan']->id,
-            'username' => 'geocine'
+            'username' => 'geocine',
+            'first_name'  => 'Aivan',
+            'last_name' => 'Monceller'
         ));
 
         Profile::create(array(
             'user_id' => $user['dan']->id,
-            'username' => 'dlndn'
+            'username' => 'drfb',
+            'first_name'  => 'Dan',
+            'last_name' => 'Belza'
         ));
 
         Profile::create(array(
             'user_id' => $user['omar']->id,
-            'username' => 'omar'
+            'username' => 'omar',
+            'first_name' => 'Omar',
+            'last_name' => 'Lozada'
         ));
 
         $this->command->info('Profile table seeded');
 
-        $this->call(MarketItemsTableSeeder::class);
-        $this->command->info('MarketItems table seeded');
+        // $this->call(MarketItemsTableSeeder::class);
+        // $this->command->info('MarketItems table seeded');
 
         Model::reguard();
 	}
