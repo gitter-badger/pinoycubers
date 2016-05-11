@@ -25,8 +25,7 @@ class UpdateProfileRequest extends Request
     {
         return [
             'firstname' => 'required',
-            'lastname' => 'required',
-            'email' => 'required|email|unique:users,email,' . $this->user()->id
+            'lastname' => 'required'
         ];
     }
 
@@ -39,8 +38,7 @@ class UpdateProfileRequest extends Request
     {
         return [
             'firstname.required' => 'The first name field is required.',
-            'lastname.required' => 'The last name field is required.',
-            'email.unique' => 'This email is already used'
+            'lastname.required' => 'The last name field is required.'
         ];
     }
 }

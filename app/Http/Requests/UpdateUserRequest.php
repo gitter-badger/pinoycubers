@@ -24,6 +24,7 @@ class UpdateUserRequest extends Request
     public function rules()
     {
         return [
+            'email' => 'required|email|unique:users,email,' . $this->user()->id,
             'currentpass' => 'required',
             'newpass' => 'required|confirmed|min:8'
         ];
@@ -37,6 +38,7 @@ class UpdateUserRequest extends Request
     public function messages()
     {
         return [
+            'email.unique' => 'This email is already used',
             'currentpass.required' => 'The current password is required',
             'newpass.required' => 'The new password is required',
             'newpass.confirmed' => 'Password confirmation does not match'
