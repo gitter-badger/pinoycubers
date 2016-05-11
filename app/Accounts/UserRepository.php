@@ -29,6 +29,11 @@ class UserRepository extends Repository
         return $this->model->with('profile')->where('email', '=', $email)->first();
     }
 
+    public function getByVerificationCode($code)
+    {
+        return $this->model->with('profile')->where('verification_code', '=', $code)->first();
+    }
+
     public function getAllPaginated($countPerPage)
     {
         return $this->model->with('profile')->paginate($countPerPage);
