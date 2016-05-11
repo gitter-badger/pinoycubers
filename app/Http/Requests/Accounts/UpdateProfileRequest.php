@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Accounts;
 
 use App\Http\Requests\Request;
 
-class UpdateUserEmailRequest extends Request
+class UpdateProfileRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class UpdateUserEmailRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:users,email,' . $this->user()->id
+            'first_name' => 'required',
+            'last_name' => 'required'
         ];
     }
 
@@ -36,7 +37,8 @@ class UpdateUserEmailRequest extends Request
     public function messages()
     {
         return [
-            'email.unique' => 'This email is already used'
+            'firstname.required' => 'The first name field is required.',
+            'lastname.required' => 'The last name field is required.'
         ];
     }
 }
