@@ -10,16 +10,25 @@ class CubemeetUpdater
     protected $cubemeets;
 
     /**
-     * @param \App\Cubemeets\CubemeetRepository $cubemeets
+     * @var \App\Cubemeets\CubemeetCreator
      */
-    public function __construct(CubemeetRepository $cubemeets)
+    protected $cubemeetCreator;
+
+    /**
+     * @param \App\Cubemeets\CubemeetRepository $cubemeets
+     * @param \App\Cubemeets\CubemeetCreator $cubemeetCreator
+     */
+    public function __construct(CubemeetRepository $cubemeets, CubemeetCreator $cubemeetCreator)
     {
         $this->cubemeets = $cubemeets;
+        $this->cubemeetCreator = $cubemeetCreator;
     }
 
     public function update($listener, $cubemeet, $data)
     {
         $cubemeet->fill($data);
+
+        $cubemeet->slug = $this->cubemeetCreator->createSlug($data['name']);
 
         $this->cubemeets->save($cubemeet);
 
