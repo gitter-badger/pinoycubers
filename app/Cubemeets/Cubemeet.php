@@ -38,4 +38,11 @@ class Cubemeet extends Model
     {
         return $this->hasMany('App\Cubemeets\Attendees\Attendee', 'cm_id');
     }
+
+    public function hostName()
+    {
+        $profile = $this->host()->getResults()->profile()->getResults();
+
+        return $profile->first_name.' '.$profile->last_name;
+    }
 }

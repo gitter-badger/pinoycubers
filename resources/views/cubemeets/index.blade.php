@@ -31,7 +31,7 @@
         <ul class="list-unstyled">
             <li>
                 <b><a href="{{ '/cubemeets/'.$cm->id }}">{{ $cm->name }}</a></b> 
-                <small>by {{ $cm->host()->getResults()->first_name.' '.$cm->host()->getResults()->last_name }}</small>
+                <small>by {{ $cm->hostName() }}</small>
             </li>
             <li><span class="fa fa-map-marker"></span> {{ $cm->location }}</li>
             <li><span class="fa fa-calendar"></span> {{ $cm->date->format('M d, Y') }}</li>
