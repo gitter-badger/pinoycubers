@@ -23,4 +23,9 @@ class CubemeetRepository extends Repository
     {
         return $this->model->with('host', 'cubers.cuberprofile')->where('id', '=', $id)->first();
     }
+
+    public function countSameSlug($slug)
+    {
+        return $this->model->whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+    }
 }
