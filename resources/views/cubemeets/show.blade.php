@@ -10,74 +10,79 @@
 @include('partials.messages')
 
 <div class="row">
-    <div class="row">
-        <h2>{{ $cm['name'] }} <small>by {{ $cm->host()->getResults()->first_name.' '.$cm->host()->getResults()->last_name }}</small></h2>
-    </div>
-    <hr>
+    <h2>{{ $cm->name }} <small>by {{ $cm->hostName() }}</small></h2>
 </div>
 
 <div class="row">
-    <div class="row">
-        <ul>
-            <li><b>Location:</b> {{ $cm->location }}</li>
-            <li><b>Date:</b> {{ $cm->date->format('M-d-Y') }}</li>
-            <li><b>Start Time:</b> {{ date('h:i A', strtotime($cm->start_time)) }}</li>
-            <li><b>Description:</b> {{ $cm->description }}</li>
+    <div class="col-sm-6">
+        <ul class="list-unstyled">
+            <li>
+                <span class="fa fa-fw fa-calendar"></span> 
+                {{ $cm->date->format('M d, Y') }} · {{ date('h:i A', strtotime($cm->start_time)) }}
+            </li>
+            <li><span class="fa fa-fw fa-map-marker"></span> {{ $cm->location }}</li>
         </ul>
     </div>
-
-    <div class="row">
-        @if ($cm->status == 'Scheduled')
-            @if ($cm->host()->getResults()->id == Auth::user()->id)
-                {!! Form::open(['method' => 'POST', 'url' => '/cubemeets/'.$cm->slug.'/cancel']) !!}
-                    <a href="{{ '/cubemeets/'.$cm->slug.'/edit' }}" class="btn btn-sm btn-default">Edit</a>
-                    {!! Form::submit('Cancel', ['class' => 'btn btn-sm btn-danger']) !!}
-                {!! Form::close() !!}
-            @else
-                @if (array_first($cm->cubers, function ($key, $value) {
-                    if($value['user_id'] == Auth::user()->id) {
-                        if($value['status'] == 'Going') {
-                            return true;
-                        }
-                        return false;
-                    }
-                    return false;
-                }))
-                {!! Form::open(['url' => 'cubemeets/'.$cm->slug.'/canceljoin', 'role' => 'form']) !!}
-                    {!! Form::submit('Not Going', ['class' => 'btn btn-sm btn-primary']) !!}
-                {!! Form::close() !!}
+    <div class="col-sm-6">
+        @if ($cm->signedUserIsHost())
+            {!! Form::open(['url' => '/cubemeets/'.$cm->slug.'/cancel', 'class' => 'text-right']) !!}
+                <a href="{{ '/cubemeets/'.$cm->slug.'/edit' }}" class="btn btn-sm btn-default">
+                    <span class="fa fa-fw fa-pencil"></span> Edit
+                </a>
+                <button type="submit" class="btn btn-sm btn-danger">
+                    <span class="fa fa-fw fa-times"></span> Cancel
+                </button>
+            {!! Form::close() !!}
+        @else
+            <div class="text-right">
+                @if ($cm->attendeeIsGoing())
+                    {!! Form::open(['url' => 'cubemeets/'.$cm->slug.'/canceljoin', 'role' => 'form']) !!}
+                        <button type="submit" class="btn btn-sm btn-primary">
+                            <span class="fa fa-ban"> Not Going</span>
+                        </button>
+                    {!! Form::close() !!}
                 @else
-                {!! Form::open(['url' => 'cubemeets/'.$cm->slug.'/join', 'role' => 'form']) !!}
-                    {!! Form::submit('Join', ['class' => 'btn btn-sm btn-primary']) !!}
-                {!! Form::close() !!}
+                    {!! Form::open(['url' => 'cubemeets/'.$cm->slug.'/join', 'role' => 'form']) !!}
+                        <button type="submit" class="btn btn-sm btn-primary">
+                            <span class="fa fa-check"> Join</span>
+                        </button>
+                    {!! Form::close() !!}
                 @endif
-            @endif
+            </div>
         @endif
     </div>
+</div>
 
-    <hr>
+<hr>
 
-    <div class="row">
-        <h4>List of cuber(s) who will attend</h4>
-        <ul>
-            <li>{{ $cm->host()->getResults()->first_name.' '.$cm->host()->getResults()->last_name }}</li>
-            @if ($cm->cubers()->where('status', 'Going')->count() > 0)
-                @foreach ($cm->cubers()->where('status', 'Going')->get() as $cuber)
-                <li>{{ $cuber->cuberprofile()->getResults()->first_name.' '.$cuber->cuberprofile()->getResults()->last_name }}</li>
-                @endforeach
-            @endif
-        </ul>
+<div class="row">
+    <div class="col-sm-12">
+        <p>{{ $cm->description }}<p>
+    </div>
+</div>
 
-        <h4>List of cuber(s) who canceled their attendance</h4>
-            @if ($cm->cubers()->where('status', 'Not Going')->count() > 0)
-            <ul>
-                @foreach ($cm->cubers()->where('status', 'Not Going')->get() as $cuber)
-                <li>{{ $cuber->cuberprofile()->getResults()->first_name.' '.$cuber->cuberprofile()->getResults()->last_name }}</li>
+<hr>
+
+<div class="row">
+    <div class="col-sm-6">
+        <h4>
+            <span class="fa fa-fw fa-user"></span> 
+            {{ $cuberCount = $cm->countCubers() }} 
+            {{ $cuberCount > 1? 'Cubers': 'Cuber' }}
+        </h4>
+        <div style="padding-left: 30px">
+            <ul class="list-unstyled">
+                <li>{{ $cm->hostName() }}</li>
+                @foreach ($cm->getAttendees() as $attendee)
+                    <li>{{ $attendee->name() }}</li>
                 @endforeach
             </ul>
-            @else
-                none
-            @endif
+        </div>
+    </div>
+    <div class="col-sm-6">
+
+        <!-- Comments -->
+
     </div>
 </div>
 
