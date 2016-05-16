@@ -31,16 +31,19 @@ class DatabaseSeeder extends Seeder
             'aivan' => User::create(array(
                     'email' => 'aivan@pinoycubers.org',
                     'password' => Hash::make('password'),
+                    'verified' => 1,
                     'role_id' => UserRole::$ADMIN
                 )),
             'dan' => User::create(array(
                     'email' => 'dan@pinoycubers.org',
                     'password' => Hash::make('password'),
+                    'verified' => 1,
                     'role_id' => UserRole::$ADMIN
                 )),
             'omar' => User::create(array(
                     'email' => 'omar@pinoycubers.org',
                     'password' => Hash::make('password'),
+                    'verified' => 1,
                     'role_id' => UserRole::$ADMIN
                 ))
         );
