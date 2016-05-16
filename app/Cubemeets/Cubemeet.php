@@ -75,4 +75,9 @@ class Cubemeet extends Model
 
         return $status;
     }
+
+    public function getAttendees()
+    {
+        return $this->cubers()->where('status', 'Going')->get();
+    }
 }
