@@ -21,7 +21,7 @@
                 <div class="alert alert-danger">{!! Session::get('error') !!}</div>
                 @endif
 
-                {!! Form::open(['url' => '/ressend/verification', 'role' => 'form']) !!}
+                {!! Form::open(['url' => '/resend/verification', 'role' => 'form']) !!}
 
                     <div class="form-group">
                         {!! Form::email('email', null, ['placeholder' => 'Email', 'class' => 'form-control']) !!}
