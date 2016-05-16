@@ -14,8 +14,10 @@ use App\Accounts\UserCreatorListener;
 use App\Accounts\UserRepository;
 use App\Accounts\UserUpdater;
 use App\Accounts\UserUpdaterListener;
+use App\Accounts\VerificationEmailSender;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegistrationRequest;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller implements UserCreatorListener, UserUpdaterListener
 {
@@ -35,16 +37,23 @@ class AuthController extends Controller implements UserCreatorListener, UserUpda
     protected $userUpdater;
 
     /**
+     * @var \App\Accounts\VerificationEmailSender
+     */
+    protected $verification;
+
+    /**
      * @param \App\Accounts\UserRepository $users
      * @param \App\Accounts\UserCreator $userCreator
      * @param \App\Accounts\UserUpdater $userUpdater
+     * @param \App\Accounts\VerificationEmailSender $verification
      * @return void
      */
-    public function __construct(UserRepository $users, UserCreator $userCreator, UserUpdater $userUpdater)
+    public function __construct(UserRepository $users, UserCreator $userCreator, UserUpdater $userUpdater, VerificationEmailSender $verification)
     {
         $this->users = $users;
         $this->userCreator = $userCreator;
         $this->userUpdater = $userUpdater;
+        $this->verification = $verification;
 
         $this->middleware('guest', ['except' => 'logout']);
     }
@@ -99,6 +108,23 @@ class AuthController extends Controller implements UserCreatorListener, UserUpda
         return $this->invalidVerificationCode();
     }
 
+    public function resendVerification()
+    {
+        return View::make('auth.resend_verification');
+    }
+
+    public function resend(Request $request)
+    {
+        $user = $this->users->getByEmail($request->get('email'));
+
+        if($user->verified === 0)
+        {
+            $this->verification->send($user);
+        }
+
+        return $this->verificationSent();
+    }
+
     public function userCreated()
     {
         $message = 'Registration successful. Please check the verification email that was sent to the email you registered.';
@@ -121,6 +147,11 @@ class AuthController extends Controller implements UserCreatorListener, UserUpda
     public function userVerified()
     {
         return Redirect::to('/login')->with('success', 'Verification successful. You can now login your account.');
+    }
+
+    public function verificationSent()
+    {
+        return Redirect::to('/login')->with('success', 'The verification email has been sent. Kindly check your inbox.');
     }
 
     public function emailUpdated() {}
