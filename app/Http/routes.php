@@ -12,6 +12,9 @@ Route::group(['namespace' => 'Auth'], function() {
 
     Route::get('/register/verify/{code}', 'AuthController@verifyUser');
 
+    Route::get('/resend/verification', 'AuthController@resendVerification');
+    Route::post('/resend/verification', 'AuthController@resend');
+
     Route::get('/logout','AuthController@logout');
 });
 

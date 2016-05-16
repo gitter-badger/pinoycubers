@@ -108,7 +108,7 @@ class AuthController extends Controller implements UserCreatorListener, UserUpda
 
     public function unverifiedUser()
     {
-        $message = 'Your account was not yet verified. Please check the verification email that was sent to the email you registered.';
+        $message = 'Your account was not yet verified. Please check the verification email that was sent to the email you registered. Didn\'t receive an email? <a href="/resend/verification">Click here</a> to resend.';
 
         return Redirect::to('/login')->with('error', $message);
     }
