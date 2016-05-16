@@ -34,7 +34,7 @@ Route::get('login/fb/callback', 'HomeController@fbLoginCallback');
 // Cubemeets
 Route::group(['namespace' => 'Cubemeets'], function() {
     Route::post('/cubemeets/{cubemeets}/join', 'CubemeetAttendeesController@join');
-    Route::post('/cubemeets/{cubemeets}/cancelJoin', 'CubemeetAttendeesController@canceljoin');
+    Route::post('/cubemeets/{cubemeets}/canceljoin', 'CubemeetAttendeesController@cancelJoin');
 
     Route::get('/cubemeets', 'CubemeetController@index');
 
