@@ -49,9 +49,9 @@ class CubemeetAttendeesController extends Controller implements AttendeeCreatorL
         $this->attendeeUpdater = $attendeeUpdater;
     }
 
-    public function join($id, Request $request)
+    public function join($slug, Request $request)
     {
-        $cubemeet = $this->cubemeets->getById($id);
+        $cubemeet = $this->cubemeets->getBySlug($slug);
 
         $data = [
             'cm_id' => $cubemeet->id,
@@ -61,9 +61,9 @@ class CubemeetAttendeesController extends Controller implements AttendeeCreatorL
         return $this->attendeeCreator->create($this, $data);
     }
 
-    public function cancelJoin($id, Request $request)
+    public function cancelJoin($slug, Request $request)
     {
-        $cubemeet = $this->cubemeets->getById($id);
+        $cubemeet = $this->cubemeets->getBySlug($slug);
 
         $user_id = $request->user()->id;
 

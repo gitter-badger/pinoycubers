@@ -33,4 +33,11 @@ class Attendee extends Model
     public function cuberprofile() {
         return $this->belongsTo('App\Accounts\User', 'user_id');
     }
+
+    public function name()
+    {
+        $attendee = $this->cuberprofile()->getResults()->profile()->getResults();
+
+        return $attendee->first_name.' '.$attendee->last_name;
+    }
 }
