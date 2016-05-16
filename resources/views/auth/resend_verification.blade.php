@@ -21,21 +21,21 @@
                 <div class="alert alert-danger">{!! Session::get('error') !!}</div>
                 @endif
 
-                {!! Form::open(['url' => '/user/authenticate', 'role' => 'form']) !!}
+                {!! Form::open(['url' => '/resend/verification', 'role' => 'form']) !!}
 
                     <div class="form-group">
                         {!! Form::email('email', null, ['placeholder' => 'Email', 'class' => 'form-control']) !!}
                     </div>
-                    <div class="form-group">
-                        {!! Form::password('password', ['placeholder' => 'Password', 'class' => 'form-control']) !!}
-                    </div>
                 
-                    {!! Form::submit('Login', ['class' => 'btn btn-md btn-primary']) !!}
+                    {!! Form::submit('Resend Verification', ['class' => 'btn btn-md btn-primary']) !!}
                 
                 {!! Form::close() !!}
-
+                    
                     <span class="help-block">
-                    	<a href="/password/forgot">Forgot your password?</a>
+                        <a href="/login">Click here to login.</a>
+                    </span>
+                    <span class="help-block">
+                        <a href="/password/forgot">Forgot your password?</a>
                     </span>
             </div>
         </div>
