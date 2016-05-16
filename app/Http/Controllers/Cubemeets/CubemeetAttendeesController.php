@@ -67,7 +67,7 @@ class CubemeetAttendeesController extends Controller implements AttendeeCreatorL
 
         $user_id = $request->user()->id;
 
-        $attendee = $this->attendees->getByIdFromCubemeet($user_id, $cubemeet);
+        $attendee = $this->attendees->getFromCubemeetById($user_id, $cubemeet);
 
         return $this->attendeeUpdater->cancelAttendance($this, $attendee);
     }
