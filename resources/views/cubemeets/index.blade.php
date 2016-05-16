@@ -32,7 +32,7 @@
     <div class="col-sm-5">
         <ul class="list-unstyled">
             <li>
-                <b><a href="{{ '/cubemeets/'.$cm->id }}">{{ $cm->name }}</a></b>
+                <b><a href="{{ '/cubemeets/'.$cm->slug }}">{{ $cm->name }}</a></b>
                 <small>by {{ $cm->hostName() }}</small>
             </li>
             <li><span class="fa fa-fw fa-calendar"></span> {{ $cm->date->format('M d, Y') }} · {{ date('h:i A', strtotime($cm->start_time)) }}</li>
@@ -50,8 +50,8 @@
     </div>
     <div class="col-sm-2">
         @if ($cm->signedUserIsHost())
-            {!! Form::open(['url' => '/cubemeets/'.$cm->id.'/cancel', 'class' => 'text-right']) !!}
-                <a href="{{ '/cubemeets/'.$cm->id.'/edit' }}" class="btn btn-sm btn-default">
+            {!! Form::open(['url' => '/cubemeets/'.$cm->slug.'/cancel', 'class' => 'text-right']) !!}
+                <a href="{{ '/cubemeets/'.$cm->slug.'/edit' }}" class="btn btn-sm btn-default">
                     <span class="fa fa-fw fa-pencil"></span> Edit
                 </a>
                 <button type="submit" class="btn btn-sm btn-danger">
@@ -61,13 +61,13 @@
         @else
             <div class="text-right">
                 @if ($cm->attendeeIsGoing())
-                    {!! Form::open(['url' => 'cubemeets/'.$cm->id.'/canceljoin', 'role' => 'form']) !!}
+                    {!! Form::open(['url' => 'cubemeets/'.$cm->slug.'/canceljoin', 'role' => 'form']) !!}
                         <button type="submit" class="btn btn-sm btn-primary">
                             <span class="fa fa-ban"> Not Going</span>
                         </button>
                     {!! Form::close() !!}
                 @else
-                    {!! Form::open(['url' => 'cubemeets/'.$cm->id.'/join', 'role' => 'form']) !!}
+                    {!! Form::open(['url' => 'cubemeets/'.$cm->slug.'/join', 'role' => 'form']) !!}
                         <button type="submit" class="btn btn-sm btn-primary">
                             <span class="fa fa-check"> Join</span>
                         </button>

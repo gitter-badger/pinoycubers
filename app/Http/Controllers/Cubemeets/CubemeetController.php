@@ -68,23 +68,23 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
         return $this->cubemeetCreator->create($this, $data);
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $cm = $this->cubemeets->getById($id);
+        $cm = $this->cubemeets->getBySlug($slug);
 
         return View::make('cubemeets.show', compact('cm'));
     }
 
-    public function edit($id)
+    public function edit($slug)
     {
-        $cubemeet = $this->cubemeets->getById($id);
+        $cubemeet = $this->cubemeets->getBySlug($slug);
 
         return View::make('cubemeets.edit', compact('cubemeet'));
     }
 
-    public function update($id, PostCubemeetRequest $request)
+    public function update($slug, PostCubemeetRequest $request)
     {
-        $cubemeet = $this->cubemeets->getById($id);
+        $cubemeet = $this->cubemeets->getBySlug($slug);
 
         $data = $this->prepareDataFromRequest($request);
 
@@ -100,9 +100,9 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
         return $data;
     }
 
-    public function cancel($id)
+    public function cancel($slug)
     {
-        $cubemeet = $this->cubemeets->getById($id);
+        $cubemeet = $this->cubemeets->getBySlug($slug);
 
         return $this->cubemeetUpdater->cancel($this, $cubemeet);
     }

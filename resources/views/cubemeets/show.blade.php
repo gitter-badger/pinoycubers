@@ -29,8 +29,8 @@
     <div class="row">
         @if ($cm->status == 'Scheduled')
             @if ($cm->host()->getResults()->id == Auth::user()->id)
-                {!! Form::open(['method' => 'POST', 'url' => '/cubemeets/'.$cm->id.'/cancel']) !!}
-                    <a href="{{ '/cubemeets/'.$cm->id.'/edit' }}" class="btn btn-sm btn-default">Edit</a>
+                {!! Form::open(['method' => 'POST', 'url' => '/cubemeets/'.$cm->slug.'/cancel']) !!}
+                    <a href="{{ '/cubemeets/'.$cm->slug.'/edit' }}" class="btn btn-sm btn-default">Edit</a>
                     {!! Form::submit('Cancel', ['class' => 'btn btn-sm btn-danger']) !!}
                 {!! Form::close() !!}
             @else
@@ -43,11 +43,11 @@
                     }
                     return false;
                 }))
-                {!! Form::open(['url' => 'cubemeets/'.$cm->id.'/canceljoin', 'role' => 'form']) !!}
+                {!! Form::open(['url' => 'cubemeets/'.$cm->slug.'/canceljoin', 'role' => 'form']) !!}
                     {!! Form::submit('Not Going', ['class' => 'btn btn-sm btn-primary']) !!}
                 {!! Form::close() !!}
                 @else
-                {!! Form::open(['url' => 'cubemeets/'.$cm->id.'/join', 'role' => 'form']) !!}
+                {!! Form::open(['url' => 'cubemeets/'.$cm->slug.'/join', 'role' => 'form']) !!}
                     {!! Form::submit('Join', ['class' => 'btn btn-sm btn-primary']) !!}
                 {!! Form::close() !!}
                 @endif
