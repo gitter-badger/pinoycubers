@@ -42,9 +42,19 @@ class Cubemeet extends Model
 
     public function hostName()
     {
-        $profile = $this->host()->getResults()->profile()->getResults();
+        $profile = $this->getProfile();
 
         return $profile->first_name.' '.$profile->last_name;
+    }
+
+    public function hostUsername()
+    {
+        return $this->getProfile()->username;
+    }
+
+    public function getProfile()
+    {
+        return $this->host()->getResults()->profile()->getResults();   
     }
 
     public function countCubers()

@@ -33,7 +33,7 @@
         <ul class="list-unstyled">
             <li>
                 <b><a href="{{ '/cubemeets/'.$cm->slug }}">{{ $cm->name }}</a></b>
-                <small>by {{ $cm->hostName() }}</small>
+                <small>by <a href="{{ '/'.$cm->hostUsername() }}">{{ $cm->hostName() }}</a></small>
             </li>
             <li><span class="fa fa-fw fa-calendar"></span> {{ $cm->date->format('M d, Y') }} · {{ date('h:i A', strtotime($cm->start_time)) }}</li>
         </ul>

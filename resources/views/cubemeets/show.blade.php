@@ -10,7 +10,7 @@
 @include('partials.messages')
 
 <div class="row">
-    <h2>{{ $cm->name }} <small>by {{ $cm->hostName() }}</small></h2>
+    <h2>{{ $cm->name }} <small>by <a href="{{ '/'.$cm->hostUsername() }}">{{ $cm->hostName() }}</a></small></h2>
 </div>
 
 <div class="row">
@@ -72,9 +72,9 @@
         </h4>
         <div style="padding-left: 30px">
             <ul class="list-unstyled">
-                <li>{{ $cm->hostName() }}</li>
+                <li><a href="{{ '/'.$cm->hostUsername() }}">{{ $cm->hostName() }}</a></li>
                 @foreach ($cm->getAttendees() as $attendee)
-                    <li>{{ $attendee->name() }}</li>
+                    <li><a href="{{ '/'.$attendee->username() }}">{{ $attendee->name() }}</a></li>
                 @endforeach
             </ul>
         </div>
