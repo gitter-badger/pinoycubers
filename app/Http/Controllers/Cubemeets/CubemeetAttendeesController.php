@@ -53,9 +53,18 @@ class CubemeetAttendeesController extends Controller implements AttendeeCreatorL
     {
         $cubemeet = $this->cubemeets->getBySlug($slug);
 
+        $user_id = $request->user()->id;
+
+        $attendee = $this->attendees->getFromCubemeetById($user_id, $cubemeet);
+
+        if($attendee)
+        {
+            return $this->attendeeUpdater->attend($this, $attendee);
+        }
+
         $data = [
             'cm_id' => $cubemeet->id,
-            'user_id' => $request->user()->id
+            'user_id' => $user_id
         ];
 
         return $this->attendeeCreator->create($this, $data);
@@ -80,5 +89,10 @@ class CubemeetAttendeesController extends Controller implements AttendeeCreatorL
     public function attendanceCanceled()
     {
         return Redirect::back()->with('success', 'Success');
+    }
+
+    public function attendanceMarked()
+    {
+        return Redirect::back()->with('success', 'Successfuly joined');
     }
 }

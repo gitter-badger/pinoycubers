@@ -25,4 +25,13 @@ class AttendeeUpdater
 
         return $listener->attendanceCanceled();
     }
+
+    public function attend($listener, $attendee)
+    {
+        $attendee->status = 'Going';
+
+        $this->attendees->save($attendee);
+
+        return $listener->attendanceMarked();
+    }
 }
