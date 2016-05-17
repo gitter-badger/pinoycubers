@@ -46,6 +46,7 @@ Route::group(['namespace' => 'Cubemeets'], function() {
     Route::get('/cubemeets/{slug}/edit', 'CubemeetController@edit');
     Route::post('/cubemeets/{slug}/edit', 'CubemeetController@update');
 
+    Route::get('/cubemeets/{slug}/cancel', 'CubemeetController@getCancel');
     Route::post('/cubemeets/{slug}/cancel', 'CubemeetController@cancel');
 });
 

@@ -10,6 +10,7 @@ use App\Cubemeets\CubemeetUpdaterListener;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostCubemeetRequest;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Redirect;
 use View;
 
@@ -100,11 +101,20 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
         return $data;
     }
 
-    public function cancel($slug)
+    public function getCancel($slug)
     {
         $cubemeet = $this->cubemeets->getBySlug($slug);
 
-        return $this->cubemeetUpdater->cancel($this, $cubemeet);
+        return View::make('cubemeets.cancel', compact('cubemeet'));
+    }
+
+    public function cancel($slug, Request $request)
+    {
+        $cubemeet = $this->cubemeets->getBySlug($slug);
+
+        $reason = $request->get('reason');
+
+        return $this->cubemeetUpdater->cancel($this, $cubemeet, $reason);
     }
 
     public function cubemeetCreated()

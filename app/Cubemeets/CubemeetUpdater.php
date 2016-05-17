@@ -35,9 +35,10 @@ class CubemeetUpdater
         return $listener->cubemeetUpdated();
     }
 
-    public function cancel($listener, $cubemeet)
+    public function cancel($listener, $cubemeet, $reason)
     {
         $cubemeet->status = 'Canceled';
+        $cubemeet->cancelation_reason = $reason;
 
         $this->cubemeets->save($cubemeet);
 
