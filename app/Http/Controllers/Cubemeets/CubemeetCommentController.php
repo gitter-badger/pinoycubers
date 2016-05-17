@@ -10,8 +10,8 @@ use App\Cubemeets\Comments\CommentDeleterListener;
 use App\Cubemeets\Comments\CommentRepository;
 use App\Cubemeets\Comments\CommentUpdater;
 use App\Cubemeets\Comments\CommentUpdaterListener;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Cubemeets\PostCubemeetCommentRequest;
 use Illuminate\Http\Request;
 use Redirect;
 use View;
@@ -59,7 +59,7 @@ class CubemeetCommentController extends Controller implements CommentCreatorList
         $this->commentDeleter = $commentDeleter;
     }
 
-    public function comment($slug, Request $request)
+    public function comment($slug, PostCubemeetCommentRequest $request)
     {
         $cubemeet = $this->cubemeets->getBySlug($slug);
 
@@ -84,7 +84,7 @@ class CubemeetCommentController extends Controller implements CommentCreatorList
         return $this->actionNotAllowed();
     }
 
-    public function update($id, Request $request)
+    public function update($id, PostCubemeetCommentRequest $request)
     {
         $comment = $this->comments->getById($id);
 

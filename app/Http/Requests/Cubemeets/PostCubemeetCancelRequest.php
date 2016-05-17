@@ -24,7 +24,7 @@ class PostCubemeetCancelRequest extends Request
     public function rules()
     {
         return [
-            'reason' => 'required';
+            'reason' => 'required'
         ];
     }
 }

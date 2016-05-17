@@ -24,7 +24,7 @@ class PostCubemeetCommentRequest extends Request
     public function rules()
     {
         return [
-            'comment' => 'required';
+            'comment' => 'required'
         ];
     }
 }
