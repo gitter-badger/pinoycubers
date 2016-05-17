@@ -33,4 +33,9 @@ class CubemeetRepository extends Repository
     {
         return $this->model->with('host', 'cubers.cuberprofile')->where('slug', '=', $slug)->first();
     }
+
+    public function getCubemeetCommentsPaginated($cubemeet, $perPage = 15)
+    {
+        return $cubemeet->comments()->paginate($perPage);
+    }
 }
