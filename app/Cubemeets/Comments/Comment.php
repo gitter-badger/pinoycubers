@@ -52,4 +52,9 @@ class Comment extends Model
     {
         return $this->cubemeet()->getResults();
     }
+
+    public function isManageableBy($user)
+    {
+        return $user->id == $this->user_id;
+    }
 }
