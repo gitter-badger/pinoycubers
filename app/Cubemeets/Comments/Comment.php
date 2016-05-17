@@ -11,7 +11,14 @@ class Comment extends Model
      *
      * @var array
      */
-    protected $fillable = ['comment'];
+    protected $fillable = ['user_id', 'cm_id', 'comment'];
+
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'cubemeet_comments';
 
     /**
      * Get the users that owns the comment.
