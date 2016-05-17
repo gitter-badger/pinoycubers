@@ -23,6 +23,6 @@ class CommentDeleter
 
         $this->comments->delete($comment);
 
-        return $this->commentDeleted($fromCubemeet);
+        return $listener->commentDeleted($fromCubemeet);
     }
 }
