@@ -88,7 +88,7 @@
                 </div>
                 @if($comment->isManageableBy(Auth::user()))
                     <div class="col-sm-1">
-                        <a href="{{ '/cubemeets/replies/edit/'.$comment->id }}" class="btn btn-sm btn-default">
+                        <a href="{{ '/cubemeets/comments/edit/'.$comment->id }}" class="btn btn-sm btn-default">
                             <span class="fa fa-fw fa-pencil"></span>
                         </a>
                     </div>
