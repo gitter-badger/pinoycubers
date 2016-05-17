@@ -80,20 +80,30 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
         return View::make('cubemeets.show', compact('cm', 'comments'));
     }
 
-    public function edit($slug)
+    public function edit($slug, Request $request)
     {
         $cubemeet = $this->cubemeets->getBySlug($slug);
 
-        return View::make('cubemeets.edit', compact('cubemeet'));
+        if($cubemeet->isManageableBy($request->user()))
+        {
+            return View::make('cubemeets.edit', compact('cubemeet'));
+        }
+
+        return $this->actionNotAllowed();
     }
 
     public function update($slug, PostCubemeetRequest $request)
     {
         $cubemeet = $this->cubemeets->getBySlug($slug);
 
-        $data = $this->prepareDataFromRequest($request);
+        if($cubemeet->isManageableBy($request->user()))
+        {
+            $data = $this->prepareDataFromRequest($request);
 
-        return $this->cubemeetUpdater->update($this, $cubemeet, $data);
+            return $this->cubemeetUpdater->update($this, $cubemeet, $data);
+        }
+
+        return $this->actionNotAllowed();
     }
 
     private function prepareDataFromRequest($request)
@@ -105,20 +115,30 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
         return $data;
     }
 
-    public function getCancel($slug)
+    public function getCancel($slug, Request $request)
     {
         $cubemeet = $this->cubemeets->getBySlug($slug);
 
-        return View::make('cubemeets.cancel', compact('cubemeet'));
+        if($cubemeet->isManageableBy($request->user()))
+        {
+            return View::make('cubemeets.cancel', compact('cubemeet'));
+        }
+
+        return $this->actionNotAllowed();
     }
 
     public function cancel($slug, Request $request)
     {
         $cubemeet = $this->cubemeets->getBySlug($slug);
 
-        $reason = $request->get('reason');
+        if($cubemeet->isManageableBy($request->user()))
+        {
+            $reason = $request->get('reason');
 
-        return $this->cubemeetUpdater->cancel($this, $cubemeet, $reason);
+            return $this->cubemeetUpdater->cancel($this, $cubemeet, $reason);
+        }
+
+        return $this->actionNotAllowed();
     }
 
     public function cubemeetCreated()
@@ -134,5 +154,10 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
     public function cubemeetCanceled()
     {
         return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly canceled');
+    }
+
+    public function actionNotAllowed()
+    {
+        return Redirect::to('cubemeets');
     }
 }

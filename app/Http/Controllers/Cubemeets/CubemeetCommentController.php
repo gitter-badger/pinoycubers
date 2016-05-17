@@ -63,20 +63,30 @@ class CubemeetCommentController extends Controller implements CommentCreatorList
         return $this->commentCreator->create($this, $data);
     }
 
-    public function edit($id)
+    public function edit($id, Request $request)
     {
         $comment = $this->comments->getById($id);
 
-        return View::make('cubemeets.comments.edit', compact('comment'));
+        if($comment->isManageableBy($request->user()))
+        {
+            return View::make('cubemeets.comments.edit', compact('comment'));
+        }
+
+        return $this->actionNotAllowed();
     }
 
     public function update($id, Request $request)
     {
         $comment = $this->comments->getById($id);
 
-        $data = ['comment' => $request->comment];
+        if($comment->isManageableBy($request->user()))
+        {
+            $data = ['comment' => $request->comment];
 
-        return $this->commentUpdater->update($this, $comment, $data);
+            return $this->commentUpdater->update($this, $comment, $data);
+        }
+
+        return $this->actionNotAllowed();
     }
 
     public function commentCreated()
@@ -89,5 +99,10 @@ class CubemeetCommentController extends Controller implements CommentCreatorList
         $cubemeet = $comment->getCubemeet();
 
         return Redirect::to('cubemeets/'.$cubemeet->slug)->with('success', 'Comment updated');
+    }
+
+    public function actionNotAllowed()
+    {
+        return Redirect::to('cubemeets');
     }
 }

@@ -95,4 +95,9 @@ class Cubemeet extends Model
     {
         return $this->cubers()->where('status', 'Going')->get();
     }
+
+    public function isManageableBy($user)
+    {
+        return $user->id == $this->user_id;
+    }
 }
