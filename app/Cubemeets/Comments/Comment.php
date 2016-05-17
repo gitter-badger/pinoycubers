@@ -38,8 +38,13 @@ class Comment extends Model
 
     public function getAuthorName()
     {
-        $profile = $this->user()->getResults()->profile()->getResults();
+        $profile = $this->getAuthorProfile();
 
         return $profile->first_name.' '.$profile->last_name;
+    }
+
+    public function getAuthorProfile()
+    {
+        return $this->user()->getResults()->profile()->getResults();
     }
 }
