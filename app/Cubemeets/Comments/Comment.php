@@ -35,4 +35,11 @@ class Comment extends Model
     {
         return $this->belongsTo('App\Cubemeets\Cubemeet', 'cm_id');
     }
+
+    public function getAuthorName()
+    {
+        $profile = $this->user()->getResults()->profile()->getResults();
+
+        return $profile->first_name.' '.$profile->last_name;
+    }
 }
