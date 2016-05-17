@@ -25,7 +25,7 @@ class AddCancelationReasonFieldToCubemeetsTable extends Migration
     public function down()
     {
         Schema::table('cubemeets', function(Blueprint $table) {
-            $table->string('cancelation_reason');
+            $table->dropColumn('cancelation_reason');
         });
     }
 }
