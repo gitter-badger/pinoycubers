@@ -4,7 +4,7 @@ namespace App\Cubemeets\Comments;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CubemeetComment extends Model
+class Comment extends Model
 {
     /**
      * Fillable fields

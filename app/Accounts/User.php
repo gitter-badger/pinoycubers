@@ -124,6 +124,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function cubemeetComment()
     {
-        return $this->hasMany('App\Cubemeets\Comments\CubemeetComment', 'user_id');
+        return $this->hasMany('App\Cubemeets\Comments\Comment', 'user_id');
     }
 }
