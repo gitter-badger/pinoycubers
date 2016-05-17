@@ -55,7 +55,7 @@
         </div>
     </div>
     <div class="col-sm-6">
-        <!-- Comments -->
+        <!-- Comment Form -->
         <div class="row">
             <div class="col-sm-2">
                 <img alt="{{Auth::user()->profile->first_name}} {{Auth::user()->profile->last_name}}" class="img-responsive" src="https://placehold.it/200x200">
@@ -67,8 +67,28 @@
                     </div>
                     {!! Form::submit('Comment', ['class' => 'btn btn-md btn-primary']) !!}
                 {!! Form::close() !!}
+                <hr>
             </div>
         </div>
+        <!-- Comments -->
+        @foreach($comments as $comment)
+            <div class="row">
+                <div class="col-sm-2">
+                    <a href="{{ '/'.$comment->getAuthorProfile()->username }}">
+                        <img alt="User picture" class="img-responsive" src="https://placehold.it/200x200">
+                    </a>
+                </div>
+                <div class="col-sm-10">
+                    <p>
+                        <a href="{{ '/'.$comment->getAuthorProfile()->username }}">
+                            <b>{{ $comment->getAuthorName() }}</b>
+                        </a>: 
+                        {{ $comment->comment }}
+                    </p>
+                </div>
+            </div>
+            <hr>
+        @endforeach
     </div>
 </div>
 

@@ -33,10 +33,12 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
 
     protected $cubemeetsPerPage = 15;
 
+    protected $commentsPerPage = 15;
+
     /**
-     * @param \App\Cubemeet\CubemeetRepository $cubemeets
-     * @param \App\Cubemeet\CubemeetCreator $cubemeetCreator
-     * @param \App\Cubemeet\CubemeetUpdater $cubemeetUpdater
+     * @param \App\Cubemeets\CubemeetRepository $cubemeets
+     * @param \App\Cubemeets\CubemeetCreator $cubemeetCreator
+     * @param \App\Cubemeets\CubemeetUpdater $cubemeetUpdater
      * @return void
      */
     public function __construct(CubemeetRepository $cubemeets, CubemeetCreator $cubemeetCreator, CubemeetUpdater $cubemeetUpdater)
@@ -73,7 +75,9 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
     {
         $cm = $this->cubemeets->getBySlug($slug);
 
-        return View::make('cubemeets.show', compact('cm'));
+        $comments = $this->cubemeets->getCubemeetCommentsPaginated($cm, $this->commentsPerPage);
+
+        return View::make('cubemeets.show', compact('cm', 'comments'));
     }
 
     public function edit($slug)
