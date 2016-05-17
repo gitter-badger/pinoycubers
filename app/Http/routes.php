@@ -50,6 +50,9 @@ Route::group(['namespace' => 'Cubemeets'], function() {
     Route::post('/cubemeets/{slug}/cancel', 'CubemeetController@cancel');
 
     Route::post('/cubemeets/{slug}/comment', 'CubemeetCommentController@comment');
+
+    Route::get('/cubemeets/comments/edit/{id}', 'CubemeetCommentController@edit');
+    Route::post('/cubemeets/comments/edit/{id}', 'CubemeetCommentController@update');
 });
 
 Route::group(['middleware' => 'auth'], function() {
