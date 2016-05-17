@@ -38,7 +38,7 @@
             <li><span class="fa fa-fw fa-calendar"></span> {{ $cm->date->format('M d, Y') }} · {{ date('h:i A', strtotime($cm->start_time)) }}</li>
         </ul>
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-4">
         <ul class="list-unstyled">
             <li><span class="fa fa-fw fa-map-marker"></span> {{ $cm->location }}</li>
             <li>
@@ -48,28 +48,34 @@
             </li>
         </ul>
     </div>
-    <div class="col-sm-2 text-right">
-        @if ($cm->signedUserIsHost())
-            <a href="{{ '/cubemeets/'.$cm->slug.'/edit' }}" class="btn btn-sm btn-default">
-                <span class="fa fa-fw fa-pencil"></span> Edit
-            </a>
-            <a href="{{ '/cubemeets/'.$cm->slug.'/cancel' }}" class="btn btn-sm btn-danger">
-                <span class="fa fa-fw fa-times"></span> Cancel
-            </a>
-        @else
-            @if ($cm->attendeeIsGoing())
-                {!! Form::open(['url' => 'cubemeets/'.$cm->slug.'/canceljoin', 'role' => 'form']) !!}
-                    <button type="submit" class="btn btn-sm btn-primary">
-                        <span class="fa fa-ban"> Not Going</span>
-                    </button>
-                {!! Form::close() !!}
+    <div class="col-sm-3 text-right">
+        @if ($cm->status == 'Scheduled')
+            @if ($cm->signedUserIsHost())
+                <a href="{{ '/cubemeets/'.$cm->slug.'/edit' }}" class="btn btn-sm btn-default">
+                    <span class="fa fa-fw fa-pencil"></span> Edit
+                </a>
+                <a href="{{ '/cubemeets/'.$cm->slug.'/cancel' }}" class="btn btn-sm btn-danger">
+                    <span class="fa fa-fw fa-times"></span> Cancel
+                </a>
             @else
-                {!! Form::open(['url' => 'cubemeets/'.$cm->slug.'/join', 'role' => 'form']) !!}
-                    <button type="submit" class="btn btn-sm btn-primary">
-                        <span class="fa fa-check"> Join</span>
-                    </button>
-                {!! Form::close() !!}
+                @if ($cm->attendeeIsGoing())
+                    {!! Form::open(['url' => 'cubemeets/'.$cm->slug.'/canceljoin', 'role' => 'form']) !!}
+                        <button type="submit" class="btn btn-sm btn-primary">
+                            <span class="fa fa-ban"> Not Going</span>
+                        </button>
+                    {!! Form::close() !!}
+                @else
+                    {!! Form::open(['url' => 'cubemeets/'.$cm->slug.'/join', 'role' => 'form']) !!}
+                        <button type="submit" class="btn btn-sm btn-primary">
+                            <span class="fa fa-check"> Join</span>
+                        </button>
+                    {!! Form::close() !!}
+                @endif
             @endif
+        @elseif ($cm->status == 'Canceled')
+            <ul class="list-unstyled">
+                <li><span class="fa fa-fw fa-ban"></span> Cube meet is canceled.</li>
+            </ul>
         @endif
     </div>
 </div>
