@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Cubemeets;
 
 use App\Http\Requests\Request;
 
-class PostCubemeetCancelRequest extends Request
+class PostCubemeetCommentRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class PostCubemeetCancelRequest extends Request
     public function rules()
     {
         return [
-            'reason' => 'required';
+            'comment' => 'required';
         ];
     }
 }

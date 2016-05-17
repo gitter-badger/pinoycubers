@@ -8,7 +8,7 @@ use App\Cubemeets\CubemeetRepository;
 use App\Cubemeets\CubemeetUpdater;
 use App\Cubemeets\CubemeetUpdaterListener;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PostCubemeetRequest;
+use App\Http\Requests\Cubemeets\PostCubemeetRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Redirect;
