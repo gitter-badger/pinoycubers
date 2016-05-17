@@ -91,6 +91,9 @@
                         <a href="{{ '/cubemeets/comments/edit/'.$comment->id }}" class="btn btn-sm btn-default">
                             <span class="fa fa-fw fa-pencil"></span>
                         </a>
+                        <a href="{{ '/cubemeets/comments/delete/'.$comment->id }}" class="btn btn-sm btn-default">
+                            <span class="fa fa-fw fa-times"></span>
+                        </a>
                     </div>
                 @endif
             </div>
