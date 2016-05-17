@@ -47,4 +47,9 @@ class Comment extends Model
     {
         return $this->user()->getResults()->profile()->getResults();
     }
+
+    public function getCubemeet()
+    {
+        return $this->cubemeet()->getResults();
+    }
 }
