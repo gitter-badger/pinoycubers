@@ -4,5 +4,5 @@ namespace App\Cubemeets\Comments;
 
 interface CommentUpdaterListener
 {
-    public function commentUpdated();
+    public function commentUpdated($comment);
 }

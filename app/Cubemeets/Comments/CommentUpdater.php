@@ -23,6 +23,6 @@ class CommentUpdater
 
         $this->comments->save($comment);
 
-        return $listener->commentUpdated();
+        return $listener->commentUpdated($comment);
     }
 }
