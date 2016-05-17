@@ -10,74 +10,95 @@
 @include('partials.messages')
 
 <div class="row">
-    <div class="row">
-        <h2>{{ $cm['name'] }} <small>by {{ $cm->host()->getResults()->first_name.' '.$cm->host()->getResults()->last_name }}</small></h2>
-    </div>
-    <hr>
+    <h2>{{ $cm->name }} <small>by <a href="{{ '/'.$cm->hostUsername() }}">{{ $cm->hostName() }}</a></small></h2>
 </div>
 
 <div class="row">
-    <div class="row">
-        <ul>
-            <li><b>Location:</b> {{ $cm->location }}</li>
-            <li><b>Date:</b> {{ $cm->date->format('M-d-Y') }}</li>
-            <li><b>Start Time:</b> {{ date('h:i A', strtotime($cm->start_time)) }}</li>
-            <li><b>Description:</b> {{ $cm->description }}</li>
+    <div class="col-sm-6">
+        <ul class="list-unstyled">
+            <li>
+                <span class="fa fa-fw fa-calendar"></span> 
+                {{ $cm->date->format('M d, Y') }} · {{ date('h:i A', strtotime($cm->start_time)) }}
+            </li>
+            <li><span class="fa fa-fw fa-map-marker"></span> {{ $cm->location }}</li>
         </ul>
     </div>
-
-    <div class="row">
-        @if ($cm->status == 'Scheduled')
-            @if ($cm->host()->getResults()->id == Auth::user()->id)
-                {!! Form::open(['method' => 'POST', 'url' => '/cubemeets/'.$cm->id.'/cancel']) !!}
-                    <a href="{{ '/cubemeets/'.$cm->id.'/edit' }}" class="btn btn-sm btn-default">Edit</a>
-                    {!! Form::submit('Cancel', ['class' => 'btn btn-sm btn-danger']) !!}
-                {!! Form::close() !!}
-            @else
-                @if (array_first($cm->cubers, function ($key, $value) {
-                    if($value['user_id'] == Auth::user()->id) {
-                        if($value['status'] == 'Going') {
-                            return true;
-                        }
-                        return false;
-                    }
-                    return false;
-                }))
-                {!! Form::open(['url' => 'cubemeets/'.$cm->id.'/canceljoin', 'role' => 'form']) !!}
-                    {!! Form::submit('Not Going', ['class' => 'btn btn-sm btn-primary']) !!}
-                {!! Form::close() !!}
-                @else
-                {!! Form::open(['url' => 'cubemeets/'.$cm->id.'/join', 'role' => 'form']) !!}
-                    {!! Form::submit('Join', ['class' => 'btn btn-sm btn-primary']) !!}
-                {!! Form::close() !!}
-                @endif
-            @endif
-        @endif
+    <div class="col-sm-6 text-right">
+        @include('cubemeets._actions')
     </div>
+</div>
 
-    <hr>
+<hr>
 
-    <div class="row">
-        <h4>List of cuber(s) who will attend</h4>
-        <ul>
-            <li>{{ $cm->host()->getResults()->first_name.' '.$cm->host()->getResults()->last_name }}</li>
-            @if ($cm->cubers()->where('status', 'Going')->count() > 0)
-                @foreach ($cm->cubers()->where('status', 'Going')->get() as $cuber)
-                <li>{{ $cuber->cuberprofile()->getResults()->first_name.' '.$cuber->cuberprofile()->getResults()->last_name }}</li>
-                @endforeach
-            @endif
-        </ul>
+<div class="row">
+    <div class="col-sm-12">
+        <p>{{ $cm->description }}<p>
+    </div>
+</div>
 
-        <h4>List of cuber(s) who canceled their attendance</h4>
-            @if ($cm->cubers()->where('status', 'Not Going')->count() > 0)
-            <ul>
-                @foreach ($cm->cubers()->where('status', 'Not Going')->get() as $cuber)
-                <li>{{ $cuber->cuberprofile()->getResults()->first_name.' '.$cuber->cuberprofile()->getResults()->last_name }}</li>
+<hr>
+
+<div class="row">
+    <div class="col-sm-5">
+        <h4>
+            <span class="fa fa-fw fa-user"></span> 
+            {{ $cuberCount = $cm->countCubers() }} 
+            {{ $cuberCount > 1? 'Cubers': 'Cuber' }}
+        </h4>
+        <div style="padding-left: 30px">
+            <ul class="list-unstyled">
+                <li><a href="{{ '/'.$cm->hostUsername() }}">{{ $cm->hostName() }}</a></li>
+                @foreach ($cm->getAttendees() as $attendee)
+                    <li><a href="{{ '/'.$attendee->username() }}">{{ $attendee->name() }}</a></li>
                 @endforeach
             </ul>
-            @else
-                none
-            @endif
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <!-- Comment Form -->
+        <div class="row">
+            <div class="col-sm-2">
+                <img alt="{{Auth::user()->profile->first_name}} {{Auth::user()->profile->last_name}}" class="img-responsive" src="https://placehold.it/200x200">
+            </div>
+            <div class="col-sm-10">
+                {!! Form::open(['url' => '/cubemeets/'.$cm->slug.'/comment', 'role' => 'form']) !!}
+                    <div class="form-group">
+                        {!! Form::textarea('comment', null, ['class' => 'form-control', 'placeholder' => 'Write a comment...', 'rows' => '3']) !!}
+                    </div>
+                    {!! Form::submit('Comment', ['class' => 'btn btn-md btn-primary']) !!}
+                {!! Form::close() !!}
+                <hr>
+            </div>
+        </div>
+        <!-- Comments -->
+        @foreach($comments as $comment)
+            <div class="row">
+                <div class="col-sm-2">
+                    <a href="{{ '/'.$comment->getAuthorProfile()->username }}">
+                        <img alt="User picture" class="img-responsive" src="https://placehold.it/200x200">
+                    </a>
+                </div>
+                <div class="col-sm-9">
+                    <p>
+                        <a href="{{ '/'.$comment->getAuthorProfile()->username }}">
+                            <b>{{ $comment->getAuthorName() }}</b>
+                        </a>: 
+                        {{ $comment->comment }}
+                    </p>
+                </div>
+                @if($comment->isManageableBy(Auth::user()))
+                    <div class="col-sm-1">
+                        <a href="{{ '/cubemeets/comments/edit/'.$comment->id }}" class="btn btn-sm btn-default">
+                            <span class="fa fa-fw fa-pencil"></span>
+                        </a>
+                        <a href="{{ '/cubemeets/comments/delete/'.$comment->id }}" class="btn btn-sm btn-default">
+                            <span class="fa fa-fw fa-times"></span>
+                        </a>
+                    </div>
+                @endif
+            </div>
+            <hr>
+        @endforeach
     </div>
 </div>
 

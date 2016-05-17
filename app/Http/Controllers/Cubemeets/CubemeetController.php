@@ -8,8 +8,9 @@ use App\Cubemeets\CubemeetRepository;
 use App\Cubemeets\CubemeetUpdater;
 use App\Cubemeets\CubemeetUpdaterListener;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PostCubemeetRequest;
+use App\Http\Requests\Cubemeets\PostCubemeetRequest;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Redirect;
 use View;
 
@@ -32,10 +33,12 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
 
     protected $cubemeetsPerPage = 15;
 
+    protected $commentsPerPage = 15;
+
     /**
-     * @param \App\Cubemeet\CubemeetRepository $cubemeets
-     * @param \App\Cubemeet\CubemeetCreator $cubemeetCreator
-     * @param \App\Cubemeet\CubemeetUpdater $cubemeetUpdater
+     * @param \App\Cubemeets\CubemeetRepository $cubemeets
+     * @param \App\Cubemeets\CubemeetCreator $cubemeetCreator
+     * @param \App\Cubemeets\CubemeetUpdater $cubemeetUpdater
      * @return void
      */
     public function __construct(CubemeetRepository $cubemeets, CubemeetCreator $cubemeetCreator, CubemeetUpdater $cubemeetUpdater)
@@ -68,27 +71,39 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
         return $this->cubemeetCreator->create($this, $data);
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $cm = $this->cubemeets->getById($id);
+        $cm = $this->cubemeets->getBySlug($slug);
 
-        return View::make('cubemeets.show', compact('cm'));
+        $comments = $this->cubemeets->getCubemeetCommentsPaginated($cm, $this->commentsPerPage);
+
+        return View::make('cubemeets.show', compact('cm', 'comments'));
     }
 
-    public function edit($id)
+    public function edit($slug, Request $request)
     {
-        $cubemeet = $this->cubemeets->getById($id);
+        $cubemeet = $this->cubemeets->getBySlug($slug);
 
-        return View::make('cubemeets.edit', compact('cubemeet'));
+        if($cubemeet->isManageableBy($request->user()))
+        {
+            return View::make('cubemeets.edit', compact('cubemeet'));
+        }
+
+        return $this->actionNotAllowed();
     }
 
-    public function update($id, PostCubemeetRequest $request)
+    public function update($slug, PostCubemeetRequest $request)
     {
-        $cubemeet = $this->cubemeets->getById($id);
+        $cubemeet = $this->cubemeets->getBySlug($slug);
 
-        $data = $this->prepareDataFromRequest($request);
+        if($cubemeet->isManageableBy($request->user()))
+        {
+            $data = $this->prepareDataFromRequest($request);
 
-        return $this->cubemeetUpdater->update($this, $cubemeet, $data);
+            return $this->cubemeetUpdater->update($this, $cubemeet, $data);
+        }
+
+        return $this->actionNotAllowed();
     }
 
     private function prepareDataFromRequest($request)
@@ -100,11 +115,30 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
         return $data;
     }
 
-    public function cancel($id)
+    public function getCancel($slug, Request $request)
     {
-        $cubemeet = $this->cubemeets->getById($id);
+        $cubemeet = $this->cubemeets->getBySlug($slug);
 
-        return $this->cubemeetUpdater->cancel($this, $cubemeet);
+        if($cubemeet->isManageableBy($request->user()))
+        {
+            return View::make('cubemeets.cancel', compact('cubemeet'));
+        }
+
+        return $this->actionNotAllowed();
+    }
+
+    public function cancel($slug, Request $request)
+    {
+        $cubemeet = $this->cubemeets->getBySlug($slug);
+
+        if($cubemeet->isManageableBy($request->user()))
+        {
+            $reason = $request->get('reason');
+
+            return $this->cubemeetUpdater->cancel($this, $cubemeet, $reason);
+        }
+
+        return $this->actionNotAllowed();
     }
 
     public function cubemeetCreated()
@@ -120,5 +154,10 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
     public function cubemeetCanceled()
     {
         return Redirect::to('cubemeets')->with('success', 'Cube Meet successfuly canceled');
+    }
+
+    public function actionNotAllowed()
+    {
+        return Redirect::to('cubemeets');
     }
 }

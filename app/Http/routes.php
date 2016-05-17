@@ -32,21 +32,30 @@ Route::get('login/fb/callback', 'HomeController@fbLoginCallback');
 
 
 // Cubemeets
-Route::group(['namespace' => 'Cubemeets'], function() {
+Route::group(['middleware' => 'auth', 'namespace' => 'Cubemeets'], function() {
     Route::post('/cubemeets/{cubemeets}/join', 'CubemeetAttendeesController@join');
-    Route::post('/cubemeets/{cubemeets}/cancelJoin', 'CubemeetAttendeesController@canceljoin');
+    Route::post('/cubemeets/{cubemeets}/canceljoin', 'CubemeetAttendeesController@cancelJoin');
 
     Route::get('/cubemeets', 'CubemeetController@index');
 
     Route::get('/cubemeets/set', 'CubemeetController@create');
     Route::post('/cubemeets/set', 'CubemeetController@store');
 
-    Route::get('/cubemeets/{id}', 'CubemeetController@show');
+    Route::get('/cubemeets/{slug}', 'CubemeetController@show');
 
-    Route::get('/cubemeets/{id}/edit', 'CubemeetController@edit');
-    Route::post('/cubemeets/{id}/edit', 'CubemeetController@update');
+    Route::get('/cubemeets/{slug}/edit', 'CubemeetController@edit');
+    Route::post('/cubemeets/{slug}/edit', 'CubemeetController@update');
 
-    Route::post('/cubemeets/{id}/cancel', 'CubemeetController@cancel');
+    Route::get('/cubemeets/{slug}/cancel', 'CubemeetController@getCancel');
+    Route::post('/cubemeets/{slug}/cancel', 'CubemeetController@cancel');
+
+    Route::post('/cubemeets/{slug}/comment', 'CubemeetCommentController@comment');
+
+    Route::get('/cubemeets/comments/edit/{id}', 'CubemeetCommentController@edit');
+    Route::post('/cubemeets/comments/edit/{id}', 'CubemeetCommentController@update');
+
+    Route::get('/cubemeets/comments/delete/{id}', 'CubemeetCommentController@getDelete');
+    Route::post('/cubemeets/comments/delete/{id}', 'CubemeetCommentController@postDelete');
 });
 
 Route::group(['middleware' => 'auth'], function() {

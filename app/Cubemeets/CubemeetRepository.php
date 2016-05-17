@@ -23,4 +23,19 @@ class CubemeetRepository extends Repository
     {
         return $this->model->with('host', 'cubers.cuberprofile')->where('id', '=', $id)->first();
     }
+
+    public function countSameSlug($slug)
+    {
+        return $this->model->whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+    }
+
+    public function getBySlug($slug)
+    {
+        return $this->model->with('host', 'cubers.cuberprofile')->where('slug', '=', $slug)->first();
+    }
+
+    public function getCubemeetCommentsPaginated($cubemeet, $perPage = 15)
+    {
+        return $cubemeet->comments()->paginate($perPage);
+    }
 }

@@ -49,27 +49,41 @@ class CubemeetAttendeesController extends Controller implements AttendeeCreatorL
         $this->attendeeUpdater = $attendeeUpdater;
     }
 
-    public function join($id, Request $request)
+    public function join($slug, Request $request)
     {
-        $cubemeet = $this->cubemeets->getById($id);
+        $cubemeet = $this->cubemeets->getBySlug($slug);
 
-        $data = [
-            'cm_id' => $cubemeet->id,
-            'user_id' => $request->user()->id
-        ];
+        if($cubemeet->isJoinable())
+        {
+            $user_id = $request->user()->id;
 
-        return $this->attendeeCreator->create($this, $data);
+            $attendee = $this->attendees->getFromCubemeetById($user_id, $cubemeet);
+
+            if($attendee)
+            {
+                return $this->attendeeUpdater->attend($this, $attendee);
+            }
+
+            $data = ['cm_id' => $cubemeet->id, 'user_id' => $user_id];
+
+            return $this->attendeeCreator->create($this, $data);
+        }
+
+        return $this->actionNotAllowed();
     }
 
-    public function cancelJoin($id, Request $request)
+    public function cancelJoin($slug, Request $request)
     {
-        $cubemeet = $this->cubemeets->getById($id);
+        $cubemeet = $this->cubemeets->getBySlug($slug);
 
-        $user_id = $request->user()->id;
+        if($cubemeet->isJoinable())
+        {
+            $user_id = $request->user()->id;
 
-        $attendee = $this->attendees->getByIdFromCubemeet($user_id, $cubemeet);
+            $attendee = $this->attendees->getFromCubemeetById($user_id, $cubemeet);
 
-        return $this->attendeeUpdater->cancelAttendance($this, $attendee);
+            return $this->attendeeUpdater->cancelAttendance($this, $attendee);
+        }
     }
 
     public function attendeeCreated()
@@ -80,5 +94,15 @@ class CubemeetAttendeesController extends Controller implements AttendeeCreatorL
     public function attendanceCanceled()
     {
         return Redirect::back()->with('success', 'Success');
+    }
+
+    public function attendanceMarked()
+    {
+        return Redirect::back()->with('success', 'Successfuly joined');
+    }
+
+    public function actionNotAllowed()
+    {
+        return Redirect::to('cubemeets');
     }
 }

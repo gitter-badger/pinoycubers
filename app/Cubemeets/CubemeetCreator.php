@@ -21,9 +21,19 @@ class CubemeetCreator
     {
         $cubemeet = $this->cubemeets->getNew($data);
         $cubemeet->status = 'Scheduled';
+        $cubemeet->slug = $this->createSlug($cubemeet->name);
 
         $this->cubemeets->save($cubemeet);
 
         return $listener->cubemeetCreated();
+    }
+
+    public function createSlug($name)
+    {
+        $slug = str_slug($name);
+
+        $count = $this->cubemeets->countSameSlug($slug);
+
+        return $count ? "{$slug}-{$count}" : $slug;
     }
 }
