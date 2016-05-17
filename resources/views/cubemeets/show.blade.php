@@ -78,7 +78,7 @@
                         <img alt="User picture" class="img-responsive" src="https://placehold.it/200x200">
                     </a>
                 </div>
-                <div class="col-sm-10">
+                <div class="col-sm-9">
                     <p>
                         <a href="{{ '/'.$comment->getAuthorProfile()->username }}">
                             <b>{{ $comment->getAuthorName() }}</b>
@@ -86,6 +86,13 @@
                         {{ $comment->comment }}
                     </p>
                 </div>
+                @if($comment->isManageableBy(Auth::user()))
+                    <div class="col-sm-1">
+                        <a href="{{ '/cubemeets/replies/edit/'.$comment->id }}" class="btn btn-sm btn-default">
+                            <span class="fa fa-fw fa-pencil"></span>
+                        </a>
+                    </div>
+                @endif
             </div>
             <hr>
         @endforeach
