@@ -39,7 +39,7 @@
 <hr>
 
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-5">
         <h4>
             <span class="fa fa-fw fa-user"></span> 
             {{ $cuberCount = $cm->countCubers() }} 
@@ -55,9 +55,20 @@
         </div>
     </div>
     <div class="col-sm-6">
-
         <!-- Comments -->
-
+        <div class="row">
+            <div class="col-sm-2">
+                <img alt="{{Auth::user()->profile->first_name}} {{Auth::user()->profile->last_name}}" class="img-responsive" src="https://placehold.it/200x200">
+            </div>
+            <div class="col-sm-10">
+                {!! Form::open(['url' => '/cubemeets/'.$cm->slug.'/comment', 'role' => 'form']) !!}
+                    <div class="form-group">
+                        {!! Form::textarea('comment', null, ['class' => 'form-control', 'placeholder' => 'Write a comment...', 'rows' => '3']) !!}
+                    </div>
+                    {!! Form::submit('Comment', ['class' => 'btn btn-md btn-primary']) !!}
+                {!! Form::close() !!}
+            </div>
+        </div>
     </div>
 </div>
 
