@@ -23,32 +23,28 @@
             <li><span class="fa fa-fw fa-map-marker"></span> {{ $cm->location }}</li>
         </ul>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-6 text-right">
         @if ($cm->signedUserIsHost())
-            {!! Form::open(['url' => '/cubemeets/'.$cm->slug.'/cancel', 'class' => 'text-right']) !!}
-                <a href="{{ '/cubemeets/'.$cm->slug.'/edit' }}" class="btn btn-sm btn-default">
-                    <span class="fa fa-fw fa-pencil"></span> Edit
-                </a>
-                <button type="submit" class="btn btn-sm btn-danger">
-                    <span class="fa fa-fw fa-times"></span> Cancel
-                </button>
-            {!! Form::close() !!}
+            <a href="{{ '/cubemeets/'.$cm->slug.'/edit' }}" class="btn btn-sm btn-default">
+                <span class="fa fa-fw fa-pencil"></span> Edit
+            </a>
+            <a href="{{ '/cubemeets/'.$cm->slug.'/cancel' }}" class="btn btn-sm btn-danger">
+                <span class="fa fa-fw fa-times"></span> Cancel
+            </a>
         @else
-            <div class="text-right">
-                @if ($cm->attendeeIsGoing())
-                    {!! Form::open(['url' => 'cubemeets/'.$cm->slug.'/canceljoin', 'role' => 'form']) !!}
-                        <button type="submit" class="btn btn-sm btn-primary">
-                            <span class="fa fa-ban"> Not Going</span>
-                        </button>
-                    {!! Form::close() !!}
-                @else
-                    {!! Form::open(['url' => 'cubemeets/'.$cm->slug.'/join', 'role' => 'form']) !!}
-                        <button type="submit" class="btn btn-sm btn-primary">
-                            <span class="fa fa-check"> Join</span>
-                        </button>
-                    {!! Form::close() !!}
-                @endif
-            </div>
+            @if ($cm->attendeeIsGoing())
+                {!! Form::open(['url' => 'cubemeets/'.$cm->slug.'/canceljoin', 'role' => 'form']) !!}
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <span class="fa fa-ban"> Not Going</span>
+                    </button>
+                {!! Form::close() !!}
+            @else
+                {!! Form::open(['url' => 'cubemeets/'.$cm->slug.'/join', 'role' => 'form']) !!}
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <span class="fa fa-check"> Join</span>
+                    </button>
+                {!! Form::close() !!}
+            @endif
         @endif
     </div>
 </div>
