@@ -100,4 +100,14 @@ class Cubemeet extends Model
     {
         return $user->id == $this->user_id;
     }
+
+    public function isJoinable()
+    {
+        if($this->status == 'Scheduled')
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

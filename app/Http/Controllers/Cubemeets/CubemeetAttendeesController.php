@@ -53,32 +53,37 @@ class CubemeetAttendeesController extends Controller implements AttendeeCreatorL
     {
         $cubemeet = $this->cubemeets->getBySlug($slug);
 
-        $user_id = $request->user()->id;
-
-        $attendee = $this->attendees->getFromCubemeetById($user_id, $cubemeet);
-
-        if($attendee)
+        if($cubemeet->isJoinable())
         {
-            return $this->attendeeUpdater->attend($this, $attendee);
+            $user_id = $request->user()->id;
+
+            $attendee = $this->attendees->getFromCubemeetById($user_id, $cubemeet);
+
+            if($attendee)
+            {
+                return $this->attendeeUpdater->attend($this, $attendee);
+            }
+
+            $data = ['cm_id' => $cubemeet->id, 'user_id' => $user_id];
+
+            return $this->attendeeCreator->create($this, $data);
         }
 
-        $data = [
-            'cm_id' => $cubemeet->id,
-            'user_id' => $user_id
-        ];
-
-        return $this->attendeeCreator->create($this, $data);
+        return $this->actionNotAllowed();
     }
 
     public function cancelJoin($slug, Request $request)
     {
         $cubemeet = $this->cubemeets->getBySlug($slug);
 
-        $user_id = $request->user()->id;
+        if($cubemeet->isJoinable())
+        {
+            $user_id = $request->user()->id;
 
-        $attendee = $this->attendees->getFromCubemeetById($user_id, $cubemeet);
+            $attendee = $this->attendees->getFromCubemeetById($user_id, $cubemeet);
 
-        return $this->attendeeUpdater->cancelAttendance($this, $attendee);
+            return $this->attendeeUpdater->cancelAttendance($this, $attendee);
+        }
     }
 
     public function attendeeCreated()
@@ -94,5 +99,10 @@ class CubemeetAttendeesController extends Controller implements AttendeeCreatorL
     public function attendanceMarked()
     {
         return Redirect::back()->with('success', 'Successfuly joined');
+    }
+
+    public function actionNotAllowed()
+    {
+        return Redirect::to('cubemeets');
     }
 }
