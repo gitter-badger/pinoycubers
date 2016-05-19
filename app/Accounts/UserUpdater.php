@@ -33,6 +33,13 @@ class UserUpdater
         return $listener->passwordUpdated();
     }
 
+    public function updateAvatar($listener, $user, $data)
+    {
+        $this->update($user, $data);
+
+        return $listener->avatarUpdated();
+    }
+
     private function update($user, $data)
     {
         $user->fill($data);
