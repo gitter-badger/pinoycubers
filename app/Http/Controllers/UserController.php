@@ -139,11 +139,13 @@ class UserController extends Controller implements ProfileUpdaterListener, UserU
                 return $this->avatarIsNotValid();
             }
 
-            $user_id = $request->user()->id;
+            $user = $request->user();
 
-            $file_name = public_path($this->avatarPublicPath.$user_id.'.'.$avatarExtension);
+            $file_name = $this->avatarPublicPath.$user->id.'.'.$avatarExtension;
 
-            Image::make($avatar)->fit(200, 200)->save($file_name);
+            Image::make($avatar)->fit(200, 200)->save(public_path($file_name));
+
+            return $this->userUpdater->updateAvatar($this, $user, ['photo' => '/'.$file_name]);
         }
 
         return Redirect::to('/edit/profile');
@@ -174,6 +176,11 @@ class UserController extends Controller implements ProfileUpdaterListener, UserU
     public function passwordUpdateFailed()
     {
         return Redirect::to('/edit/profile')->with('error', 'The current password is incorrect password');
+    }
+
+    public function avatarUpdated()
+    {
+        return Redirect::to('/edit/profile')->with('success', 'Avatar successfully updated');
     }
 
     public function avatarIsNotValid()
