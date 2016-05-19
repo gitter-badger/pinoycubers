@@ -18,7 +18,7 @@
 
         <div class="row">
             <div class="col-sm-3">
-                <img class="img img-rounded" src="https://placehold.it/200x200?text=No Avatar">
+                <img class="img img-rounded" src="{{ Auth::user()->photo? Auth::user()->photo: 'https://placehold.it/200x200?text=No Avatar' }}">
             </div>
             <div class="col-sm-9">
                 {!! Form::open(['url' => '/update/avatar', 'role' => 'form', 'class' => 'form-horizontal', 'files' => true]) !!}
