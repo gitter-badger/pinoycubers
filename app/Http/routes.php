@@ -79,4 +79,5 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/update/profile','UserController@updateProfile');
     Route::post('/update/email','UserController@updateEmail');
     Route::post('/update/password','UserController@updatePassword');
+    Route::post('/update/avatar', 'UserController@updateAvatar');
 });

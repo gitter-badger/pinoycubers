@@ -15,7 +15,7 @@
 
     <div class="col-sm-3" style="margin-bottom: 30px">
         <div class="col-sm-4" style="padding:0">
-            <img class="img-responsive" src="https://placehold.it/75x75">
+            <img width="75" height="75" src="{{ $user->photo? $user->photo: 'https://placehold.it/75x75?text=No Avatar' }}">
         </div>
         <div class="col-sm-8" style="padding:0">
             <ul class="list-unstyled">

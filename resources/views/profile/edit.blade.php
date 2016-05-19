@@ -14,6 +14,27 @@
         <h4>Update Profile Information</h4>
 
         <hr>
+        <h5>Avatar</h5>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <img class="img img-rounded" src="{{ Auth::user()->photo? Auth::user()->photo: 'https://placehold.it/200x200?text=No Avatar' }}">
+            </div>
+            <div class="col-sm-9">
+                {!! Form::open(['url' => '/update/avatar', 'role' => 'form', 'class' => 'form-horizontal', 'files' => true]) !!}
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="avatar">Choose an image</label>
+                        <div class="col-sm-10">
+                            <input type="file" name="avatar" id="avatar" class="form-control" accept="image/x-png,image/jpeg" required>
+                        </div>
+                    </div>
+
+                    <input type="submit" class="btn btn-md btn-primary" value="Update Avatar">
+                </form>
+            </div>
+        </div>
+
+        <hr>
         <h5>Personal Information</h5>
 
         {!! Form::open(['url' => '/update/profile', 'role' => 'form', 'class' => 'form-horizontal']) !!}
@@ -40,6 +61,12 @@
                 <label class="control-label col-sm-2" for="location">Location</label>
                 <div class="col-sm-10">
                     <input type="text" id="location" class="form-control" name="location" placeholder="Location" value="{{ Auth::user()->profile->location }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="wca_id">WCA ID</label>
+                <div class="col-sm-10">
+                    <input type="text" id="wca_id" class="form-control" name="wca_id" placeholder="WCA ID" value="{{ Auth::user()->profile->wca_id }}">
                 </div>
             </div>
 

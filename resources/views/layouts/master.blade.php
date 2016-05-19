@@ -80,11 +80,7 @@
                         @if (Auth::check())
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                @if (!empty(Auth::user()->profile->access_token))
-                                    <img alt="{{Auth::user()->profile->first_name}} {{Auth::user()->profile->last_name}}" class="avatar sm-avatar" height="20" src="https://graph.facebook.com/{{{Auth::user()->profile->username}}}/picture?type=small" width="20">
-                                @else
-                                    <img alt="{{Auth::user()->profile->first_name}} {{Auth::user()->profile->last_name}}" class="avatar sm-avatar" height="20" src="https://placehold.it/75x75" width="20">
-                                @endif
+                                <img alt="{{Auth::user()->profile->first_name}} {{Auth::user()->profile->last_name}}" class="avatar sm-avatar" height="20" width="20" src="{{ Auth::user()->photo? Auth::user()->photo: 'https://placehold.it/20x20?text=No Avatar' }}">
                                 {{Auth::user()->profile->first_name}} {{Auth::user()->profile->last_name}} <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">

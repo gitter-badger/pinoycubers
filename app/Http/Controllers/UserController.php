@@ -16,6 +16,8 @@ use App\Http\Requests\Accounts\UpdateProfileRequest;
 use App\Http\Requests\Accounts\UpdateUserEmailRequest;
 use App\Http\Requests\Accounts\UpdateUserPasswordRequest;
 use Hash;
+use Illuminate\Http\Request;
+use Image;
 use Input;
 use Redirect;
 use Validator;
@@ -49,6 +51,10 @@ class UserController extends Controller implements ProfileUpdaterListener, UserU
     protected $userUpdater;
 
     protected $usersPerPage = 30;
+
+    protected $avatarPublicPath = 'avatars/';
+
+    protected $validAvatarExtensions = ['jpg', 'jpeg', 'png'];
 
     /**
      * @param \App\Accounts\User $user
@@ -120,6 +126,38 @@ class UserController extends Controller implements ProfileUpdaterListener, UserU
         return $this->passwordUpdateFailed();
     }
 
+    public function updateAvatar(Request $request)
+    {
+        if($request->hasFile('avatar') && $request->file('avatar')->isValid() && $request->user())
+        {
+            $avatar = $request->file('avatar');
+
+            $avatarExtension = $avatar->guessExtension();
+
+            if(! $this->isValidAvatarExtension($avatarExtension))
+            {
+                return $this->avatarIsNotValid();
+            }
+
+            $user = $request->user();
+
+            $file_name = $this->avatarPublicPath.$user->id.'.'.$avatarExtension;
+
+            Image::make($avatar)->fit(200, 200)->save(public_path($file_name));
+
+            return $this->userUpdater->updateAvatar($this, $user, ['photo' => '/'.$file_name]);
+        }
+
+        return Redirect::to('/edit/profile');
+    }
+
+    private function isValidAvatarExtension($extension)
+    {
+        return array_first($this->validAvatarExtensions, function($key, $value) use($extension) {
+            return $value == $extension;
+        });
+    }
+
     public function profileUpdated()
     {
         return Redirect::to('/edit/profile')->with('success', 'Profile successfully updated');
@@ -138,6 +176,16 @@ class UserController extends Controller implements ProfileUpdaterListener, UserU
     public function passwordUpdateFailed()
     {
         return Redirect::to('/edit/profile')->with('error', 'The current password is incorrect password');
+    }
+
+    public function avatarUpdated()
+    {
+        return Redirect::to('/edit/profile')->with('success', 'Avatar successfully updated');
+    }
+
+    public function avatarIsNotValid()
+    {
+        return Redirect::back()->with('error', 'Avatar is not valid');
     }
 
     public function userVerified() {}

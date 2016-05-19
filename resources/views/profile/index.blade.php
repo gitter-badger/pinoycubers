@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-md-3 col-sm-4 col-xs-12">
         <span class="tooltipped tooltipped-s" aria-label="Change your avatar">
-        <a href="/settings/profile" class="prof-avatar"><img class="avatar lg-avatar" src="https://placehold.it/200x200?text=Profile Img" ></a>
+        <a href="/edit/profile" class="prof-avatar"><img class="avatar lg-avatar" src="{{ $user->photo? $user->photo: 'https://placehold.it/200x200?text=No Avatar' }}" ></a>
         </span>
 
         <h1 class="prof-names">
@@ -22,6 +22,9 @@
             <li class="prof-detail"><i class="fa fa-map-marker"></i>{{ $user->profile->location }}</li>
             @endif
             <li class="prof-detail"><i class="fa fa-clock-o"></i><span class="join-label">Joined on </span><span class="join-date">{{ $user->getJoinedDate() }}</span></li>
+            @if($user->profile->wca_id)
+            <li class="prof-detail">WCA ID: <a href="{{ 'https://www.worldcubeassociation.org/results/p.php?i='.$user->profile->wca_id }}" target="_blank">{{ $user->profile->wca_id }}</a></li>
+            @endif
         </ul>
 
 
