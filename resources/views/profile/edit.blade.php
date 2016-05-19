@@ -63,6 +63,12 @@
                     <input type="text" id="location" class="form-control" name="location" placeholder="Location" value="{{ Auth::user()->profile->location }}">
                 </div>
             </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="wca_id">WCA ID</label>
+                <div class="col-sm-10">
+                    <input type="text" id="wca_id" class="form-control" name="wca_id" placeholder="WCA ID" value="{{ Auth::user()->profile->wca_id }}">
+                </div>
+            </div>
 
             <input type="submit" id="registerbutton" class="btn btn-md btn-primary" name="action" value="Update Profile">
 

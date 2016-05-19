@@ -15,7 +15,8 @@ class Profile extends Model
         'username',
         'first_name',
         'last_name',
-        'location'
+        'location',
+        'wca_id'
     ];
 
     public function user()
