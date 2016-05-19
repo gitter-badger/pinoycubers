@@ -22,6 +22,9 @@
             <li class="prof-detail"><i class="fa fa-map-marker"></i>{{ $user->profile->location }}</li>
             @endif
             <li class="prof-detail"><i class="fa fa-clock-o"></i><span class="join-label">Joined on </span><span class="join-date">{{ $user->getJoinedDate() }}</span></li>
+            @if($user->profile->wca_id)
+            <li class="prof-detail">WCA ID: <a href="{{ 'https://www.worldcubeassociation.org/results/p.php?i='.$user->profile->wca_id }}" target="_blank">{{ $user->profile->wca_id }}</a></li>
+            @endif
         </ul>
 
 
