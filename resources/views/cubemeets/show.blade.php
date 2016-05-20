@@ -32,7 +32,7 @@
 
 <div class="row">
     <div class="col-sm-12">
-        <p>{{ $cm->description }}<p>
+        <p>{!! $cm->description !!}<p>
     </div>
 </div>
 
