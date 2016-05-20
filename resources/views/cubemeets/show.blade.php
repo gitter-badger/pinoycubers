@@ -58,7 +58,7 @@
         <!-- Comment Form -->
         <div class="row">
             <div class="col-sm-2">
-                <img alt="{{Auth::user()->profile->first_name}} {{Auth::user()->profile->last_name}}" class="img-responsive" src="https://placehold.it/200x200">
+                <img alt="{{Auth::user()->profile->first_name}} {{Auth::user()->profile->last_name}}" class="img-responsive" src="{{ Auth::user()->photo? Auth::user()->photo: 'https://placehold.it/200x200?text=No Avatar' }}">
             </div>
             <div class="col-sm-10">
                 {!! Form::open(['url' => '/cubemeets/'.$cm->slug.'/comment', 'role' => 'form']) !!}
@@ -75,7 +75,7 @@
             <div class="row">
                 <div class="col-sm-2">
                     <a href="{{ '/'.$comment->getAuthorProfile()->username }}">
-                        <img alt="User picture" class="img-responsive" src="https://placehold.it/200x200">
+                        <img alt="User picture" class="img-responsive" src="{{ $comment->user->photo? $comment->user->photo: 'https://placehold.it/200x200?text=No Avatar' }}">
                     </a>
                 </div>
                 <div class="col-sm-9">
