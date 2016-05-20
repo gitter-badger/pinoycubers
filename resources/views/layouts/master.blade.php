@@ -126,6 +126,10 @@
                     ? history.replaceState(null, null, window.location.href.split('#')[0])
                     : window.location.hash = '';
             }
+
+            $(document).ready(function() {
+                $('#summernote-editable').summernote();
+            });
         </script>
     </body>
 </html>
