@@ -17,7 +17,16 @@
 
         {!! Form::model($cubemeet, ['url' => '/cubemeets/'.$cubemeet->slug.'/edit', 'method' => 'POST', 'role' => 'form']) !!}
 
-            @include('partials.fields')
+            <div class="form-group">
+                {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'CM Name']) !!}
+            </div>
+            <div class="form-group">
+                {!! Form::text('location', null, ['class' => 'form-control', 'placeholder' => 'Location']) !!}
+            </div>
+            <label for="description">Description</label>
+            <div class="form-group">
+                {!! Form::textarea('description', null, ['id' => 'summernote-editable', 'class' => 'form-control', 'placeholder' => 'Description']) !!}
+            </div>
 
             <div class="row form-group">
                 <div class="col-md-2">
