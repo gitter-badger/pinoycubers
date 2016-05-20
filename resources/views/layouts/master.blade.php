@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="/packages/css/bootstrap.css">
         <link rel="stylesheet" href="/packages/css/font-awesome.min.css">
         <link rel="stylesheet" href="/packages/css/site.css?v=6">
+        <link rel="stylesheet" href="/vendor/summernote/summernote.css">
 
         <style>
             #img_banner img{
@@ -117,7 +118,7 @@
         <script src="/packages/js/jquery-2.1.0.js"></script>
         <script src="/packages/js/bootstrap.js"></script>
         <script src="/packages/js/site.js"></script>
-
+        <script src="/vendor/summernote/summernote.min.js"></script>
 
         <script type="text/javascript">
             if (window.location.hash == '#_=_'){
