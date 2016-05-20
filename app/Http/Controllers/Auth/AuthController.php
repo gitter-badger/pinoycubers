@@ -156,6 +156,7 @@ class AuthController extends Controller implements UserCreatorListener, UserUpda
 
     public function emailUpdated() {}
     public function passwordUpdated() {}
+    public function avatarUpdated() {}
 
     public function logout()
     {
