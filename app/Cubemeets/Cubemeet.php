@@ -93,12 +93,12 @@ class Cubemeet extends Model
 
     public function isManageableBy($user)
     {
-        return ($user->id == $this->user_id) && ! $this->date->isPast();
+        return ($user->id == $this->user_id) && ($this->date->isToday() || ! $this->date->isPast());
     }
 
     public function isJoinable()
     {
-        if($this->status == 'Scheduled' && ! $this->date->isPast())
+        if($this->status == 'Scheduled' && ($this->date->isToday() || ! $this->date->isPast()))
         {
             return true;
         }
