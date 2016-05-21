@@ -1,17 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Market\Items;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MarketItem extends Model
+class Item extends Model
 {
     /**
      * Fillable fields
      *
      * @var array
      */
-
     protected $fillable = [
         'title',
         'description',
@@ -33,6 +32,11 @@ class MarketItem extends Model
     ];
 
     /**
+     * The table used by the model
+     */
+    protected $table = 'market_items';
+
+    /**
       * Get the users that owns the item.
       */
     public function user()
@@ -40,7 +44,8 @@ class MarketItem extends Model
         return $this->belongsTo('App\Accounts\User', 'user_id');
     }
 
-    public function comments() {
-        return $this->hasMany('App\MarketItemComments', 'item_id');
+    public function comments()
+    {
+        return $this->hasMany('App\Market\Items\Comments\Comment', 'item_id');
     }
 }

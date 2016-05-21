@@ -15,7 +15,7 @@
 
         <hr>
 
-        {!! Form::open(['url' => 'market/add', 'role' => 'form', 'class' => 'form-horizontal', 'id' => 'market-add']) !!}
+        {!! Form::open(['url' => 'market/add/item', 'role' => 'form', 'class' => 'form-horizontal', 'id' => 'market-add']) !!}
 
             <h5>Basic Information</h5>
 

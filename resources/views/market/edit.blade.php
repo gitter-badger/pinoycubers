@@ -15,7 +15,7 @@
 
         <hr>
 
-        {!! Form::model($item, ['route' => ['postEditItem', $item->slug], 'method' => 'post', 'role' => 'form', 'class' => 'form-horizontal']) !!}
+        {!! Form::model($item, ['url' => 'market/item/'.$item->slug.'/edit', 'method' => 'post', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 
             <h5>Basic Information</h5>
 

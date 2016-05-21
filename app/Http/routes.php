@@ -58,17 +58,23 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Cubemeets'], function() {
     Route::post('/cubemeets/comments/delete/{id}', 'CubemeetCommentController@postDelete');
 });
 
+// Market
+Route::group(['middleware' => 'auth', 'namespace' => 'Market'], function() {
+    Route::get('/market', 'ItemController@index');
+
+    Route::get('/market/item/{slug}', 'ItemController@show');
+
+    Route::get('/market/add/item', 'ItemController@getAdd');
+    Route::post('/market/add/item', 'ItemController@postAdd');
+
+    Route::get('/market/item/{slug}/edit', 'ItemController@getEdit');
+    Route::post('/market/item/{slug}/edit', 'ItemController@postEdit');
+
+    Route::post('/market/item/{slug}/comment', 'CommentController@postComment');
+});
+
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/user/{profile}','UserController@getProfile');
-
-    /* Market */
-    Route::get('/market', 'MarketController@showIndex');
-    Route::get('/market/item/{slug}', 'MarketController@getItem');
-    Route::get('/market/add', 'MarketController@getAddItem');
-    Route::post('/market/add', 'MarketController@postAddItem');
-    Route::get('/market/{slug}/edit', 'MarketController@getEditItem');
-    Route::post('/market/{slug}/edit', ['as' => 'postEditItem', 'uses' => 'MarketController@postEditItem']);
-    Route::post('/market/comment/{id}', 'MarketController@postComment');
 
     /* Users */
     Route::get('/users', 'UserController@showUsers');

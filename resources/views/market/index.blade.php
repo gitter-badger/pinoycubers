@@ -13,7 +13,7 @@
         <h3>Market</h3>
     </div>
     <div class="col-md-2 text-right" style="margin-top: 18px; padding: 0">
-        <a href="/market/add" class="btn btn-sm btn-default">Add an item</a>
+        <a href="/market/add/item" class="btn btn-sm btn-default">Add an item</a>
     </div>
 </div>
 

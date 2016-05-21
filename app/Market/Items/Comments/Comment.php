@@ -1,19 +1,22 @@
 <?php
 
-namespace App;
+namespace App\Market\Items\Comments;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MarketItemComments extends Model
+class Comment extends Model
 {
     /**
      * Fillable fields
      *
      * @var array
      */
-    protected $fillable = [
-        'comment'
-    ];
+    protected $fillable = ['comment'];
+
+    /**
+     * The table used by the model
+     */
+    protected $table = 'market_item_comments';
 
     /**
       * Get the users that owns the comment.
@@ -28,6 +31,6 @@ class MarketItemComments extends Model
       */
     public function item()
     {
-        return $this->belongsTo('App\MarketItem', 'item_id');
+        return $this->belongsTo('App\Market\Items\Item', 'item_id');
     }
 }

@@ -111,16 +111,19 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->created_at->format('M d, Y');
     }
 
-    public function cubemeets() {
+    public function cubemeets()
+    {
         return $this->hasMany('App\Cubemeets\Cubemeet', 'user_id');
     }
 
-    public function marketitem() {
-        return $this->hasMany('App\MarketItem', 'user_id');
+    public function marketitem()
+    {
+        return $this->hasMany('App\Market\Items\Item', 'user_id');
     }
 
-    public function itemcomments() {
-        return $this->hasMany('App\MarketItemComments', 'user_id');
+    public function itemcomments()
+    {
+        return $this->hasMany('App\Market\Items\Comments\Comment', 'user_id');
     }
 
     public function cubemeetComment()

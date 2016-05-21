@@ -13,7 +13,7 @@
         <h3>Market</h3>
     </div>
     <div class="col-md-2 text-right" style="margin-top: 18px; padding: 0">
-        <a href="/market/add" class="btn btn-sm btn-default">Add an item</a>
+        <a href="/market/add/item" class="btn btn-sm btn-default">Add an item</a>
     </div>
 </div>
 
@@ -25,7 +25,7 @@
     </div>
     @if ($item->user_id == Auth::user()->id)
     <div class="pull-right">
-        <a href="{{ 'market/'.$item->slug.'/edit' }}" class="btn btn-sm btn-default">Edit</a>
+        <a href="{{ '/market/item/'.$item->slug.'/edit' }}" class="btn btn-sm btn-default">Edit</a>
     </div>
     @endif
 </div>
@@ -60,7 +60,7 @@
         </div>
         @endforeach
         <div class="well">
-        {!! Form::open(['url' => 'market/comment/'.$item->id, 'role' => 'form', 'id' => 'marketitem-comment']) !!}
+        {!! Form::open(['url' => 'market/item/'.$item->slug.'/comment', 'role' => 'form', 'id' => 'marketitem-comment']) !!}
             <div class="form-group">
                 {!! Form::textarea('comment', null, ['class' => 'form-control', 'placeholder' => 'Write a comment...', 'id' => 'description', 'required']) !!}
             </div>
