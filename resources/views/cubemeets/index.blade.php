@@ -19,6 +19,19 @@
     </div>
 </div>
 
+<!-- Nav -->
+<div class="row">
+    <div class="cols-sm-12">
+        <ul class="nav nav-tabs">
+            <li role="presentation"{!! $category == 'today'? ' class="active"': '' !!}><a href="/cubemeets?view=today">today</a></li>
+            <li role="presentation"{!! $category == 'newest'? ' class="active"': '' !!}><a href="/cubemeets?view=newest">newest</a></li>
+            <li role="presentation"{!! $category == 'upcoming'? ' class="active"': '' !!}><a href="/cubemeets?view=upcoming">upcoming</a></li>
+            <li role="presentation"{!! $category == 'canceled'? ' class="active"': '' !!}><a href="/cubemeets?view=canceled">canceled</a></li>
+            <li role="presentation"{!! $category == 'past'? ' class="active"': '' !!}><a href="/cubemeets?view=past">past</a></li>
+        </ul>
+    </div>
+</div>
+
 @include('partials.messages')
 
 <!-- Cube Meets -->

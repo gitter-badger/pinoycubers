@@ -35,6 +35,10 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
 
     protected $commentsPerPage = 15;
 
+    protected $defaultCubemeetCategory = 'today';
+
+    protected $cubemeetCategories = ['today', 'newest', 'upcoming', 'canceled', 'past'];
+
     /**
      * @param \App\Cubemeets\CubemeetRepository $cubemeets
      * @param \App\Cubemeets\CubemeetCreator $cubemeetCreator
@@ -48,11 +52,33 @@ class CubemeetController extends Controller implements CubemeetCreatorListener, 
         $this->cubemeetUpdater = $cubemeetUpdater;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $cubemeets = $this->cubemeets->getAllPaginated($this->cubemeetsPerPage);
+        $category = $request->has('view')? $request->get('view'): $this->defaultCubemeetCategory;
 
-        return View::make('cubemeets.index', compact('cubemeets'));
+        switch($category)
+        {
+            case 'today':
+                $cubemeets = $this->cubemeets->getAllTodayPaginated($this->cubemeetsPerPage);
+                break;
+            case 'newest':
+                $cubemeets = $this->cubemeets->getAllNewestPaginated($this->cubemeetsPerPage);
+                break;
+            case 'upcoming':
+                $cubemeets = $this->cubemeets->getAllUpcomingPaginated($this->cubemeetsPerPage);
+                break;
+            case 'canceled':
+                $cubemeets = $this->cubemeets->getAllCanceledPaginated($this->cubemeetsPerPage);
+                break;
+            case 'past':
+                $cubemeets = $this->cubemeets->getAllPastPaginated($this->cubemeetsPerPage);
+                break;
+            default:
+                return $this->actionNotAllowed();
+                break;
+        }
+
+        return View::make('cubemeets.index', compact('cubemeets', 'category'));
     }
 
     public function create()

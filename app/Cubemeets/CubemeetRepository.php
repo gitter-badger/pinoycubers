@@ -3,6 +3,7 @@
 namespace App\Cubemeets;
 
 use App\Repository;
+use Carbon\Carbon;
 
 class CubemeetRepository extends Repository
 {
@@ -37,5 +38,44 @@ class CubemeetRepository extends Repository
     public function getCubemeetCommentsPaginated($cubemeet, $perPage = 15)
     {
         return $cubemeet->comments()->paginate($perPage);
+    }
+
+    public function getAllTodayPaginated($perPage = 15)
+    {
+        return $this->model->where('status', 'Scheduled')
+                        ->where('date', '=', Carbon::now()->toDateString())
+                        ->orderBy('created_at', 'asc')
+                        ->paginate($perPage);
+    }
+
+    public function getAllNewestPaginated($perPage = 15)
+    {
+        return $this->model->where('status', 'Scheduled')
+                        ->where('date', '>', Carbon::now()->toDateString())
+                        ->orderBy('created_at', 'asc')
+                        ->paginate($perPage);
+    }
+
+    public function getAllUpcomingPaginated($perPage = 15)
+    {
+        return $this->model->where('status', 'Scheduled')
+                        ->where('date', '>', Carbon::now()->toDateString())
+                        ->orderBy('date', 'asc')
+                        ->paginate($perPage);
+    }
+
+    public function getAllCanceledPaginated($perPage = 15)
+    {
+        return $this->model->where('status', 'Canceled')
+                        ->orderBy('date', 'asc')
+                        ->paginate($perPage);
+    }
+
+    public function getAllPastPaginated($perPage = 15)
+    {
+        return $this->model->where('status', 'Scheduled')
+                        ->where('date', '<', Carbon::now()->toDateString())
+                        ->orderBy('date', 'asc')
+                        ->paginate($perPage);
     }
 }
