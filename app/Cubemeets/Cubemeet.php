@@ -103,7 +103,7 @@ class Cubemeet extends Model
 
     public function isJoinable()
     {
-        if($this->status == 'Scheduled')
+        if($this->status == 'Scheduled' && ! $this->date->isPast())
         {
             return true;
         }

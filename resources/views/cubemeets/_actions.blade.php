@@ -1,4 +1,4 @@
-@if ($cm->status == 'Scheduled')
+@if ($cm->isJoinable())
     @if ($cm->signedUserIsHost())
         <a href="{{ '/cubemeets/'.$cm->slug.'/edit' }}" class="btn btn-sm btn-default">
             <span class="fa fa-fw fa-pencil"></span> Edit
