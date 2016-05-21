@@ -85,6 +85,7 @@
                         </a>: 
                         {{ $comment->comment }}
                     </p>
+                    <small>{{ $comment->getCreationDateTime() }}</small>
                 </div>
                 @if($comment->isManageableBy(Auth::user()))
                     <div class="col-sm-1">
