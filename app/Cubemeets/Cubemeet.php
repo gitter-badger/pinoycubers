@@ -98,7 +98,7 @@ class Cubemeet extends Model
 
     public function isManageableBy($user)
     {
-        return $user->id == $this->user_id;
+        return ($user->id == $this->user_id) && ! $this->date->isPast();
     }
 
     public function isJoinable()

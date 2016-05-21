@@ -1,5 +1,5 @@
 @if ($cm->isJoinable())
-    @if ($cm->signedUserIsHost())
+    @if ($cm->isManageableBy(Auth::user()))
         <a href="{{ '/cubemeets/'.$cm->slug.'/edit' }}" class="btn btn-sm btn-default">
             <span class="fa fa-fw fa-pencil"></span> Edit
         </a>
