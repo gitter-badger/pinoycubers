@@ -30,7 +30,7 @@ class PostCubemeetRequest extends Request
             'day' => 'required|date_format:d',
             'month' => 'required|date_format:m',
             'year' => 'required|date_format:Y',
-            'time' => 'required|date_format:H:i',
+            'start_time' => 'required|date_format:H:i',
         ];
     }
 

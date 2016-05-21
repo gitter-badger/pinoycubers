@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="form-group">
-                {!! Form::input('time', 'time', '12:00', ['class' => 'form-control']) !!}
+                {!! Form::input('time', 'start_time', '12:00', ['class' => 'form-control']) !!}
             </div>
 
             {!! Form::submit('Set Cube Meet', ['class' => 'btn btn-md btn-primary', 'id' => 'registerbutton']) !!}

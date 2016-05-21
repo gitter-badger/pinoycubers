@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="form-group">
-                {!! Form::input('time', 'time', date('H:i', strtotime($cubemeet->start_time)), ['class' => 'form-control']) !!}
+                {!! Form::input('time', 'start_time', date('H:i', strtotime($cubemeet->start_time)), ['class' => 'form-control']) !!}
             </div>
 
             {!! Form::submit('Save', ['class' => 'btn btn-md btn-primary', 'id' => 'savebutton']) !!}
