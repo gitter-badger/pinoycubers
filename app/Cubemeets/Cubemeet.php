@@ -68,11 +68,6 @@ class Cubemeet extends Model
         return $this->cubers()->where('status', 'Going')->count() + 1;
     }
 
-    public function signedUserIsHost()
-    {
-        return $this->host()->getResults()->id == Auth::user()->id;
-    }
-
     public function attendeeIsGoing()
     {
         $status = array_first($this->cubers, function ($key, $value)
