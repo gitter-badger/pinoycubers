@@ -40,6 +40,14 @@
 
 <hr>
 
+@if ($cubemeets->count() == 0)
+<div class="row">
+    <div class="col-sm-12 text-center">
+        <h3>No cubemeet(s) to show</h3>
+    </div>
+</div>
+@endif
+
 @foreach ($cubemeets as $cm)
 <div class="row">
     <div class="col-sm-5">
