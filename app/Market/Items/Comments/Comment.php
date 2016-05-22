@@ -33,4 +33,21 @@ class Comment extends Model
     {
         return $this->belongsTo('App\Market\Items\Item', 'item_id');
     }
+
+    public function getAuthorName()
+    {
+        return $this->user->profile->first_name.' '.$this->user->profile->last_name;
+    }
+
+    public function getCreationDateTime()
+    {
+        $dt = $this->created_at->format('m d, Y h:i A');
+
+        if($this->created_at->isToday())
+        {
+            $dt = $this->created_at->diffForHumans();
+        }
+
+        return $dt;
+    }
 }
