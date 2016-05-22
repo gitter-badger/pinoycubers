@@ -49,4 +49,16 @@ class Item extends Model
     {
         return $this->user_id == $user->id;
     }
+
+    public function getCreationDateTime()
+    {
+        $dt = $this->created_at->format('m d, Y h:i A');
+
+        if($this->created_at->isToday())
+        {
+            $dt = $this->created_at->diffForHumans();
+        }
+
+        return $dt;
+    }
 }

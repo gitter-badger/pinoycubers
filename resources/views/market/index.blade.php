@@ -60,7 +60,7 @@
     </div>
     <div class="col-sm-5">
         <ul class="list-unstyled">
-            <li>-creation/modification time-</li>
+            <li>{{ 'Posted '.$item->getCreationDateTime() }}</li>
             <li><span class="glyphicon glyphicon-user"></span> <b>{{ $item->ownerName() }}</b></li>
         </ul>
     </div>
