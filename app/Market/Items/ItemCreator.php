@@ -20,6 +20,7 @@ class ItemCreator
     public function create($listener, $data)
     {
         $item = $this->items->getNew($data);
+        $item->user_id = $data['seller']->id;
         $item->slug = $this->createSlug($item->title);
 
         $this->items->save($item);
