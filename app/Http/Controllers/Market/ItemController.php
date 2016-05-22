@@ -7,23 +7,45 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\MarketRequest;
 use App\Market\Items\Item;
+use App\Market\Items\ItemRepository;
 use App\Market\Items\Comments\Comment;
+use App\Market\Items\Comments\CommentRepository;
 use Illuminate\Http\Request;
 use Redirect;
 use View;
 
 class ItemController extends Controller
 {
+    /**
+     * @var \App\Market\Items\ItemRepository
+     */
+    protected $items;
+
+    /**
+     * @var \App\Market\Items\Comments\CommentRepository
+     */
+    protected $comments;
+
+    /**
+     * @param \App\Market\Items\ItemRepository $items
+     * @param \App\Market\Items\Comments\CommentRepository $comments
+     */
+    public function __construct(ItemRepository $items, CommentRepository $comments)
+    {
+        $this->items = $items;
+        $this->Comments = $Comments;
+    }
+
     public function index()
     {
-        $items = Item::with('user', 'comments')->orderBy('created_at', 'desc')->paginate(10);
+        $items = $this->items->getAllPaginated(15);
 
         return View::make('market.index', compact('items'));
     }
 
     public function show($slug)
     {
-        $item = Item::with('user')->where('slug', $slug)->firstOrFail();
+        $item = $this->items->getBySlug($slug);
         $comments = Comment::with('user')->where('item_id', $item->id)->get();
 
         $viewers = unserialize($item->viewers);
