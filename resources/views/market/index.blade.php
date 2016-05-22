@@ -45,17 +45,16 @@
             <li><b><a href="{{ '/market/item/'.$item->slug }}">{{ $item->title }}</a></b></li>
             <li><b>PHP {!! $item->price !!}</b></li>
 
-            @if ($item->shipping && $item->meetups)
+            @if ($item->shipping_available && $item->meetup_available)
                 <li><b>Delivery through shipping and meet-ups are available</b></li>
-            @elseif ($item->shipping)
+            @elseif ($item->shipping_available)
                 <li><b>Delivery through shipping only</b></li>
-            @elseif ($item->meetups)
+            @elseif ($item->meetup_available)
                 <li><b>Delivery through meet-ups only</b></li>
             @endif
 
             <li>
                 <b>{{ $item->comments->count() }}</b> <span class="glyphicon glyphicon-comment"></span> 
-                <b>{{ count(unserialize($item->viewers)) }}</b> <span class="glyphicon glyphicon-eye-open"></span>
             </li>
         </ul>
     </div>

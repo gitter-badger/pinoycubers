@@ -25,14 +25,10 @@ class MarketRequest extends Request
     {
         return [
             'title' => 'required',
+            'price' => 'required',
             'description' => 'required',
-            'contact' => 'required',
-            'type' => 'required',
-            'manufacturer' => 'required',
-            'condition' => 'required',
-            'container' => 'required',
-            'shipping' => 'required',
-            'meetups' => 'required'
+            'shipping_available' => 'required',
+            'meetup_available' => 'required'
         ];
     }
 

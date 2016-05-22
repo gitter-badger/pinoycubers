@@ -14,21 +14,12 @@ class Item extends Model
     protected $fillable = [
         'title',
         'description',
-        'contact',
         'price',
-        'type',
-        'other_type',
-        'manufacturer',
-        'other_manufacturer',
-        'condition',
-        'condition_details',
-        'container',
-        'shipping',
+        'shipping_is_available',
         'shipping_details',
-        'meetups',
+        'meetup_is_available',
         'meetup_details',
-        'slug',
-        'viewers'
+        'slug'
     ];
 
     /**

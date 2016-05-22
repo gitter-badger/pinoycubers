@@ -23,7 +23,7 @@
     <div class="pull-left">
         <h3>{!! $item->title !!}</h3>
     </div>
-    @if ($item->user_id == Auth::user()->id)
+    @if ($item->isManageableBy(Auth::user()))
     <div class="pull-right">
         <a href="{{ '/market/item/'.$item->slug.'/edit' }}" class="btn btn-sm btn-default">Edit</a>
     </div>
@@ -35,19 +35,15 @@
 <div class="row">
     <div class="col-sm-3">
         <div class="well">
-            <p>User: <b>{{ $item->user->first_name }} {{ $item->user->last_name }}</b></p>
-            <p>Price: <b>PHP {!! $item->price !!}</b></p>
+            <p>User: <b>{{ $item->ownerName() }}</b></p>
+            <p>Price: <b>PHP {{ $item->price }}</b></p>
             <p>Description: <b>{{ $item->description }}</b></p>
-            <p>Contact Number: <b>{{ $item->contact }}</b></p>
-            <p>Type: <b>{{ $item->type == "other"? $item->other_type: $item->type }}</b></p>
-            <p>Manufacturer: <b>{{ $item->manufacturer == "other"? $item->other_manufacturer: $item->manufacturer }}</b></p>
-            <p>Condition: <b>{{ $item->condition == "brandnew"? "Brand New": "Used | " . $item->condition_details }}</b></p>
-            <p>Shipping: <b>{{ $item->shipping? "Available": "Not Available" }}</b></p>
-            @if ($item->shipping)
+            <p>Shipping: <b>{{ $item->shipping_available? "Available": "Not Available" }}</b></p>
+            @if ($item->shipping_available)
                 <p>Shipping Details: <b>{{ $item->shipping_details }}</b></p>
             @endif
-            <p>Meet-ups: <b>{{ $item->meetups? "Available": "Not Available" }}</b></p>
-            @if ($item->meetups)
+            <p>Meet-ups: <b>{{ $item->meetup_available? "Available": "Not Available" }}</b></p>
+            @if ($item->meetup_available)
                 <p>Meet-up Details: <b>{{ $item->meetup_details }}</b></p>
             @endif
         </div>
