@@ -18,4 +18,9 @@ class CommentRepository extends Repository
     {
         $this->model = $model;
     }
+
+    public function getFromItemPaginated($item, $perPage = 10)
+    {
+        return $item->comments()->paginate($perPage);
+    }
 }
