@@ -42,7 +42,11 @@
 <div class="row">
     <div class="col-sm-7">
         <ul class="list-unstyled">
-            <li><b><a href="{{ '/market/item/'.$item->slug }}">{{ $item->title }}</a></b></li>
+            <li>
+                <b><a href="{{ '/market/item/'.$item->slug }}">{{ $item->title }}</a></b>
+                <small>by <a href="{{ '/'.$item->user->profile->username }}">{{ $item->ownerName() }}</a></small>
+            </li>
+
             <li><b>PHP {!! $item->price !!}</b></li>
 
             @if ($item->shipping_available && $item->meetup_available)
@@ -61,7 +65,6 @@
     <div class="col-sm-5">
         <ul class="list-unstyled">
             <li>{{ 'Posted '.$item->getCreationDateTime() }}</li>
-            <li><span class="glyphicon glyphicon-user"></span> <b>{{ $item->ownerName() }}</b></li>
         </ul>
     </div>
 </div>
