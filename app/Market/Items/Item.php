@@ -15,9 +15,9 @@ class Item extends Model
         'title',
         'description',
         'price',
-        'shipping_is_available',
+        'shipping_available',
         'shipping_details',
-        'meetup_is_available',
+        'meetup_available',
         'meetup_details',
         'slug'
     ];
