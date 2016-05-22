@@ -53,4 +53,9 @@ class Item extends Model
     {
         return $this->user->profile->first_name.' '.$this->user->profile->last_name;
     }
+
+    public function isManageableBy($user)
+    {
+        return $this->user_id == $user->id;
+    }
 }
