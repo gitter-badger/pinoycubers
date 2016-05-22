@@ -48,4 +48,9 @@ class Item extends Model
     {
         return $this->hasMany('App\Market\Items\Comments\Comment', 'item_id');
     }
+
+    public function ownerName()
+    {
+        return $this->user->profile->first_name.' '.$this->user->profile->last_name;
+    }
 }

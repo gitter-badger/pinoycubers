@@ -62,7 +62,7 @@
     <div class="col-sm-5">
         <ul class="list-unstyled">
             <li>-creation/modification time-</li>
-            <li><span class="glyphicon glyphicon-user"></span> <b>{{ $item->user->first_name }} {{ $item->user->last_name }}</b></li>
+            <li><span class="glyphicon glyphicon-user"></span> <b>{{ $item->ownerName() }}</b></li>
         </ul>
     </div>
 </div>
