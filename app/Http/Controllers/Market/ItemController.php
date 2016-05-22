@@ -8,13 +8,17 @@ use App\Http\Requests;
 use App\Http\Requests\MarketRequest;
 use App\Market\Items\Item;
 use App\Market\Items\ItemRepository;
+use App\Market\Items\ItemCreator;
+use App\Market\Items\ItemCreatorListener;
+use App\Market\Items\ItemUpdater;
+use App\Market\Items\ItemUpdaterListener;
 use App\Market\Items\Comments\Comment;
 use App\Market\Items\Comments\CommentRepository;
 use Illuminate\Http\Request;
 use Redirect;
 use View;
 
-class ItemController extends Controller
+class ItemController extends Controller implements ItemCreatorListener
 {
     /**
      * @var \App\Market\Items\ItemRepository
@@ -27,18 +31,36 @@ class ItemController extends Controller
     protected $comments;
 
     /**
+     * @var \App\Market\Items\ItemCreator
+     */
+    protected $itemCreator;
+
+    /**
+     * @var \App\Market\Items\ItemUpdater
+     */
+    protected $itemUpdater;
+
+    protected $itemsPerPage = 15;
+
+    protected $commentsPerPage = 10;
+
+    /**
      * @param \App\Market\Items\ItemRepository $items
      * @param \App\Market\Items\Comments\CommentRepository $comments
+     * @param \App\Market\Items\ItemCreator $itemCreator
+     * @param \App\Market\Items\ItemUpdater $itemUpdater
      */
-    public function __construct(ItemRepository $items, CommentRepository $comments)
+    public function __construct(ItemRepository $items, CommentRepository $comments, ItemCreator $itemCreator, ItemUpdater $itemUpdater)
     {
         $this->items = $items;
-        $this->Comments = $Comments;
+        $this->comments = $comments;
+        $this->itemCreator = $itemCreator;
+        $this->itemUpdater = $itemUpdater;
     }
 
     public function index()
     {
-        $items = $this->items->getAllPaginated(15);
+        $items = $this->items->getAllPaginated($this->itemsPerPage);
 
         return View::make('market.index', compact('items'));
     }
@@ -46,17 +68,7 @@ class ItemController extends Controller
     public function show($slug)
     {
         $item = $this->items->getBySlug($slug);
-        $comments = Comment::with('user')->where('item_id', $item->id)->get();
-
-        $viewers = unserialize($item->viewers);
-        $uid = Auth::user()->id;
-
-        if($item->user->id != $uid && !in_array($uid, $viewers)) {
-            array_push($viewers, $uid);
-            $input = ['viewers' => serialize($viewers)];
-
-            $item->fill($input)->save();
-        }
+        $comments = $this->comments->getFromItemPaginated($item, $this->commentsPerPage);
 
         return View::make('market.show', compact('item', 'comments'));
     }
@@ -89,41 +101,20 @@ class ItemController extends Controller
 
     public function postAdd(MarketRequest $request)
     {
-        $Item = new Item;
-        $Item['user_id'] = Auth::user()->id;
-        $Item['title'] = $request['title'];
-        $Item['description'] = $request['description'];
-        $Item['contact'] = $request['contact'];
-        $Item['price'] = $request['price'];
-        $Item['type'] = $request['type'];
-        $Item['other_type'] = $request['other_type'];
-        $Item['manufacturer'] = $request['manufacturer'];
-        $Item['other_manufacturer'] = $request['other_manufacturer'];
-        $Item['condition'] = $request['condition'];
-        $Item['condition_details'] = $request['condition-details'];
-        $Item['container'] = $request['container'];
-        $Item['shipping'] = $request['shipping'];
-        $Item['shipping_details'] = $request['shipping-details'];
-        $Item['meetups'] = $request['meetups'];
-        $Item['meetup_details'] = $request['meetup-details'];
-        $Item['viewers'] = serialize([]);
+        $data = $request->all();
+        $data['seller'] = $request->user();
+        $data['viewers'] = serialize([]);
 
-        $slug = str_slug($request['title']);
-        $count = Item::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
-
-        $Item['slug'] = $count ? "{$slug}-{$count}" : $slug;
-
-        Auth::user()->marketitem()->save($Item);
-
-        return Redirect::to('market')->with('success', 'Item successfuly added');
+        return $this->itemCreator->create($this, $data);
     }
 
-    public function getEdit($slug)
+    public function getEdit($slug, Request $request)
     {
-        $item = Item::with('user')->where('slug', $slug)->firstOrFail();
+        $item = $this->items->getBySlug($slug);
 
-        if($item->user_id != Auth::user()->id) {
-            return Redirect::to('market');
+        if(! $item && ! $item->isManageableBy($request->user()))
+        {
+            return $this->actionNotAllowed();
         }
 
         $types = [
@@ -150,41 +141,32 @@ class ItemController extends Controller
         return View::make('market.edit', compact('item', 'types', 'manufacturers'));
     }
 
-    public function postEdit(MarketRequest $request, $slug)
+    public function postEdit($slug, MarketRequest $request)
     {
-        $Item = Item::where('slug', $slug)->firstOrFail();
+        $item = $this->items->getBySlug($slug);
 
-        if($Item->user_id != Auth::user()->id) {
-            return Redirect::to('market');
+        if(! $item && ! $item->isManageableBy($request->user()))
+        {
+            return $this->actionNotAllowed();
         }
 
-        $input_slug = str_slug($request['title']);
+        $data = $request->all();
 
-        if($slug != $input_slug) {
-            $count = Item::whereRaw("slug RLIKE '^{$input_slug}(-[0-9]+)?$'")->count();
-            $slug = $count ? "{$input_slug}-{$count}" : $input_slug;
-        }
+        return $this->itemUpdater->update($this, $item, $data);
+    }
 
-        $input = [
-            'title' => $request['title'],
-            'description' => $request['description'],
-            'contact' => $request['contact'],
-            'type' => $request['type'],
-            'other_type' => $request['other_type'],
-            'manufacturer' => $request['manufacturer'],
-            'other_manufacturer' => $request['other_manufacturer'],
-            'condition' => $request['condition'],
-            'condition_details' => $request['condition-details'],
-            'container' => $request['container'],
-            'shipping' => $request['shipping'],
-            'shipping_details' => $request['shipping-details'],
-            'meetups' => $request['meetups'],
-            'meetup_details' => $request['meetup-details'],
-            'slug' => $slug,
-        ];
+    public function itemCreated()
+    {
+        return Redirect::to('market')->with('success', 'Item successfuly added');
+    }
 
-        $Item->fill($input)->save();
-
+    public function itemUpdated()
+    {
         return Redirect::to('market')->with('success', 'Item successfuly updated');
+    }
+
+    public function actionNotAllowed()
+    {
+        return Redirect::to('market');
     }
 }
