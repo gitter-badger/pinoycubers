@@ -24,7 +24,7 @@
 
 		php artisan migrate --seed
 
-6. Run the application and navigate to http://localhost:8000
+6. Run the application and navigate to [http://localhost:8000](http://localhost:8000)
 
 		php artisan serve
 
