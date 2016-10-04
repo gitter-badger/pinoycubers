@@ -28,10 +28,10 @@
 
 		php artisan serve
 
-## Contribution Guidelines
+## Contribution
 
  - When planning a pull-request to add new functionality, it may be wise to [submit a proposal](https://github.com/geocine/pinoycubers/issues/new) to ensure compatibility with the project's goals.
- - I suggest using *Vagrant* for development environment configuration
+ - We are currently in the process of converting this into an API-centric application. We are planning to use AngularJS for the frontend
 
 ### Commit Message Rules
 
