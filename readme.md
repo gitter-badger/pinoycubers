@@ -9,67 +9,30 @@
 7.  **Cube Meets** - Set and join meetups. View upcoming and past cube meets.
 
 ## Installation Instructions
+[Docker instructions is here](https://github.com/geocine/pinoycubers/blob/master/DOCKER.md)
 
-### (Using Vagrant)
+1. Clone this repository
 
-Instructions for **Windows**. Sorry, I am a .NET dev as well. Can't get away with windows.
-
-1. Install [Cygwin](http://www.cygwin.com/) and setup system path. You could also use Windows Command Prompt.
-
-		e.g. C:\cygwin64\bin
-	
-	Don't forget to choose the following packages :
-	
-	- **chere**: Cygwin Prompt Here context menus
-	- **make**: The GNU version of 'make' utility
-	- **openssh**: The OpenSSH server and client programs
-
-2. Install [Vagrant](http://www.vagrantup.com/downloads.html) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-3. Clone repository
- 
 		git clone git@github.com:geocine/pinoycubers.git
 
-4. Right click the `pinoycubers` folder and click `Bash Prompt Here`
-5. Run `composer install` to install all project dependencies. Make sure you have [composer](https://getcomposer.org/download/) installed.
+2. Run `composer install` to install all project dependencies. Make sure you have [composer](https://getcomposer.org/download/) installed.
 
 		composer install
 
-6. While on the cygwin terminal. Type this:
+3. Copy the `.env.example` file to `.env` then update the database connection configuration
+4. Create database on MySQL named `pinoycubers` or use the name you have set on no. 3
+5. Run the data migrations and seeders. This will create tables on your database and populate it with data
 
-		vagrant up
-
-7. Add pinoycubers.dev to host file. *(Use the exact IP address)*
-		
-		10.0.0.101 pinoycubers.dev
-
-#### Configuring Laravel
-
-1. Enter *Vagrant's* ssh
-
-		vagrant ssh	
-
-2. Migrate and seed the database
-		
-		cd /vagrant
 		php artisan migrate --seed
- 
-#### Connecting to MySQL on *Vagrant*
-	
-	host 	- 127.0.0.1
-	username - root
-	password - root
-	port	 - 3308
 
+6. Run the application and navigate to [http://localhost:8000](http://localhost:8000)
 
-## Contribution Guidelines
+		php artisan serve
+
+## Contribution
 
  - When planning a pull-request to add new functionality, it may be wise to [submit a proposal](https://github.com/geocine/pinoycubers/issues/new) to ensure compatibility with the project's goals.
- - I suggest using *Vagrant* for development environment configuration
-
-### Tool Suggestion
-
-1. You may use [Crunchapp](http:http://crunchapp.net/) or [Prepros](http://alphapixels.com/prepros/) for compiling less files. We only need to compile `bootstrap.less` and `site.less`
-2. I prefer [PHPStorm](http://www.jetbrains.com/phpstorm/) for an IDE. [Sublime Text 3](http://www.sublimetext.com/3) for an editor.
+ - We are currently in the process of converting this into an API-centric application. We are planning to use AngularJS for the frontend
 
 ### Commit Message Rules
 

@@ -9,6 +9,7 @@
 7.  **Cube Meets** - Set and join meetups. View upcoming and past cube meets.
 
 ## Installation Instructions
+[Docker instructions is here](https://github.com/geocine/pinoycubers/blob/master/DOCKER.md)
 
 1. Clone this repository
 
