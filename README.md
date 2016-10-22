@@ -1,5 +1,7 @@
 ## Pinoy Cubers
 
+[![Join the chat at https://gitter.im/pinoycubers/Lobby](https://badges.gitter.im/pinoycubers/Lobby.svg)](https://gitter.im/pinoycubers/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 1. **Unofficial Records** - Compare your record time with other cubers in the Philippines. We will verify your record time and post it on the unofficial Philippine records list
 2. **Learning Resources** - Share algorithms and checkout the algorithm database. Watch/Read puzzle solving tutorials
 3. **Events** - Check upcoming official competitions and see results online. View the calendar for cubemeets near you
